@@ -1,0 +1,560 @@
+{
+    "titulo": "ENCUESTA DE OPINIÓN A LA POBLACIÓN DEL PAÍS VASCO",
+    "fecha": "JUNIO 2025",
+    "metadata": {
+      "entrevista_num": "ENTREVISTA Nº",
+      "encuestador_num": "ENCUESTADOR/A Nº",
+      "territorio": {
+        "descripcion": "TERRITORIO",
+        "opciones": {
+          "1": "ARABA",
+          "2": "BIZKAIA",
+          "3": "GIPUZKOA"
+        }
+      },
+      "telefono": {
+        "descripcion": "TELÉFONO",
+        "opciones": {
+          "1": "FIJO",
+          "2": "MÓVIL"
+        }
+      }
+    },
+    "preguntas": {
+      "P0A": {
+        "texto": "¿PREFIERE UD. CONTESTAR LA ENCUESTA EN EUSKERA O EN CASTELLANO?",
+        "opciones": {
+          "1": "EN EUSKERA",
+          "2": "EN EUSKERA (ENCUESTA TRANSFERIDA POR ENCUESTADOR/A NO BILINGÜE)",
+          "3": "EN CASTELLANO"
+        }
+      },
+      "P0B": {
+        "texto": "¿EN QUÉ MUNICIPIO VIVE UD.?"
+      },
+      "P01_P02": {
+        "texto": "SEXO:",
+        "opciones": {
+          "1": "HOMBRE",
+          "2": "MUJER"
+        }
+      },
+      "P03": {
+        "texto": "¿CUÁL ES SU SITUACIÓN LABORAL ACTUAL?",
+        "opciones": {
+          "1": "TRABAJO REMUNERADO (INCLUIDO ERTE)",
+          "2": "EN PARO",
+          "3": "LABORES DE CASA, PRINCIPALMENTE",
+          "4": "ESTUDIANDO PRINCIPALMENTE",
+          "5": "JUBILADO/A, PENSIONISTA",
+          "6": "OTRAS SITUACIONES",
+          "7": "NS-NC"
+        }
+      },
+      "P04": {
+        "texto": "¿CÓMO CALIFICARÍA UD. LA SITUACIÓN POLÍTICA DE EUSKADI: MUY BUENA, BUENA, MALA O MUY MALA?",
+        "opciones": {
+          "1": "MUY BUENA",
+          "2": "BUENA",
+          "3": "MALA",
+          "4": "MUY MALA",
+          "5": "NS-NC"
+        }
+      },
+      "P05": {
+        "texto": "¿Y LA SITUACIÓN POLÍTICA DE ESPAÑA?",
+        "opciones": {
+          "1": "MUY BUENA",
+          "2": "BUENA",
+          "3": "MALA",
+          "4": "MUY MALA",
+          "5": "NS-NC"
+        }
+      },
+      "P06": {
+        "texto": "RESPECTO A LA SITUACIÓN ECONÓMICA DE EUSKADI ¿LA CALIFICARÍA DE MUY BUENA, BUENA, MALA O MUY MALA?",
+        "opciones": {
+          "1": "MUY BUENA",
+          "2": "BUENA",
+          "3": "MALA",
+          "4": "MUY MALA",
+          "5": "NS-NC"
+        }
+      },
+      "P07": {
+        "texto": "¿Y LA SITUACIÓN ECONÓMICA DE ESPAÑA?",
+        "opciones": {
+          "1": "MUY BUENA",
+          "2": "BUENA",
+          "3": "MALA",
+          "4": "MUY MALA",
+          "5": "NS-NC"
+        }
+      },
+      "P08": {
+        "texto": "EN SU OPINIÓN ¿CUÁLES SON LOS TRES PROBLEMAS MÁS IMPORTANTES DE EUSKADI? (PREGUNTA ABIERTA)",
+        "opciones": {
+        "1": "Vivienda",
+        "2": "Problemas ligados al mercado de trabajo",
+        "4": "Situación política, políticos/as y conflicto político",
+        "5": "La inmigración y problemas relacionados (racismo y xenofobia)",
+        "6": "Problemas económicos",
+        "7": "La delincuencia, inseguridad ciudadana",
+        "8": "Sanidad, Osakidetza, Seguridad Social, salud",
+        "9": "Infraestructuras y transportes",
+        "10": "Funcionamiento y cobertura de los servicios públicos, ayudas",
+        "11": "Problemas y desigualdades sociales",
+        "13": "Educación",
+        "14": "Pensiones",
+        "15": "Medio ambiente",
+        "16": "Problemas relacionados con la situación lingüística",
+        "17": "Desigualdad entre mujeres y hombres",
+        "18": "Crisis valores, egoísmo, intolerancia, falta respeto",
+        "19": "Problemas de la juventud",
+        "21": "Corrupción y fraude",
+        "23": "Conciliación de la vida familiar y laboral, política familiar",
+        "25": "Problemas demográficos: baja natalidad, envejecimiento población",
+        "26": "Asistencia a personas mayores",
+        "30": "Turismo, gestión del turismo",
+        "98": "Otros problemas",
+        "99": "Ns-Nc"
+      }
+      },
+      "P09": {
+        "texto": "¿Y CUÁLES SON LOS TRES PROBLEMAS QUE, A USTED, PERSONALMENTE, LE AFECTAN MÁS EN SU VIDA DIARIA? (PREGUNTA ABIERTA)",
+        "opciones": {
+        "1": "Vivienda",
+        "2": "Problemas ligados al mercado de trabajo",
+        "4": "Situación política, políticos/as y conflicto político",
+        "5": "La inmigración y problemas relacionados (racismo y xenofobia)",
+        "6": "Problemas económicos",
+        "7": "La delincuencia, inseguridad ciudadana",
+        "8": "Sanidad, Osakidetza, Seguridad Social, salud",
+        "9": "Infraestructuras y transportes",
+        "10": "Funcionamiento y cobertura de los servicios públicos, ayudas",
+        "11": "Problemas y desigualdades sociales",
+        "13": "Educación",
+        "14": "Pensiones",
+        "15": "Medio ambiente",
+        "16": "Problemas relacionados con la situación lingüística",
+        "18": "Crisis valores, egoísmo, intolerancia, falta respeto",
+        "19": "Problemas de la juventud",
+        "21": "Corrupción y fraude",
+        "22": "Familia",
+        "23": "Conciliación de la vida familiar y laboral, política familiar",
+        "26": "Asistencia a personas mayores",
+        "30": "Turismo, gestión del turismo",
+        "31": "Salud personal",
+        "32": "Soledad",
+        "34": "Ninguno",
+        "35": "Falta de tiempo libre",
+        "98": "Otros problemas",
+        "99": "Ns-Nc"
+      }
+      },
+      "P10": {
+        "texto": "¿CÓMO VALORA SU SITUACIÓN LABORAL PERSONAL ACTUAL: MUY BUENA, BASTANTE BUENA, BASTANTE MALA O MUY MALA?",
+        "opciones": {
+          "1": "MUY BUENA",
+          "2": "BASTANTE BUENA",
+          "3": "BASTANTE MALA",
+          "4": "MUY MALA",
+          "5": "NS-NC"
+        }
+      },
+      "P11": {
+        "texto": "Y PERSONALMENTE, ¿CÓMO VALORA SU SITUACIÓN ECONÓMICA PERSONAL ACTUAL: MUY BUENA, BUENA, MALA O MUY MALA?",
+        "opciones": {
+          "1": "MUY BUENA",
+          "2": "BUENA",
+          "3": "MALA",
+          "4": "MUY MALA",
+          "5": "NS-NC"
+        }
+      },
+      "P12": {
+        "texto": "¿SUELE TENER UD. PROBLEMAS ECONÓMICOS PARA LLEGAR A FIN DE MES?",
+        "opciones": {
+          "1": "SÍ, MUCHOS PROBLEMAS",
+          "2": "SÍ, ALGUNOS PROBLEMAS",
+          "3": "NO",
+          "4": "NS-NC"
+        }
+      },
+      "P13": {
+        "texto": "¿CONSIDERA UD. QUE SU SALUD EN GENERAL ES…?",
+        "opciones": {
+          "1": "MUY BUENA",
+          "2": "BUENA",
+          "3": "REGULAR",
+          "4": "MALA",
+          "5": "MUY MALA",
+          "6": "NS-NC"
+        }
+      },
+      "P14": {
+        "texto": "¿CREE UD. QUE SU PUEBLO O CIUDAD ES UN LUGAR SEGURO PARA VIVIR?",
+        "opciones": {
+          "1": "SÍ, TOTALMENTE",
+          "2": "MÁS BIEN SÍ",
+          "3": "MÁS BIEN NO",
+          "4": "NO, EN ABSOLUTO",
+          "5": "NS-NC"
+        }
+      },
+      "P15": {
+        "texto": "A DÍA DE HOY, ¿CÓMO DIRÍA UD. QUE SON LOS SERVICIOS PÚBLICOS EN EUSKADI?",
+        "opciones": {
+          "1": "MUY BUENOS",
+          "2": "BASTANTE BUENOS",
+          "3": "BASTANTE MALOS",
+          "4": "MUY MALOS",
+          "5": "NS-NC"
+        }
+      },
+      "P16": {
+        "texto": "EN GENERAL, ¿PIENSA UD. QUE LOS SERVICIOS PÚBLICOS GESTIONADOS POR ORGANIZACIONES O EMPRESAS PRIVADAS FUNCIONAN MEJOR QUE LOS GESTIONADOS DIRECTAMENTE POR LAS ADMINISTRACIONES PÚBLICAS, QUE FUNCIONAN EN AMBOS CASOS POR IGUAL, O QUE FUNCIONAN MEJOR LOS GESTIONADOS POR LAS ADMINISTRACIONES PÚBLICAS?",
+        "opciones": {
+          "1": "MEJOR LOS GESTIONADOS POR LAS EMPRESAS PRIVADAS",
+          "2": "AMBOS POR IGUAL",
+          "3": "MEJOR LOS GESTIONADOS POR LAS ADMINISTRACIONES PÚBLICAS",
+          "4": "NS-NC"
+        }
+      },
+      "P17": {
+        "texto": "EN GENERAL, ¿EN QUÉ MEDIDA ESTÁ UD. INTERESADO/A EN LA POLÍTICA?",
+        "opciones": {
+          "1": "MUY INTERESADO/A",
+          "2": "BASTANTE INTERESADO/A",
+          "3": "POCO INTERESADO/A",
+          "4": "NADA INTERESADO/A",
+          "5": "NS-NC"
+        }
+      },
+      "P18": {
+        "texto": "CUANDO SE CELEBRAN ELECCIONES, ¿SUELE UD. VOTAR SIEMPRE, A VECES SÍ Y OTRAS NO, NO VOTA NUNCA, SERÍA LA PRIMERA VEZ QUE PUEDE VOTAR O NO TIENE DERECHO A VOTO?",
+        "opciones": {
+          "1": "SIEMPRE VOTA",
+          "2": "A VECES SÍ, A VECES NO",
+          "3": "NUNCA VOTA",
+          "4": "SERÍA LA PRIMERA VEZ QUE PODRÍA VOTAR (18 AÑOS O NACIONALIDAD RECIENTE)",
+          "5": "NO TIENE DERECHO A VOTO (EXTRANJERO/A, ETC.)",
+          "6": "NS-NC"
+        }
+      },
+      "P19": {
+        "texto": "SI EN ESTE MOMENTO SE CELEBRARAN ELECCIONES AUTONÓMICAS AL PARLAMENTO VASCO ¿ACUDIRÍA UD. A VOTAR EN ESAS ELECCIONES?",
+        "opciones": {
+          "1": "SÍ, SEGURO (SEGUIR EN P.20)",
+          "2": "PROBABLEMENTE SÍ (SEGUIR EN P.20)",
+          "3": "PROBABLEMENTE NO (PASAR A P.22)",
+          "4": "NO, SEGURO (PASAR A P.22)",
+          "5": "NO PODRÁ VOTAR POR NO TENER DERECHO (PASAR A P.22)",
+          "6": "AÚN NO LO TIENE DECIDIDO (SEGUIR EN P.20)",
+          "7": "NO CONTESTA (PASAR A P.22)"
+        }
+      },
+      "P20": {
+        "texto": "¿A QUÉ PARTIDO VOTARÍA UD. EN ESAS ELECCIONES AUTONÓMICAS?",
+        "opciones": {
+          "01": "PNV/EAJ",
+          "02": "EH BILDU",
+          "03": "PARTIDO SOCIALISTA DE EUSKADI- PSE-EE",
+          "04": "ELKARREKIN PODEMOS",
+          "05": "SUMAR",
+          "06": "PP",
+          "07": "VOX",
+          "08": "OTRA CANDIDATURA",
+          "09": "NO VOTARÁ, SE ABSTENDRÁ",
+          "10": "VOTO BLANCO",
+          "11": "VOTO NULO",
+          "12": "NO SABE",
+          "13": "NO CONTESTA",
+          "14": "RESTO (3,4,5 O 7 EN P.19)"
+        }
+      },
+      "P21": {
+        "texto": "A DÍA DE HOY, ¿CUÁNTA SEGURIDAD TIENE DE QUE VOTARÁ AL PARTIDO QUE ACABA DE MENCIONAR Y NO A OTRO?",
+        "opciones": {
+          "1": "ESTÁ TOTALMENTE SEGURO/A DE QUE VOTARÁ A ESE PARTIDO Y NO A OTRO",
+          "2": "ESTÁ BASTANTE SEGURO/A DE QUE VOTARÁ A ESE PARTIDO Y NO A OTRO",
+          "3": "PUEDE SER QUE AL FINAL VOTE A OTRO PARTIDO",
+          "4": "NS-NC",
+          "5": "RESTO (>8 EN P.20)"
+        }
+      },
+      "P22": {
+        "texto": "¿ME PODRÍA DECIR, POR FAVOR, A QUÉ PARTIDO VOTÓ UD. EN LAS ÚLTIMAS ELECCIONES AUTONÓMICAS AL PARLAMENTO VASCO, CELEBRADAS EL 21 DE ABRIL DE 2024?",
+        "opciones": {
+          "01": "PNV/EAJ",
+          "02": "EH BILDU",
+          "03": "PARTIDO SOCIALISTA DE EUSKADI-PSE-EE",
+          "04": "ELKARREKIN PODEMOS",
+          "05": "SUMAR",
+          "06": "PP",
+          "07": "VOX",
+          "08": "OTRA CANDIDATURA",
+          "09": "NO VOTÓ, SE ABSTUVO",
+          "10": "VOTÓ BLANCO",
+          "11": "VOTÓ NULO",
+          "12": "NO PUDO VOTAR POR NO TENER DERECHO",
+          "13": "NO PUDO VOTAR POR SER MENOR DE 18 AÑOS EL 21 DE ABRIL DE 2024",
+          "14": "NO SABE",
+          "15": "NO CONTESTA"
+        }
+      },
+      "P23": {
+        "texto": "EN GENERAL, DEL CONJUNTO DE LOS PARTIDOS POLÍTICOS QUE LE VOY A LEER, ¿A CUÁL O CUÁLES NO VOTARÍA NUNCA? ME PUEDE INDICAR 1 PARTIDO, 2 Ó 3 COMO MÁXIMO",
+        "opciones": {
+          "01": "PNV/EAJ",
+          "02": "EH BILDU",
+          "03": "PARTIDO SOCIALISTA DE EUSKADI-PSE",
+          "04": "ELKARREKIN PODEMOS",
+          "05": "SUMAR",
+          "06": "PP",
+          "07": "VOX",
+          "08": "NO VOTARÍA NUNCA A NINGUNO DE ELLOS",
+          "09": "PODRÍA VOTAR A CUALQUIERA DE ELLOS",
+          "10": "NS-NC"
+        }
+      },
+      "P24": {
+        "texto": "Y, ¿A CUÁL O CUÁLES DE ELLOS PODRÍA VOTAR EN ALGÚN CASO? ME PUEDE INDICAR 1 PARTIDO, 2 O 3 COMO MÁXIMO",
+        "opciones": {
+          "01": "PNV/EAJ",
+          "02": "EH BILDU",
+          "03": "PARTIDO SOCIALISTA DE EUSKADI-PSE",
+          "04": "ELKARREKIN PODEMOS",
+          "05": "SUMAR",
+          "06": "PP",
+          "07": "VOX",
+          "08": "NO VOTARÍA NUNCA A NINGUNO DE ELLOS",
+          "09": "PODRÍA VOTAR A CUALQUIERA DE ELLOS",
+          "10": "NS-NC"
+        }
+      },
+      "P25": {
+        "texto": "¿QUÉ GRADO DE SIMPATÍA SIENTE POR CADA UNA DE LAS SIGUIENTES OPCIONES POLÍTICAS, EN UNA ESCALA DE 0 A 10, DONDE EL 0 SIGNIFICA NINGUNA SIMPATÍA Y EL 10 MUCHA SIMPATÍA?",
+        "partidos": [
+          "PNV/EAJ",
+          "EH BILDU",
+          "PARTIDO SOCIALISTA DE EUSKADI",
+          "SUMAR",
+          "PP",
+          "VOX"
+        ],
+        "escala": {
+          "min": "0 (NINGUNA SIMPATÍA)",
+          "max": "10 (MUCHA SIMPATÍA)",
+          "ns_nc": "11"
+        }
+      },
+      "P26": {
+        "texto": "AHORA ME GUSTARÍA PREGUNTARLE POR ALGUNOS/AS LÍDERES POLÍTICOS VASCOS Y VASCAS. DÍGAME, POR FAVOR, SI SABE O NO QUIÉN ES Y, EN CASO DE SABERLO, CÓMO LO/LA VALORA UTILIZANDO UNA ESCALA DE 0 A 10, DONDE EL 0 ES LA VALORACIÓN MÍNIMA Y EL 10 LA VALORACIÓN MÁXIMA.",
+        "lideres": [
+          "EL LEHENDAKARI IMANOL PRADALES",
+          "PELLO OTXANDIANO",
+          "ENEKO ANDUEZA",
+          "JAVIER DE ANDRÉS",
+          "JON HERNÁNDEZ",
+          "AMAIA MARTÍNEZ"
+        ],
+        "escala": {
+          "conocimiento": {
+            "1": "NO",
+            "2": "SÍ"
+          },
+          "valoracion": {
+            "min": "0 (VALORACIÓN MÍNIMA)",
+            "max": "10 (VALORACIÓN MÁXIMA)",
+            "ns_nc": "11",
+            "no_conoce": "12"
+          }
+        }
+      },
+      "P27": {
+        "texto": "¿CÓMO CALIFICARÍA USTED LA GESTIÓN QUE ESTÁ HACIENDO EL ACTUAL GOBIERNO VASCO EN ESTE ÚLTIMO AÑO: MUY BUENA, BUENA, REGULAR, MALA O MUY MALA?",
+        "opciones": {
+          "1": "MUY BUENA",
+          "2": "BUENA",
+          "3": "REGULAR",
+          "4": "MALA",
+          "5": "MUY MALA",
+          "6": "NS-NC"
+        }
+      },
+      "P28": {
+        "texto": "¿CUÁL DE LAS SIGUIENTES FRASES SE ACERCA MÁS A SU OPINIÓN SOBRE EL GOBIERNO VASCO?",
+        "opciones": {
+          "1": "EL GOBIERNO VASCO ESTÁ RESOLVIENDO LOS PROBLEMAS DE EUSKADI",
+          "2": "EL GOBIERNO VASCO SABE CÓMO RESOLVER LOS PROBLEMAS DE EUSKADI, PERO NECESITA MÁS TIEMPO",
+          "3": "EL GOBIERNO VASCO NO SABE CÓMO RESOLVER LOS PROBLEMAS DE EUSKADI",
+          "4": "NS-NC"
+        }
+      },
+      "P29": {
+        "texto": "¿HASTA QUÉ PUNTO CREE USTED QUE EL GOBIERNO VASCO CONOCE CUÁLES SON LAS VERDADERAS NECESIDADES DE LA CIUDADANÍA VASCA: MUCHO, BASTANTE, POCO O NADA?",
+        "opciones": {
+          "1": "MUCHO",
+          "2": "BASTANTE",
+          "3": "POCO",
+          "4": "NADA",
+          "5": "NS-NC"
+        }
+      },
+      "P30": {
+        "texto": "AHORA LE VOY A LEER ALGUNAS CARACTERÍSTICAS PARA QUE VALORE LA ACTUACIÓN DEL GOBIERNO VASCO. TENIENDO EN CUENTA QUE 0 SIGNIFICA QUE NO POSEE ESA CARACTERÍSTICA EN ABSOLUTO Y EL 10 QUE LA TIENE TOTALMENTE, ¿CÓMO VALORA LA ACTUACIÓN DEL GOBIERNO VASCO, DE 0 A 10, EN CUANTO A…",
+        "caracteristicas": [
+          "CAPACIDAD DE GESTIÓN",
+          "HONESTIDAD",
+          "CAPACIDAD DE LLEGAR A ACUERDOS / ACTITUD DIALOGANTE",
+          "CAPACIDAD DE AUTOCRÍTICA",
+          "CERCANÍA CON LOS PROBLEMAS DE LA CIUDADANÍA"
+        ],
+        "escala": {
+          "min": "0 (NO LA TIENE EN ABSOLUTO)",
+          "max": "10 (LA TIENE TOTALMENTE)",
+          "ns_nc": "11"
+        }
+      },
+      "P31": {
+        "texto": "INDIQUE CUALES HAN SIDO, EN SU OPINIÓN, LOS TRES TEMAS EN LOS QUE MÁS HA TRABAJADO EL GOBIERNO VASCO EN EL ÚLTIMO AÑO (DIGA MÁXIMO TRES TEMAS) (PREGUNTA ABIERTA)",   "opciones": {
+        "1": "Vivienda",
+        "2": "Empleo y condiciones laborales",
+        "3": "Búsqueda de consenso político y relación con el gobierno central",
+        "4": "Inmigración",
+        "5": "Economía, apoyo a la industria, empresas, fiscalidad",
+        "6": "Seguridad ciudadana",
+        "7": "Sanidad, Osakidetza",
+        "8": "Infraestructuras y transportes",
+        "9": "Servicios públicos y sociales",
+        "10": "Igualdad e inclusión social",
+        "11": "Medio ambiente y política energética",
+        "12": "Educación",
+        "13": "Euskera",
+        "14": "Buena gestión, eficacia: mejorar calidad de vida, solucionar problemas de la ciudadanía",
+        "15": "Turismo",
+        "16": "Miran por sus intereses, no por la ciudadanía",
+        "98": "Otros",
+        "99": "Ns-Nc"
+      }
+      },
+      "P32": {
+        "texto": "EN UNA ESCALA DEL 0 AL 10, DONDE EL 0 ES LA EXTREMA IZQUIERDA, EL 10 LA EXTREMA DERECHA Y POR LO TANTO EL 5 SERÍA EL CENTRO ¿EN QUÉ LUGAR SE COLOCARÍA UD.?",
+        "escala": {
+          "min": "0 (EXTREMA IZQUIERDA)",
+          "centro": "5",
+          "max": "10 (EXTREMA DERECHA)",
+          "ns_nc": "11"
+        }
+      },
+      "P33": {
+        "texto": "EN REFERENCIA AL SENTIMIENTO NACIONALISTA VASCO O ABERTZALE, ¿PODRÍA DECIRME, POR FAVOR, DÓNDE SE COLOCARÍA UD. EN UNA ESCALA DE 0 A 10, EN LA QUE 0 SIGNIFICA NADA NACIONALISTA O ABERTZALE Y EL 10 MUY NACIONALISTA O ABERTZALE?",
+        "escala": {
+          "min": "0 (NADA NACIONALISTA O ABERTZALE)",
+          "max": "10 (MUY NACIONALISTA O ABERTZALE)",
+          "ns_nc": "11"
+        }
+      },
+      "P34": {
+        "texto": "¿CUÁL DE LAS SIGUIENTES FRASES EXPRESA MEJOR SUS SENTIMIENTOS? SE SIENTE…",
+        "opciones": {
+          "1": "ÚNICAMENTE VASCO/A",
+          "2": "MÁS VASCO/A QUE ESPAÑOL/A",
+          "3": "TANTO VASCO/A COMO ESPAÑOL/A",
+          "4": "MÁS ESPAÑOL/A QUE VASCO/A",
+          "5": "ÚNICAMENTE ESPAÑOL/A",
+          "6": "NS-NC"
+        }
+      },
+      "P35": {
+        "texto": "SOBRE EL TEMA DE LA INDEPENDENCIA DEL PAÍS VASCO, UD. PERSONALMENTE…",
+        "opciones": {
+          "1": "ESTÁ DE ACUERDO",
+          "2": "ESTARÍA O NO DE ACUERDO SEGÚN LAS CIRCUNSTANCIAS",
+          "3": "ESTÁ EN DESACUERDO",
+          "4": "NS-NC"
+        }
+      },
+      "P36": {
+        "texto": "¿CÓMO HABLA EN EUSKERA: BIEN, BASTANTE BIEN, ALGO, SABE PALABRAS O NADA?",
+        "opciones": {
+          "1": "BIEN",
+          "2": "BASTANTE BIEN",
+          "3": "ALGO",
+          "4": "SABE PALABRAS",
+          "5": "NADA",
+          "6": "NS-NC"
+        }
+      },
+      "P37": {
+        "texto": "¿QUÉ ESTUDIOS HA FINALIZADO?",
+        "opciones": {
+          "1": "NINGUNO, MENOS QUE PRIMARIOS",
+          "2": "PRIMARIOS, BACHILLER ELEMENTAL, EGB, ESO",
+          "3": "FP BÁSICO, DE GRADO MEDIO O SUPERIOR",
+          "4": "SECUNDARIOS: BACHILLER SUPERIOR, REM, BUP, COU",
+          "5": "UNIVERSITARIOS",
+          "6": "NS-NC"
+        }
+      },
+      "P38_P39": {
+        "texto": "¿EN QUÉ CLASE SOCIAL SE SITUARÍA UD.?",
+        "opciones": {
+          "1": "MEDIA-ALTA O ACOMODADA",
+          "2": "MEDIA-MEDIA",
+          "3": "MEDIA-BAJA U OBRERA",
+          "4": "NS-NC"
+        }
+      },
+      "P40": {
+        "texto": "¿EN QUÉ PROVINCIA NACIÓ UD.?",
+        "opciones": {
+          "1": "ARABA",
+          "2": "BIZKAIA",
+          "3": "GIPUZKOA",
+          "4": "NAVARRA",
+          "5": "RESTO DEL ESTADO",
+          "6": "IPARRALDE: LAPURDI, NAFARROA BEHEREA O ZUBEROA",
+          "7": "EXTRANJERO",
+          "8": "NS-NC"
+        }
+      },
+      "P41": {
+        "texto": "¿TIENE UD. LA NACIONALIDAD ESPAÑOLA?",
+        "opciones": {
+          "1": "SÍ",
+          "2": "NO",
+          "3": "NS-NC",
+          "4": "RESTO (NO HA NACIDO EN EL EXTRANJERO)"
+        }
+      },
+      "P42": {
+        "texto": "PERSONALMENTE, EN LO QUE SE REFIERE AL GÉNERO, ¿UD. SE CONSIDERA..?",
+        "opciones": {
+          "1": "HOMBRE",
+          "2": "MUJER",
+          "3": "NI HOMBRE NI MUJER, ES DECIR, NO BINARIO",
+          "4": "NS-NC"
+        }
+      },
+      "P43": {
+        "texto": "¿EN LA CASA EN LA QUE VIVE HAY TELÉFONO FIJO?",
+        "opciones": {
+          "1": "SÍ",
+          "2": "NO",
+          "3": "NS-NC",
+          "4": "RESTO (HA REALIZADO LA ENCUESTA DESDE UN FIJO)"
+        }
+      },
+      "P44": {
+        "texto": "¿UD. PERSONALMENTE TIENE TELÉFONO MÓVIL?",
+        "opciones": {
+          "1": "SÍ",
+          "2": "NO",
+          "3": "NS-NC",
+          "4": "RESTO (HA REALIZADO LA ENCUESTA DESDE UN MÓVIL)"
+        }
+      }
+    }
+}
