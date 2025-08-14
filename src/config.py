@@ -45,6 +45,8 @@ idioma_map = {
     3: 2,
 }
 
+idioma_text_map = {"Todos": [1, 2, 3], "Euskera": [1, 2], "Castellano": [3]}
+
 sexo_map = {
     1: "Hombre",
     2: "Mujer",

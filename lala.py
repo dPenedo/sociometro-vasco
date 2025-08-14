@@ -1,14 +1,12 @@
 # %%
 import pandas as pd
 
-from src.charts.bar import create_provinces_distribution_bar_chart
-from src.config import idioma_map, provincias_map, sexo_map
+import matplotlib.pyplot as plt
+import numpy as np
+
+from src.config import idioma_map, p32_tag_map, provincias_map, sexo_map, df
 from src.data.processing import get_df_of_pct
 
-
-# %%
-
-df = pd.read_csv("./data/raw/sociometro-vasco-86-prevision-voto.csv", delimiter=";")
 
 # %%
 
@@ -78,18 +76,62 @@ araba_izq_derecha = izq_dcha_por_provincia.iloc[0]
 bizkaia_izq_derecha = izq_dcha_por_provincia.iloc[1]
 gipuzkoa_izq_derecha = izq_dcha_por_provincia.iloc[2]
 araba_izq_derecha  # pyright: ignore[reportUnusedExpression]
+
+
 # %%
 # Plot
 
 
+def create_provinces_distribution_bar_chart(
+    df,
+    xlabel: str,
+    title: str,
+    question: str,
+    tag_map,
+):
+    provinces_df = get_df_of_pct(df, "lurral", question)
+    fig, ax = plt.subplots(figsize=(10, 6))
+    positions = np.arange(len(provinces_df.iloc[0]))
+    width = 0.2
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel("Porcentaje (%)")
+    ax.set_title(title)
+    ax.bar(
+        positions - width,
+        provinces_df.iloc[0],
+        width,
+        label="Araba",
+        color=provincias_map[1]["color"],
+    )
+    ax.bar(
+        positions,
+        provinces_df.iloc[1],
+        width,
+        label="Bizkaia",
+        color=provincias_map[2]["color"],
+    )
+    ax.bar(
+        positions + width,
+        provinces_df.iloc[2],
+        width,
+        label="Gipuzkoa",
+        color=provincias_map[3]["color"],
+    )
+    ax.set_xticks(positions)
+    ax.set_xticklabels(tag_map)
+    ax.legend()
+    plt.show()
+    return fig
+
+
+# %%
+
 create_provinces_distribution_bar_chart(
     df,
-    "Eje izquierda-derecha",
-    "Porcentaje",
-    "Distribución izq-derecha por provincias",
     "Ex-Iz",
-    "Ex-Dr",
+    "Distribución izq-derecha por provincias",
     "p32",
+    p32_tag_map,
 )
 
 # %%

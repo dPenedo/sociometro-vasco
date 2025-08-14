@@ -7,8 +7,9 @@ import geopandas as gpd
 from src.charts.bar import (
     create_0_to_10_percentage_bar_chart,
     create_green_red_bar_chart,
+    create_spain_basque_comparation_bar_chart,
 )
-from src.data.processing import get_count
+from src.data.processing import get_count, get_df_of_pct
 from src.utils import is_light
 from src.config import (
     df,
@@ -23,12 +24,67 @@ from src.config import (
     p25_tag_map,
     p32_tag_map,
     p33_tag_map,
+    provincias_map,
 )
 
 # %%
+#
+
+len(df["p32"].unique())
+# %%
+#
+mini_df = df[(df["P02"] > 70) & (df["P0A"].isin([1, 2]))]
+len(mini_df["p32"].unique())
+
+
+# %%
+# Provinces distribution
+def create_provinces_distribution_bar_chart(
+    df,
+    xlabel: str,
+    title: str,
+    question: str,
+    tag_map,
+):
+    provinces_df = get_df_of_pct(df, "lurral", question)
+    fig, ax = plt.subplots(figsize=(10, 6))
+    positions = np.arange(len(provinces_df.iloc[0]))
+    width = 0.2
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel("Porcentaje (%)")
+    ax.set_title(title)
+    for i, prov in enumerate(provincias_map.values()):
+        ax.bar(
+            positions + (i - 1) * width,  # -width, 0, +width
+            provinces_df.iloc[i],
+            width,
+            label=prov["name"],
+            color=prov["color"],
+        )
+    ax.set_xticks(positions)
+    ax.set_xticklabels(list(tag_map.values()))
+    ax.legend()
+    plt.show()
+    return fig
+
+
+# %%
+# Chart
+create_provinces_distribution_bar_chart(
+    df,
+    "Ex-Iz",
+    "Distribución izq-derecha por provincias",
+    "p32",
+    p32_tag_map,
+)
+
+# %%
+#
+for key in provincias_map:
+    print(provincias_map[key]["name"])
+
+# %%
 # p34 sentimiento nacional
-
-
 create_green_red_bar_chart(
     df,
     "p34",
@@ -46,6 +102,18 @@ create_green_red_bar_chart(
     "Acuerdo con una posible independencia",
     p35_tag_map,
 )
+# %%
+# TODO: comparar euskadi-españa, gráfico de dos barras para cada
+# Situación política
+create_spain_basque_comparation_bar_chart(
+    df,
+    "Valoración de la situación política",
+    "¿Cómo calificaría ud. la situación política de España y Euskadi? (Comparativa)",
+    "P04",
+    "P05",
+    lickert_tag_map_5,
+)
+
 # %%
 #  Situación política de Euskadi
 create_green_red_bar_chart(
@@ -76,6 +144,7 @@ create_green_red_bar_chart(
     lickert_tag_map_5,
 )
 
+
 # %%
 #  Situación económica de España
 create_green_red_bar_chart(
@@ -83,6 +152,19 @@ create_green_red_bar_chart(
     "P07",
     "¿Cómo calificaría ud. la situación económica de España?",
     "Valoración de la situación económica de España",
+    lickert_tag_map_5,
+)
+
+# %%
+#  Comparación económica de Euskadi y España
+#
+
+create_spain_basque_comparation_bar_chart(
+    df,
+    "Valoración de la situación económica",
+    "¿Cómo calificaría ud. la situación económica de España y Euskadi? (Comparativa)",
+    "P06",
+    "P07",
     lickert_tag_map_5,
 )
 
