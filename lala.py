@@ -4,7 +4,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-from src.config import idioma_map, p32_tag_map, provincias_map, sexo_map, df
+from src.charts.bar import create_provinces_distribution_bar_chart
+from src.config import (
+    idioma_map,
+    p32_tag_map,
+    p33_tag_map,
+    provincias_map,
+    sexo_map,
+    df,
+)
 from src.data.processing import get_df_of_pct
 
 
@@ -79,56 +87,11 @@ araba_izq_derecha  # pyright: ignore[reportUnusedExpression]
 
 
 # %%
-# Plot
-
-
-def create_provinces_distribution_bar_chart(
-    df,
-    xlabel: str,
-    title: str,
-    question: str,
-    tag_map,
-):
-    provinces_df = get_df_of_pct(df, "lurral", question)
-    fig, ax = plt.subplots(figsize=(10, 6))
-    positions = np.arange(len(provinces_df.iloc[0]))
-    width = 0.2
-    ax.set_xlabel(xlabel)
-    ax.set_ylabel("Porcentaje (%)")
-    ax.set_title(title)
-    ax.bar(
-        positions - width,
-        provinces_df.iloc[0],
-        width,
-        label="Araba",
-        color=provincias_map[1]["color"],
-    )
-    ax.bar(
-        positions,
-        provinces_df.iloc[1],
-        width,
-        label="Bizkaia",
-        color=provincias_map[2]["color"],
-    )
-    ax.bar(
-        positions + width,
-        provinces_df.iloc[2],
-        width,
-        label="Gipuzkoa",
-        color=provincias_map[3]["color"],
-    )
-    ax.set_xticks(positions)
-    ax.set_xticklabels(tag_map)
-    ax.legend()
-    plt.show()
-    return fig
-
-
 # %%
 
 create_provinces_distribution_bar_chart(
     df,
-    "Ex-Iz",
+    "Iz - Dch",
     "Distribución izq-derecha por provincias",
     "p32",
     p32_tag_map,
@@ -138,12 +101,10 @@ create_provinces_distribution_bar_chart(
 # Distribucion nacionalista por provincias
 create_provinces_distribution_bar_chart(
     df,
-    "Eje nacionalismo/abertzalismo",
-    "Porcentaje",
+    "Menos a más nacionalismo/abertzalismo",
     "Distribución no abertzale-abertzale por provincias",
-    "No abertz",
-    "Abertz",
     "p33",
+    p33_tag_map,
 )
 # %%
 # %%

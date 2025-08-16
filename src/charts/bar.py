@@ -1,10 +1,13 @@
 import matplotlib.pyplot as plt
-from src.config import provincias_map
+from src.config import ordered_p25_list, p25_question_map, p25_tag_map, provincias_map
 import numpy as np
+import plotly.colors as pc
+import plotly.express as px
+import pandas as pd
 
 from src.data.processing import get_df_of_pct
 
-plt.style.use("seaborn-v0_8-deep")
+plt.style.use("seaborn-v0_8-pastel")
 default_fig_size = (10, 6)
 
 
@@ -16,8 +19,10 @@ def create_0_to_10_percentage_bar_chart(
     """
     color_gradiants = [plt.get_cmap("RdBu")(i / 10) for i in range(11)]
     fig, ax = plt.subplots(figsize=default_fig_size)
-    color_gradiants[5] = "lightgray"
-    color_gradiants.append("gray")
+    color_gradiants[5] = (  # pyright: ignore[reportCallIssue, reportArgumentType]
+        "lightgray"
+    )
+    color_gradiants.append("gray")  # pyright: ignore[reportArgumentType]
     count = df[question].value_counts(normalize=True) * 100
     count = count.sort_index(ascending=True)
     count.index = count.index.map(tag_map)
