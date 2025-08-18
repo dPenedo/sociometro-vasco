@@ -77,10 +77,10 @@ def create_0_to_10_percentage_bar_chart2(
         marker_line_width=0.5,
         marker_line_color="#232323",
     )
-    max_y = df_plot["Porcentaje (%)"].max()
-    fig.update_yaxes(
-        range=[0, max_y * 1.1]
-    )  # Multiplicamos por 1.1 para dar un pequeño margen
+    # max_y = df_plot["Porcentaje (%)"].max()
+    # fig.update_yaxes(
+    #     range=[0, max_y * 1.1]
+    # )  # Multiplicamos por 1.1 para dar un pequeño margen
     fig.update_layout(
         xaxis_tickangle=-45,
         title_font_size=20,  # Tamaño del título principal
@@ -90,4 +90,3 @@ def create_0_to_10_percentage_bar_chart2(
     )
 
     return fig
-

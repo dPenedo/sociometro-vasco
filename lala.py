@@ -1,110 +1,15 @@
 # %%
+# Imports
 import pandas as pd
-
-import matplotlib.pyplot as plt
-import numpy as np
-
-from src.charts.bar import create_provinces_distribution_bar_chart
-from src.config import (
-    idioma_map,
-    p32_tag_map,
-    p33_tag_map,
-    provincias_map,
-    sexo_map,
-    df,
-)
-from src.data.processing import get_df_of_pct
-
+from src.config import df
 
 # %%
-
-
-df["lurralde"] = df["lurral"].map(lambda k: provincias_map[k]["name"])
-df["idioma"] = df["P0A"].map(idioma_map)
-df["sexo"] = df["P01"].map(sexo_map)
-
-
-conteo_lurral = df.groupby("lurral").lurral.count()
-lurral_porcentajes = df["lurralde"].value_counts(normalize=True) * 100
-idioma_porcentajes = df["idioma"].value_counts(normalize=True) * 100
-print("idioma_porcentajes => ", idioma_porcentajes)
-# %%
-# Media de Edad
-# La Media de edad de la CAV es 45.9 y la de la encuesta es 53.6
-
-media_de_edad = round(float(df["P02"].mean()), 1)
-print("media_de_edad => ", media_de_edad)
-
-
-datos_edad = df["P02"].agg(["min", "max", "mean", "median"])
-print(datos_edad)
-
+# Data types
+for col in df.columns.to_list():
+    print(f"Data type of {col} is {df[col].dtypes}")
 
 # %%
-# Municipio más contestado
-
-municipio_mas_contestado = int(
-    df["P0B"].value_counts().sort_values(ascending=False).iloc[0]
-)
-print("municipio_mas_contestado => ", municipio_mas_contestado)
+# Convert
+df.p32[pd.isnull(df.p32)]
 # %%
-# Headers
-df.columns.to_list()
-
-# %%
-# Lurraldeak
-araba = df[df["lurral"] == 1]
-bizkaia = df[df["lurral"] == 2]
-gipuzkoa = df[df["lurral"] == 3]
-araba["idioma"].value_counts()
-bizkaia["idioma"].value_counts()
-gipuzkoa["idioma"].value_counts()
-
-
-# %%
-# Porcentaje idioma por lurralde
-
-
-idioma_por_lurralde = get_df_of_pct(df, "lurralde", "idioma")
-print("idioma_por_lurralde => ", idioma_por_lurralde)
-# %%
-# Porcentaje sexo por provincia
-
-sexo_por_provincia = get_df_of_pct(df, "lurralde", "sexo")
-sexo_por_provincia  # pyright: ignore[reportUnusedExpression]
-
-# %%
-# lista headers
-df.columns
-# %%
-# Porcentaje cada puntuacion izq/derecha
-
-izq_dcha_por_provincia = get_df_of_pct(df, "lurralde", "p32")
-araba_izq_derecha = izq_dcha_por_provincia.iloc[0]
-bizkaia_izq_derecha = izq_dcha_por_provincia.iloc[1]
-gipuzkoa_izq_derecha = izq_dcha_por_provincia.iloc[2]
-araba_izq_derecha  # pyright: ignore[reportUnusedExpression]
-
-
-# %%
-# %%
-
-create_provinces_distribution_bar_chart(
-    df,
-    "Iz - Dch",
-    "Distribución izq-derecha por provincias",
-    "p32",
-    p32_tag_map,
-)
-
-# %%
-# Distribucion nacionalista por provincias
-create_provinces_distribution_bar_chart(
-    df,
-    "Menos a más nacionalismo/abertzalismo",
-    "Distribución no abertzale-abertzale por provincias",
-    "p33",
-    p33_tag_map,
-)
-# %%
-# %%
+#
