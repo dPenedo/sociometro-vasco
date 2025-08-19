@@ -1,11 +1,12 @@
 import pandas as pd
 import plotly.colors as pc
 import plotly.express as px
+import plotly.graph_objects as go
 
 from src.config import p25_question_map, p25_tag_map, ordered_p25_list
 
 
-def create_all_parties_stacked_chart(df: pd.DataFrame):
+def create_all_parties_stacked_chart(df: pd.DataFrame) -> go.Figure:
     all_data = []
 
     for _, info in p25_question_map.items():
@@ -29,7 +30,7 @@ def create_all_parties_stacked_chart(df: pd.DataFrame):
     numeric_values = [v for v in ordered_p25_list if v != "Ns/Nc"]
     colors = pc.sample_colorscale("RdYlGn", len(numeric_values))
     color_map = {v: colors[i] for i, v in enumerate(numeric_values)}
-    color_map["Ns/Nc"] = "grey"
+    color_map["Ns/Nc"] = "#808080"
 
     fig = px.bar(
         plot_df,
@@ -48,6 +49,7 @@ def create_all_parties_stacked_chart(df: pd.DataFrame):
         xaxis=dict(range=[0, 100]),
         legend_title="Nivel de simpatía",
         yaxis=dict(autorange="reversed"),
+        height=500,
     )
 
     return fig
@@ -55,38 +57,103 @@ def create_all_parties_stacked_chart(df: pd.DataFrame):
 
 def create_0_to_10_percentage_bar_chart2(
     df: pd.DataFrame, question: str, chart_title: str, x_title: str, tag_map: dict
-):
-    # Calcular el porcentaje y normalizar los datos
-    count = df[question].value_counts(normalize=True) * 100
-    count.index = count.index.map(tag_map)
-    count = count.sort_index(ascending=True).reset_index()
-    count.columns = [x_title, "Porcentaje (%)"]
+) -> go.Figure:
 
-    # Crear el gráfico con Plotly Express
+    # dfcount con manejo de categorías faltantes
+    ALL_CATEGORIES = list(range(12))
+
+    # Crear dataframe base con todas las categorías
+    base_df: pd.DataFrame = pd.DataFrame({"valores": ALL_CATEGORIES})
+
+    # Calcular porcentajes
+    dfcount = (
+        df[question]
+        .value_counts(normalize=True)
+        .mul(100)
+        .rename_axis("valores")
+        .reset_index(name="porcentaje")
+    )
+
+    # Merge con todas las categorías (asegura las 12)
+    dfcount = base_df.merge(dfcount, on="valores", how="left").fillna(0)
+
+    dfcount["valores_str"] = dfcount["valores"].astype(str)
+    dfcount["etiqueta"] = dfcount["valores"].map(tag_map)
+
+    # Lista de 12 colores
+    colors = [
+        "#A50026",  # 0 - Ext. Izquierda (rojo intenso)
+        "#D73027",  # 1
+        "#F46D43",  # 2
+        "#FDAE61",  # 3
+        "#FEE090",  # 4
+        "#FFFFBF",  # 5 - Centro (amarillo muy claro)
+        "#E0F3F8",  # 6
+        "#ABD9E9",  # 7
+        "#74ADD1",  # 8
+        "#4575B4",  # 9
+        "#313695",  # 10 - Ext. Derecha (azul intenso)
+        "#808080",  # 11 - NS/NC (gris neutral)
+    ]
+
+    # Orden de las categorías
+    category_order = [str(i) for i in ALL_CATEGORIES]
+
     fig = px.bar(
-        count,
-        x=x_title,
-        y="Porcentaje (%)",
+        dfcount,
+        x="valores_str",
+        y="porcentaje",
+        color="valores_str",
         title=chart_title,
-        labels={"y": "Porcentaje (%)", "x": x_title},
-        color=x_title,  # Para colorear cada barra
-        color_discrete_sequence=px.colors.diverging.RdBu,
-        height=700,
-    )
-    fig.update_traces(
-        marker_line_width=0.5,
-        marker_line_color="#232323",
-    )
-    # max_y = df_plot["Porcentaje (%)"].max()
-    # fig.update_yaxes(
-    #     range=[0, max_y * 1.1]
-    # )  # Multiplicamos por 1.1 para dar un pequeño margen
-    fig.update_layout(
-        xaxis_tickangle=-45,
-        title_font_size=20,  # Tamaño del título principal
-        font=dict(
-            size=14,  # Tamaño de la fuente para todo el gráfico
-        ),
+        color_discrete_sequence=colors,
+        category_orders={"valores_str": category_order},
+        hover_data={"etiqueta": True, "valores_str": False, "porcentaje": ":.1f"},
+        labels={"etiqueta": "Orientación", "porcentaje": "Porcentaje (%)"},
     )
 
+    # Personalizar ejes
+    fig.update_layout(
+        xaxis=dict(
+            title=x_title,
+            tickmode="array",
+            tickvals=category_order,
+            ticktext=[tag_map[i] for i in ALL_CATEGORIES],
+            showline=True,
+            showgrid=False,
+            # linecolor="#434343",
+            # linewidth=2,
+        ),
+        yaxis=dict(
+            title="Porcentaje (%)",
+            showline=True,
+            showgrid=True,
+            gridcolor="lightgray",
+            zeroline=True,
+            zerolinecolor="lightgray",
+            # linecolor="#434343",
+            # linewidth=2,
+        ),
+        font=dict(size=25),
+        showlegend=False,
+        height=500,
+        hoverlabel=dict(font_size=14),
+    )
+
+    # Mejorar las barras
+    fig.update_traces(
+        marker_line_color="#454545",
+        marker_line_width=0.4,
+        hovertemplate="<b>%{customdata[0]}</b><br>Porcentaje: %{y:.1f}%<extra></extra>",
+    )
+
+    # Añadir anotaciones de porcentaje solo si > 0
+    for i, row in dfcount.iterrows():
+        fig.add_annotation(
+            x=row["valores_str"],
+            y=row["porcentaje"] + 0.5,
+            text=f"{row['porcentaje']:.1f}%",
+            showarrow=False,
+            font=dict(size=10),
+            yshift=10,
+        )
     return fig

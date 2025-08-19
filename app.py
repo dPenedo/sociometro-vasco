@@ -1,10 +1,6 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-import geopandas as gpd
 
-# Importa tus funciones personalizadas
 from src.charts.bar import (
     create_0_to_10_percentage_bar_chart,
     create_green_red_bar_chart,
@@ -15,20 +11,13 @@ from src.charts.plotly import (
     create_all_parties_stacked_chart,
     create_0_to_10_percentage_bar_chart2,
 )
-from src.data.processing import get_count
-from src.utils import is_light
 from src.config import (
     df,
-    gdf,
     idioma_text_map,
     lickert_tag_map_5,
     lickert_tag_map_5_bastante,
-    metadata,
-    ordered_p25_list,
     p34_tag_map,
     p35_tag_map,
-    party_colors,
-    p25_tag_map,
     p32_tag_map,
     p33_tag_map,
 )
@@ -140,6 +129,7 @@ with tab1:
     )
     st.plotly_chart(fig)
 
+    st.subheader("Eje izquierda-derecha del 0 al 10")
     fig = create_0_to_10_percentage_bar_chart2(
         df_filtered,
         "p32",
@@ -149,15 +139,6 @@ with tab1:
     )
     st.plotly_chart(fig, use_container_width=True)
 
-    st.subheader("Eje izquierda-derecha del 0 al 10")
-    fig = create_0_to_10_percentage_bar_chart(
-        df_filtered,
-        "p32",
-        "Eje izquierda-derecha",
-        "Ubicación ideológica en el eje izquierda-derecha",
-        p32_tag_map,
-    )
-    show_chart(fig, n_responses)
     # Diferencias por provincia
     # TODO: argumento, single o multiple para gestionar distinto en provincias
     st.subheader("Eje de izquierda-derecha - Comparación entre provincias")
@@ -175,14 +156,14 @@ with tab1:
 with tab2:
     st.subheader("Eje nivel de sentimiento nacionalista/abertzale del 0 al 10")
     # Gráfico principal eje nacionalista/abertzale
-    fig = create_0_to_10_percentage_bar_chart(
+    fig = create_0_to_10_percentage_bar_chart2(
         df_filtered,
         "p33",
         "Nivel de sentimiento nacionalista/abertzale",
         "Menos a más sentimiento nacionalista/abertzale",
         p33_tag_map,
     )
-    show_chart(fig, n_responses)
+    st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("Sentimiento nacionalista/abertzale - Comparación entre provincias")
 
