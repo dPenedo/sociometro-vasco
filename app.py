@@ -7,7 +7,7 @@ from src.charts.bar import (
     create_spain_basque_comparation_bar_chart,
     create_provinces_distribution_bar_chart,
 )
-from src.charts.plotly import (
+from charts.bar_plotly import (
     create_all_parties_stacked_chart,
     create_0_to_10_percentage_bar_chart2,
 )

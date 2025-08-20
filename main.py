@@ -10,6 +10,7 @@ from src.charts.bar import (
     create_provinces_distribution_bar_chart,
     create_spain_basque_comparation_bar_chart,
 )
+from charts.bar_plotly import create_all_parties_stacked_chart
 from src.data.processing import get_count, get_df_of_pct
 from src.utils import is_light
 from src.config import (
@@ -37,6 +38,9 @@ len(df["p32"].unique())
 mini_df = df[(df["P02"] > 70) & (df["P0A"].isin([1, 2]))]
 len(mini_df["p32"].unique())
 
+# %%
+#
+create_all_parties_stacked_chart(df)
 
 # %%
 # Chart

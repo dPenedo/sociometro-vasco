@@ -16,6 +16,19 @@ def get_df_of_pct(df: pd.DataFrame, col1: str, col2: str) -> pd.DataFrame:
     )
 
 
+def get_pct_series(df: pd.DataFrame, col: str) -> pd.DataFrame:
+    """
+    Devuelve un DataFrame con la distribución porcentual de una sola columna.
+    """
+    return (
+        df[col]
+        .value_counts(normalize=True)
+        .mul(100)
+        .rename_axis("valores")
+        .reset_index(name="porcentaje")
+    )
+
+
 def get_count(df: pd.DataFrame, question: str, title: str):
     """
     Obtener el conteo de una pregunta

@@ -1,9 +1,7 @@
 import matplotlib.pyplot as plt
+import pandas as pd
 from src.config import ordered_p25_list, p25_question_map, p25_tag_map, provincias_map
 import numpy as np
-import plotly.colors as pc
-import plotly.express as px
-import pandas as pd
 
 from src.data.processing import get_df_of_pct
 
@@ -12,7 +10,7 @@ default_fig_size = (10, 6)
 
 
 def create_0_to_10_percentage_bar_chart(
-    df, question: str, chart_title: str, x_title: str, tag_map
+    df: pd.DataFrame, question: str, chart_title: str, x_title: str, tag_map
 ):
     """
     Generar un grafico de barras de porcentaje en base a un puntaje del 0 al 10
@@ -41,11 +39,11 @@ def create_0_to_10_percentage_bar_chart(
 
 
 def create_provinces_distribution_bar_chart(
-    df,
-    xlabel: str,
-    title: str,
+    df: pd.DataFrame,
     question: str,
+    title: str,
     tag_map,
+    xlabel: str,
 ):
     provinces_df = get_df_of_pct(df, "lurral", question)
     fig, ax = plt.subplots(figsize=default_fig_size)
@@ -71,7 +69,7 @@ def create_provinces_distribution_bar_chart(
 
 
 def create_spain_basque_comparation_bar_chart(
-    df,
+    df: pd.DataFrame,
     xlabel: str,
     title: str,
     basque_question: str,
@@ -122,7 +120,7 @@ def create_spain_basque_comparation_bar_chart(
 
 
 def create_green_red_bar_chart(
-    df, question: str, chart_title: str, x_title: str, tag_map
+    df:pd.DataFrame , question: str, chart_title: str, x_title: str, tag_map
 ):
     """
     Generar un grafico de barras de porcentaje en base a un puntaje del 0 al 10
