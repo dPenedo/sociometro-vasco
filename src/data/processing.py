@@ -1,6 +1,6 @@
 import pandas as pd
 
-from src.config import metadata
+from src.config.data import metadata
 
 
 def get_df_of_pct(df: pd.DataFrame, col1: str, col2: str) -> pd.DataFrame:

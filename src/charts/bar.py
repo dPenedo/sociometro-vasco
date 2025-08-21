@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from src.config import ordered_p25_list, p25_question_map, p25_tag_map, provincias_map
+from src.config.colors import provincias_map, parties_map_and_colors_p25
 import numpy as np
 
 from src.data.processing import get_df_of_pct
@@ -120,7 +120,7 @@ def create_spain_basque_comparation_bar_chart(
 
 
 def create_green_red_bar_chart(
-    df:pd.DataFrame , question: str, chart_title: str, x_title: str, tag_map
+    df: pd.DataFrame, question: str, chart_title: str, x_title: str, tag_map
 ):
     """
     Generar un grafico de barras de porcentaje en base a un puntaje del 0 al 10

@@ -2,23 +2,23 @@ import streamlit as st
 import matplotlib.pyplot as plt
 
 from src.charts.bar import (
-    create_0_to_10_percentage_bar_chart,
     create_green_red_bar_chart,
     create_spain_basque_comparation_bar_chart,
     create_provinces_distribution_bar_chart,
 )
-from charts.bar_plotly import (
+from src.charts.bar_plotly import (
     create_all_parties_stacked_chart,
     create_0_to_10_percentage_bar_chart2,
+    create_provinces_distribution_bar_chart2,
 )
-from src.config import (
-    df,
+from src.config.data import df
+from src.config.questions import (
     idioma_text_map,
     lickert_tag_map_5,
     lickert_tag_map_5_bastante,
+    p32_tag_map,
     p34_tag_map,
     p35_tag_map,
-    p32_tag_map,
     p33_tag_map,
 )
 
@@ -102,13 +102,11 @@ La encuesta se lleva a cabo por la lehendakaritza. Esta es su descripción en el
     tab1,
     tab2,
     tab3,
-    tab4,
 ) = st.tabs(
     [
         "Orientación política",
         "Sentimiento de identidad nacional",
         "Situación económica y política",
-        "Simpatía por partidos políticos",
     ]
 )
 
@@ -138,6 +136,16 @@ with tab1:
         p32_tag_map,
     )
     st.plotly_chart(fig, use_container_width=True)
+    st.subheader("Eje de izquierda-derecha - Comparación entre provincias")
+
+    fig = create_provinces_distribution_bar_chart2(
+        df_filtered,
+        "p32",
+        "Distribución izq-derecha por provincias",
+        p32_tag_map,
+        "Más izquierda a más derecha",
+    )
+    show_chart(fig, n_responses)
 
     # Diferencias por provincia
     # TODO: argumento, single o multiple para gestionar distinto en provincias
@@ -145,10 +153,10 @@ with tab1:
 
     fig = create_provinces_distribution_bar_chart(
         df_filtered,
-        "Más izquierda a más derecha",
-        "Distribución izq-derecha por provincias",
         "p32",
+        "Distribución izq-derecha por provincias",
         p32_tag_map,
+        "Más izquierda a más derecha",
     )
     show_chart(fig, n_responses)
 
@@ -169,10 +177,10 @@ with tab2:
 
     fig = create_provinces_distribution_bar_chart(
         df_filtered,
-        "Menos abertzale a más abertzale",
-        "Distribución sentimiento abertzale/nacionalista por provincias",
         "p33",
+        "Distribución sentimiento abertzale/nacionalista por provincias",
         p33_tag_map,
+        "Menos abertzale a más abertzale",
     )
     show_chart(fig, n_responses)
 
