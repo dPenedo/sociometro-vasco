@@ -190,7 +190,7 @@ fig, axes = plt.subplots(2, 3, figsize=(15, 10))
 axes = axes.flatten()
 
 for i, (partido, ax) in enumerate(zip(p25_list, axes)):
-    col_number = f"p250{i+1}"
+    col_number = f"p250{i + 1}"
     data = df[col_number].value_counts()
 
     data.index = data.index.map(p25_tag_map)
@@ -241,7 +241,7 @@ fig, axes = plt.subplots(2, 3, figsize=(18, 12))
 axes = axes.flatten()
 
 for i, (partido, ax) in enumerate(zip(p25_list, axes)):
-    col_number = f"p250{i+1}"
+    col_number = f"p250{i + 1}"
     data = df[col_number].value_counts(normalize=True) * 100  # Convertir a porcentaje
 
     data.index = data.index.map(p25_tag_map)

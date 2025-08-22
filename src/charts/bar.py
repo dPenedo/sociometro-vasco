@@ -68,6 +68,7 @@ def create_provinces_distribution_bar_chart(
     return fig
 
 
+# TODO:
 def create_spain_basque_comparation_bar_chart(
     df: pd.DataFrame,
     xlabel: str,
@@ -119,6 +120,7 @@ def create_spain_basque_comparation_bar_chart(
     return fig
 
 
+# TODO:
 def create_green_red_bar_chart(
     df: pd.DataFrame, question: str, chart_title: str, x_title: str, tag_map
 ):

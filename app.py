@@ -1,26 +1,29 @@
-import streamlit as st
 import matplotlib.pyplot as plt
+import pandas as pd
+import streamlit as st
 
-from src.charts.bar import (
-    create_green_red_bar_chart,
-    create_spain_basque_comparation_bar_chart,
-    create_provinces_distribution_bar_chart,
-)
 from src.charts.bar_plotly import (
-    create_all_parties_stacked_chart,
-    create_0_to_10_percentage_bar_chart2,
-    create_provinces_distribution_bar_chart2,
+    generate_all_parties_stacked_chart,
+    generate_0_to_10_bar_chart,
+    generate_provinces_distribution_bar_chart,
+    generate_spain_basque_comparation_bar_chart,
+    generate_green_red_bar_chart,
 )
 from src.config.data import df
 from src.config.questions import (
-    idioma_text_map,
     lickert_tag_map_5,
     lickert_tag_map_5_bastante,
+    sexo_map,
     p32_tag_map,
+    p33_tag_map,
     p34_tag_map,
     p35_tag_map,
-    p33_tag_map,
+    p36_grouped,
+    p37_grouped,
+    p38_map,
+    p38_order,
 )
+
 
 # Configuración de la página
 st.set_page_config(layout="wide")
@@ -28,13 +31,86 @@ st.title("Análisis del Sociómetro Vasco")
 
 st.header("Pruebas interactivas")
 
-# En el sidebar
 st.sidebar.header("Filtros Demográficos")
 
-# Filtro por idioma de la encuesta
-selected_idioma = st.sidebar.selectbox(
-    "Idioma de la encuesta", ["Todos", "Euskera", "Castellano"], index=0
+# Filtrado
+# WARN: Arreglar
+df["nivel_de_euskera"] = df["p36"].map(p36_grouped)
+df["estudios"] = df["p37"].map(p37_grouped)
+df["clase"] = pd.Categorical(df["p38"], categories=p38_order, ordered=True)
+df["clase"] = df["p38"].map(p38_map)  # Reordenado
+df["sexo"] = df["P01"].map(sexo_map)
+st.sidebar.header("Filtros Demográficos")
+
+# # Filtro por idioma de la encuesta
+# selected_idioma = st.sidebar.selectbox(
+#     "Idioma de la encuesta", ["Todos", "Euskera", "Castellano"], index=0
+# )
+
+# Filtro por sexo
+#
+selected_sex = st.sidebar.selectbox(
+    "Sexo",
+    [
+        "Todos",
+        "Hombre",
+        "Mujer",
+    ],
+    index=0,
 )
+
+# Filtro por estudios
+nivel_de_euskera = st.sidebar.multiselect(
+    "Nivel de euskera",
+    options=df["nivel_de_euskera"].dropna().unique(),
+    default=df["nivel_de_euskera"].dropna().unique().tolist(),
+)
+
+# Filtro por edad
+edad_min, edad_max = st.sidebar.slider(
+    "Rango de edad",
+    min_value=int(df["P02"].min()),
+    max_value=int(df["P02"].max()),
+    value=(18, 97),
+)
+
+# Filtro por estudios
+selected_estudios = st.sidebar.multiselect(
+    "Nivel de estudios finalizados",
+    options=df["estudios"].dropna().unique(),
+    default=df["estudios"].dropna().unique().tolist(),
+)
+
+# Filtro por clase social
+selected_clase = st.sidebar.multiselect(
+    "Clase social",
+    options=df["clase"].dropna().unique(),
+    default=df["clase"].dropna().unique().tolist(),
+)
+
+# Aplicar filtros
+df_filtered = df[
+    (df["P02"] >= edad_min)
+    & (df["P02"] <= edad_max)
+    & (df["nivel_de_euskera"].isin(nivel_de_euskera))
+    & (df["estudios"].isin(selected_estudios))
+    & (df["clase"].isin(selected_clase))
+]
+
+# Filtrar por idioma solo si no es "Todos"
+# if selected_idioma != "Todos":
+#     df_filtered = df_filtered[df_filtered["P0A"].isin(idioma_text_map[selected_idioma])]
+
+# TODO: arreglar
+# if selected_sex != "Todos":
+#     df_filtered = df_filtered[df_filtered["P01"].isin(sexo_map[selected_sex])]
+
+# TODO: añadir filtros de:
+# - Género 0 p42 / sexo P01
+#  - Euskera p36
+#  - Nivel de estudios: p37
+#  - En qué clase social se situaría p38
+#
 
 
 def show_chart(fig, n_responses, min_samples=30, min_warning=20):
@@ -50,7 +126,9 @@ def show_chart(fig, n_responses, min_samples=30, min_warning=20):
     if n_responses < min_warning:
         st.error(
             f"🚫 Solo hay {n_responses} respuestas para estos filtros. "
-            f"El gráfico no se muestra por baja representatividad (mínimo {min_warning})."
+            f"El gráfico no se muestra por baja representatividad (mínimo {
+                min_warning
+            })."
         )
         plt.close(fig)
         return
@@ -64,19 +142,6 @@ def show_chart(fig, n_responses, min_samples=30, min_warning=20):
     st.pyplot(fig)
     plt.close(fig)
 
-
-# Filtro por grupo de edad
-edad_min, edad_max = st.sidebar.slider(
-    "Rango de edad",
-    min_value=int(df["P02"].min()),
-    max_value=int(df["P02"].max()),
-    value=(18, 97),
-)
-df_filtered = df[
-    (df["P02"] >= edad_min)
-    & (df["P02"] <= edad_max)
-    & (df["P0A"].isin(idioma_text_map[selected_idioma]))
-]
 
 min_samples = 20
 n_responses = len(df_filtered)
@@ -115,20 +180,19 @@ if n_responses < 30:
     st.sidebar.warning(
         f"Filtro actual: {n_responses} respuestas."
         "\nLos gráficos que se generen tienen una baja representatividad.\n"
-        f"Solo un ({n_responses/len(df)*100:.1f}% del total)"
+        f"Solo un ({n_responses / len(df) * 100:.1f}% del total)"
     )
 
 # TAB1: Orientación política
 with tab1:
-
     st.subheader("Nivel de simpatía por partido político")
-    fig = create_all_parties_stacked_chart(
+    fig = generate_all_parties_stacked_chart(
         df_filtered,
     )
     st.plotly_chart(fig)
 
     st.subheader("Eje izquierda-derecha del 0 al 10")
-    fig = create_0_to_10_percentage_bar_chart2(
+    fig = generate_0_to_10_bar_chart(
         df_filtered,
         "p32",
         "Eje izquierda-derecha",
@@ -138,33 +202,21 @@ with tab1:
     st.plotly_chart(fig, use_container_width=True)
     st.subheader("Eje de izquierda-derecha - Comparación entre provincias")
 
-    fig = create_provinces_distribution_bar_chart2(
+    fig = generate_provinces_distribution_bar_chart(
         df_filtered,
         "p32",
         "Distribución izq-derecha por provincias",
         p32_tag_map,
         "Más izquierda a más derecha",
     )
-    show_chart(fig, n_responses)
+    st.plotly_chart(fig, use_container_width=True)
 
-    # Diferencias por provincia
-    # TODO: argumento, single o multiple para gestionar distinto en provincias
-    st.subheader("Eje de izquierda-derecha - Comparación entre provincias")
-
-    fig = create_provinces_distribution_bar_chart(
-        df_filtered,
-        "p32",
-        "Distribución izq-derecha por provincias",
-        p32_tag_map,
-        "Más izquierda a más derecha",
-    )
-    show_chart(fig, n_responses)
 
 # TAB2: Sentimiento de identidad nacional
 with tab2:
     st.subheader("Eje nivel de sentimiento nacionalista/abertzale del 0 al 10")
     # Gráfico principal eje nacionalista/abertzale
-    fig = create_0_to_10_percentage_bar_chart2(
+    fig = generate_0_to_10_bar_chart(
         df_filtered,
         "p33",
         "Nivel de sentimiento nacionalista/abertzale",
@@ -175,42 +227,42 @@ with tab2:
 
     st.subheader("Sentimiento nacionalista/abertzale - Comparación entre provincias")
 
-    fig = create_provinces_distribution_bar_chart(
+    fig = generate_provinces_distribution_bar_chart(
         df_filtered,
         "p33",
         "Distribución sentimiento abertzale/nacionalista por provincias",
         p33_tag_map,
         "Menos abertzale a más abertzale",
     )
-    show_chart(fig, n_responses)
+    st.plotly_chart(fig, use_container_width=True)
 
     # Sentimiento nacional
     st.subheader("¿Qué expresa mejor su sentimiento nacional?")
-    fig = create_green_red_bar_chart(
+    fig = generate_green_red_bar_chart(
         df_filtered,
         "p34",
         "¿Qué expresa mejor su sentimiento nacional?",
         "Ubicación en cuanto a sentimiento nacional",
         p34_tag_map,
     )
-    show_chart(fig, n_responses)
+    st.plotly_chart(fig, use_container_width=True)
 
     # Acuerdo con independencia
     st.subheader("Nivel de acuerdo con una posible independencia")
-    fig = create_green_red_bar_chart(
+    fig = generate_green_red_bar_chart(
         df_filtered,
         "p35",
         "Nivel de acuerdo con una posible independencia",
         "Acuerdo con una posible independencia",
         p35_tag_map,
     )
-    show_chart(fig, n_responses)
+    st.plotly_chart(fig, use_container_width=True)
 
 # TAB3: Situación económica y política
 with tab3:
     # Comparación situación política
     st.subheader("Comparación situación política Euskadi-España")
-    fig = create_spain_basque_comparation_bar_chart(
+    fig = generate_spain_basque_comparation_bar_chart(
         df_filtered,
         "Valoración de la situación política",
         "¿Cómo calificaría ud. la situación política de España y Euskadi? (Comparativa)",
@@ -218,11 +270,11 @@ with tab3:
         "P05",
         lickert_tag_map_5,
     )
-    show_chart(fig, n_responses)
+    st.plotly_chart(fig, use_container_width=True)
 
     # Comparación situación económica
     st.subheader("Comparación situación económica Euskadi-España")
-    fig = create_spain_basque_comparation_bar_chart(
+    fig = generate_spain_basque_comparation_bar_chart(
         df_filtered,
         "Valoración de la situación económica",
         "¿Cómo calificaría ud. la situación económica de España y Euskadi? (Comparativa)",
@@ -230,26 +282,26 @@ with tab3:
         "P07",
         lickert_tag_map_5,
     )
-    show_chart(fig, n_responses)
+    st.plotly_chart(fig, use_container_width=True)
 
     # Situación laboral personal
     st.subheader("¿Cómo califacaría su situación laboral personal?")
-    fig = create_green_red_bar_chart(
+    fig = generate_green_red_bar_chart(
         df_filtered,
         "p10",
         "¿Cómo calificaría ud. la situación laboral personal?",
         "Valoración de su situación laboral personal",
         lickert_tag_map_5_bastante,
     )
-    show_chart(fig, n_responses)
+    st.plotly_chart(fig, use_container_width=True)
 
     # Situación económica personal
     st.subheader("¿Cómo califacaría su situación económica personal?")
-    fig = create_green_red_bar_chart(
+    fig = generate_green_red_bar_chart(
         df_filtered,
         "p11",
         "¿Cómo calificaría ud. la situación económica personal?",
         "Valoración de su situación económica personal",
         lickert_tag_map_5,
     )
-    show_chart(fig, n_responses)
+    st.plotly_chart(fig, use_container_width=True)

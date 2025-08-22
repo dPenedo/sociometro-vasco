@@ -502,7 +502,7 @@
         "6": "NS-NC"
       }
     },
-    "P38_P39": {
+    "P38": {
       "texto": "¿EN QUÉ CLASE SOCIAL SE SITUARÍA UD.?",
       "opciones": {
         "1": "MEDIA-ALTA O ACOMODADA",
@@ -562,4 +562,3 @@
     }
   }
 }
-

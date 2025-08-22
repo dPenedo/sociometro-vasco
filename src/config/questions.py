@@ -13,6 +13,11 @@ p25_tag_map: dict[int, str] = {
     11: "Ns/Nc",
 }
 
+sexo_map: dict[int, str] = {
+    1: "Hombre",
+    2: "Mujer",
+}
+
 
 idioma_map: dict[int, int] = {
     1: 1,
@@ -52,14 +57,14 @@ lickert_tag_map_5: dict[int, str] = {
     2: "Buena",
     3: "Mala",
     4: "Muy mala",
-    5: "NS-NC",
+    5: "NS/NC",
 }
 lickert_tag_map_5_bastante: dict[int, str] = {
     1: "Muy buena",
     2: "Bastante buena",
     3: "Bastante mala",
     4: "Muy mala",
-    5: "NS-NC",
+    5: "NS/NC",
 }
 lickert_tag_map_6: dict[int, str] = {
     1: "Muy buena",
@@ -67,7 +72,7 @@ lickert_tag_map_6: dict[int, str] = {
     3: "Regular",
     4: "Mala",
     5: "Muy mala",
-    6: "NS-NC",
+    6: "NS/NC",
 }
 
 p32_tag_map: dict[int, str] = {
@@ -101,17 +106,74 @@ p33_tag_map: dict[int, str] = {
 }
 
 p34_tag_map: dict[int, str] = {
-    1: "ÚNICAMENTE\nVASCO/A",
-    2: "MÁS VASCO/A\nQUE ESPAÑOL/A",
-    3: "TANTO VASCO/A\nCOMO ESPAÑOL/A",
-    4: "MÁS ESPAÑOL/A\nQUE VASCO/A",
-    5: "ÚNICAMENTE\nESPAÑOL/A",
+    1: "Únicamente\nvasco/a",
+    2: "Más vasco/a\nque español/a",
+    3: "Tanto vasco/a\ncomo español/a",
+    4: "Más español/a\nque vasco/a",
+    5: "Únicamente\nespañol/a",
     6: "NS/NC",
 }
 
 p35_tag_map: dict[int, str] = {
-    1: "DE ACUERDO",
-    2: "SEGÚN LAS\n CIRCUNSTANCIAS",
-    3: "EN DESACUERDO",
-    4: "NS-NC",
+    1: "De acuerdo",
+    2: "Según las\n circunstancias",
+    3: "En desacuerdo",
+    4: "NS/NC",
+}
+
+
+# P36: Competencia en euskera
+p36_map = {
+    1: "Bien",
+    2: "Bastante bien",
+    3: "Algo",
+    4: "Sabe palabras",
+    5: "Nada",
+    6: "NS/NC",
+}
+
+# Agrupación Alto / Medio / Nulo
+p36_grouped = {
+    1: "Alto",  # Bien
+    2: "Alto",  # Bastante bien
+    3: "Medio/Bajo",  # Algo
+    4: "Medio/Bajo",  # Sabe palabras
+    5: "Nada",  # Nada
+}
+
+# P37: Nivel de estudios
+p37_map = {
+    1: "Menos que primarios",
+    2: "Primarios / ESO",
+    3: "FP Medio o Superior",
+    4: "Secundarios / Bachiller",
+    5: "Universitarios",
+    6: "NS/NC",
+}
+
+# TODO: decidir cómo agrupar
+p37_grouped = {
+    1: "Primarios",
+    2: "Primarios",
+    3: "Secundarios",
+    4: "Secundarios",
+    5: "Superiores",
+}
+
+# P38: Clase social
+p38_map = {
+    1: "Media-alta o acomodada",
+    2: "Media-media",
+    3: "Media-baja u obrera",
+}
+p38_order = ["Media-baja u obrera", "Media-media", "Media-alta o acomodada"]
+
+p39_map = {
+    1: "Católico",
+    2: "Católico",
+    3: "Musulmán/a ",
+    4: "Cristiano/a evangélico/a, protestante ",
+    5: "Creyente de otra religión ",
+    6: "Ateo/a ",
+    7: "Agnóstico/a",
 }

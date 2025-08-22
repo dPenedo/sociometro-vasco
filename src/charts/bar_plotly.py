@@ -18,7 +18,7 @@ from src.config.colors import (
 from src.data.processing import get_df_of_pct, get_pct_series
 
 
-def create_all_parties_stacked_chart(df: pd.DataFrame) -> go.Figure:
+def generate_all_parties_stacked_chart(df: pd.DataFrame) -> go.Figure:
     all_data = []
 
     for _, info in parties_map_and_colors_p25.items():
@@ -58,10 +58,9 @@ def create_all_parties_stacked_chart(df: pd.DataFrame) -> go.Figure:
     return fig
 
 
-def create_0_to_10_percentage_bar_chart2(
+def generate_0_to_10_bar_chart(
     df: pd.DataFrame, question: str, chart_title: str, x_title: str, tag_map: dict
 ) -> go.Figure:
-
     ALL_CATEGORIES: list[int] = list(range(12))
     base_df: pd.DataFrame = pd.DataFrame({"valores": ALL_CATEGORIES})
     dfcount: pd.DataFrame = get_pct_series(df, question)
@@ -114,7 +113,7 @@ def create_0_to_10_percentage_bar_chart2(
     return fig
 
 
-def create_provinces_distribution_bar_chart2(
+def generate_provinces_distribution_bar_chart(
     df: pd.DataFrame,
     question: str,
     title: str,
@@ -125,19 +124,6 @@ def create_provinces_distribution_bar_chart2(
     Crea un gráfico de barras agrupadas que muestra la distribución de
     respuestas por provincia.
     """
-    # Verificación robusta para Streamlit
-    if hasattr(tag_map, "keys"):
-        # Es un diccionario, proceder normalmente
-        all_responses = list(tag_map.keys())
-    else:
-        # No es un diccionario, intentar recuperar el verdadero tag_map
-        try:
-            from src.config.questions import p32_tag_map as real_tag_map
-
-            tag_map = real_tag_map
-            all_responses = list(tag_map.keys())
-        except ImportError:
-            raise ValueError("No se pudo obtener el tag_map correcto")
     provinces_df = get_df_of_pct(df, "lurral", question)
     # Debug: verificar el tipo de tag_map
 
@@ -226,6 +212,181 @@ def create_provinces_distribution_bar_chart2(
         hovertemplate="<b>%{customdata[1]}</b><br>Valor: %{customdata[0]}<br>Porcentaje: %{y:.1f}%<extra></extra>",
     )
 
-    fig.show()
+    return fig
+
+
+def generate_spain_basque_comparation_bar_chart(
+    df: pd.DataFrame,
+    xlabel: str,
+    title: str,
+    basque_question: str,
+    spain_question: str,
+    tag_map: dict,
+) -> go.Figure:
+    """
+    Crea un gráfico de barras comparando respuestas para España y Euskadi
+    """
+    categories = list(tag_map.keys())
+
+    spain_count = df[spain_question].value_counts(normalize=True) * 100
+    spain_count = spain_count.reindex(categories, fill_value=0)
+    basque_count = df[basque_question].value_counts(normalize=True) * 100
+    basque_count = basque_count.reindex(categories, fill_value=0)
+
+    data = []
+    for i, category in enumerate(categories):
+        data.append(
+            {
+                "Categoría": tag_map[category],
+                "Porcentaje": spain_count[category],
+                "Región": "España",
+                "Posición": i - 0.2,
+            }
+        )
+        data.append(
+            {
+                "Categoría": tag_map[category],
+                "Porcentaje": basque_count[category],
+                "Región": "Euskadi",
+                "Posición": i + 0.2,  # Desplazamiento para agrupar barras
+            }
+        )
+
+    plot_df = pd.DataFrame(data)
+
+    fig = go.Figure()
+
+    spain_df = plot_df[plot_df["Región"] == "España"]
+    fig.add_trace(
+        go.Bar(
+            x=spain_df["Categoría"],
+            y=spain_df["Porcentaje"],
+            name="España",
+            marker_color="#F4A261",
+            marker_line_color="dimgray",
+            marker_line_width=1,
+            width=0.4,
+            offset=-0.2,
+            hovertemplate="<b>España - %{x}</b><br>Porcentaje: %{y:.1f}%<extra></extra>",
+        )
+    )
+
+    basque_df = plot_df[plot_df["Región"] == "Euskadi"]
+    fig.add_trace(
+        go.Bar(
+            x=basque_df["Categoría"],
+            y=basque_df["Porcentaje"],
+            name="Euskadi",
+            marker_color="#2A9D8F",
+            marker_line_color="dimgray",
+            marker_line_width=1,
+            width=0.4,
+            offset=0.2,
+            hovertemplate="<b>Euskadi - %{x}</b><br>Porcentaje: %{y:.1f}%<extra></extra>",
+        )
+    )
+
+    fig.update_layout(
+        title=title,
+        xaxis_title=xlabel,
+        yaxis_title="Porcentaje (%)",
+        barmode="group",
+        bargap=0.15,
+        bargroupgap=0.1,
+        legend_title_text="Región",
+        showlegend=True,
+    )
+
+    fig = apply_default_layout(fig)
+
+    fig.update_xaxes(tickangle=70)
+
+    return fig
+
+
+def generate_green_red_bar_chart(
+    df: pd.DataFrame, question: str, chart_title: str, x_title: str, tag_map: dict
+) -> go.Figure:
+    """
+    Generar un gráfico de barras de porcentaje con gradiente de colores de rojo a verde
+    Incluye todas las categorías incluso si faltan en los datos, y colorea NS/NC en gris
+    """
+    # Obtener todas las categorías del tag_map
+    categories = sorted(tag_map.keys())
+
+    # Obtener los datos y reindexar para incluir todas las categorías
+    count = df[question].value_counts(normalize=True) * 100
+    count = count.reindex(categories, fill_value=0).sort_index(ascending=True)
+
+    # Crear gradiente de colores (RdYlGn)
+    n_categories = len(categories)
+    colores_gradiente = []
+
+    for i, category in enumerate(categories):
+        # Verificar si es la categoría NS/NC (normalmente la última)
+        if "NS/NC" in tag_map[category] or "ns-nc" in tag_map[category].lower():
+            colores_gradiente.insert(0, "gray")
+        else:
+            # Para el gradiente, usamos posición relativa excluyendo NS/NC
+            effective_categories = [
+                cat
+                for cat in categories
+                if "NS/NC" not in tag_map[cat] and "ns-nc" not in tag_map[cat].lower()
+            ]
+            if effective_categories:
+                pos_in_gradient = (
+                    effective_categories.index(category)
+                    / (len(effective_categories) - 1)
+                    if len(effective_categories) > 1
+                    else 0.5
+                )
+                colores_gradiente.append(
+                    px.colors.sample_colorscale("RdYlGn", pos_in_gradient)[0]
+                )
+            else:
+                colores_gradiente.append(px.colors.sample_colorscale("RdYlGn", 0.5)[0])
+
+    colores_gradiente.reverse()
+    # Crear etiquetas para el eje X
+    x_labels = [tag_map[cat] for cat in categories]
+
+    # Crear DataFrame para las etiquetas
+    plot_df = pd.DataFrame(
+        {
+            "categoria": x_labels,
+            "porcentaje": count.values,
+            "valor_original": categories,
+        }
+    )
+
+    # Crear el gráfico
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Bar(
+            x=x_labels,
+            y=count.values,
+            marker_color=colores_gradiente,
+            marker_line_color="dimgray",
+            marker_line_width=1,
+            hovertemplate="<b>%{x}</b><br>Porcentaje: %{y:.1f}%<extra></extra>",
+            # text=count.round(1).astype(str) + " %",
+            textposition="auto",
+        )
+    )
+
+    # Configurar layout
+    fig.update_layout(
+        title=chart_title,
+        xaxis_title=x_title,
+        yaxis_title="Porcentaje (%)",
+        showlegend=False,
+    )
+
+    # Aplicar el layout por defecto
+    fig = apply_default_layout(fig)
+
+    # # Añadir etiquetas en las barras
+    add_bar_labels(fig, plot_df, "categoria", "porcentaje")
 
     return fig
