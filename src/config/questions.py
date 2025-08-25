@@ -138,7 +138,7 @@ p36_grouped = {
     2: "Alto",  # Bastante bien
     3: "Medio/Bajo",  # Algo
     4: "Medio/Bajo",  # Sabe palabras
-    5: "Nada",  # Nada
+    5: "Ninguno",  # Nada
 }
 
 # P37: Nivel de estudios
@@ -153,18 +153,18 @@ p37_map = {
 
 # TODO: decidir cómo agrupar
 p37_grouped = {
-    1: "Primarios",
+    1: "Ninguno",  # TODO: comprobar
     2: "Primarios",
     3: "Secundarios",
     4: "Secundarios",
     5: "Superiores",
 }
 
-# P38: Clase social
+# P38: Clase social. Quitado "acomodado"
 p38_map = {
-    1: "Media-alta o acomodada",
+    1: "Media-alta",
     2: "Media-media",
-    3: "Media-baja u obrera",
+    3: "Media-baja",
 }
 p38_order = ["Media-baja u obrera", "Media-media", "Media-alta o acomodada"]
 

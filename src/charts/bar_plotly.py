@@ -3,7 +3,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
 
-from src.charts.helpers import add_bar_labels
+from src.charts.helpers import add_bar_labels, generate_hovertemplate
 from src.charts.layouts import apply_default_layout, get_color_map_from_scale
 from src.config.questions import (
     p25_tag_map,
@@ -15,23 +15,26 @@ from src.config.colors import (
     provincias_map,
     red_blue_color_list,
 )
-from src.data.processing import get_df_of_pct, get_pct_series
+from src.data.processing import get_df_of_pct, get_counts_and_percents
 
 
 def generate_all_parties_stacked_chart(df: pd.DataFrame) -> go.Figure:
     all_data = []
 
     for _, info in parties_map_and_colors_p25.items():
-        percent_series = (
-            df[info["question"]].map(p25_tag_map).value_counts(normalize=True) * 100
-        ).reindex(ordered_p25_list, fill_value=0)
+        counts_df = get_counts_and_percents(
+            df[info["question"]].map(p25_tag_map),
+            ordered_categories=ordered_p25_list,
+            label_col="valor",
+        )
 
-        for valor, porcentaje in percent_series.items():
+        for _, row in counts_df.iterrows():
             all_data.append(
                 {
                     "partido": info["name"],
-                    "valor": valor,
-                    "porcentaje": porcentaje,
+                    "valor": row["valor"],
+                    "conteo": row["conteo"],
+                    "porcentaje": row["porcentaje"],
                     "party_color": info["color"],
                 }
             )
@@ -40,6 +43,7 @@ def generate_all_parties_stacked_chart(df: pd.DataFrame) -> go.Figure:
 
     color_map = get_color_map_from_scale(ordered_p25_list)
     ordered_parties = [info["name"] for info in parties_map_and_colors_p25.values()]
+
     fig: go.Figure = px.bar(
         plot_df,
         x="porcentaje",
@@ -49,12 +53,17 @@ def generate_all_parties_stacked_chart(df: pd.DataFrame) -> go.Figure:
         color_discrete_map=color_map,
         orientation="h",
         text=plot_df["porcentaje"].round(1).astype(str) + " %",
-        labels={"valor": "Puntaje", "porcentaje": "Menor a mayor simpatía"},
+        labels={"valor": "Respuesta", "porcentaje": "Simpatía (%)"},
         category_orders={"partido": ordered_parties},
+        custom_data=["valor", "conteo", "porcentaje"],
+    )
+
+    fig.update_traces(
+        marker_line_color="#454545",
+        hovertemplate=generate_hovertemplate(show_y_as_name=True),
     )
 
     fig = apply_default_layout(fig, {"barmode": "stack"})
-
     return fig
 
 
@@ -62,24 +71,25 @@ def generate_0_to_10_bar_chart(
     df: pd.DataFrame, question: str, chart_title: str, x_title: str, tag_map: dict
 ) -> go.Figure:
     ALL_CATEGORIES: list[int] = list(range(12))
-    base_df: pd.DataFrame = pd.DataFrame({"valores": ALL_CATEGORIES})
-    dfcount: pd.DataFrame = get_pct_series(df, question)
-    dfcount = base_df.merge(dfcount, on="valores", how="left").fillna(0)
-    dfcount["valores_str"] = dfcount["valores"].astype(str)
-    dfcount["etiqueta"] = dfcount["valores"].map(tag_map)
+    counts_df = get_counts_and_percents(
+        df[question], ordered_categories=ALL_CATEGORIES, label_col="valores"
+    )
+
+    counts_df["valores_str"] = counts_df["valores"].astype(str)
+    counts_df["etiqueta"] = counts_df["valores"].map(tag_map)
 
     category_order = [str(i) for i in ALL_CATEGORIES]
 
     fig: go.Figure = px.bar(
-        data_frame=dfcount,
+        data_frame=counts_df,
         x="valores_str",
         y="porcentaje",
         color="valores_str",
         title=chart_title,
         color_discrete_sequence=red_blue_color_list,
         category_orders={"valores_str": category_order},
-        hover_data={"etiqueta": True, "valores_str": False, "porcentaje": ":.1f"},
         labels={"etiqueta": "Orientación", "porcentaje": "Porcentaje (%)"},
+        custom_data=["etiqueta", "conteo", "porcentaje"],
     )
 
     fig.update_layout(
@@ -105,11 +115,10 @@ def generate_0_to_10_bar_chart(
     fig = apply_default_layout(fig)
     fig.update_traces(
         marker_line_color="#454545",
-        marker_line_width=0.4,
-        hovertemplate="<b>%{customdata[0]}</b><br>Porcentaje: %{y:.1f}%<extra></extra>",
+        hovertemplate=generate_hovertemplate(show_y_as_name=False),
     )
 
-    add_bar_labels(fig, dfcount, "valores_str", "porcentaje")
+    add_bar_labels(fig, counts_df, "valores_str", "porcentaje")
     return fig
 
 
@@ -124,44 +133,38 @@ def generate_provinces_distribution_bar_chart(
     Crea un gráfico de barras agrupadas que muestra la distribución de
     respuestas por provincia.
     """
-    provinces_df = get_df_of_pct(df, "lurral", question)
-    # Debug: verificar el tipo de tag_map
-
-    # Iterar sobre el índice multi-nivel
     data = []
-    for idx, row in provinces_df.iterrows():
-        provincia = idx[0]  # Tomamos el primer valor que es la provincia real
 
-        # Iterar sobre cada respuesta (columna)
-        for respuesta, porcentaje in row.items():
+    for provincia in df["lurral"].unique():
+        provincia_df = df[df["lurral"] == provincia]
+
+        # Usar get_counts_and_percents para cada provincia
+        counts_df = get_counts_and_percents(
+            provincia_df[question],
+            ordered_categories=list(tag_map.keys()),
+            label_col="Respuesta",
+        )
+
+        for _, row in counts_df.iterrows():
             data.append(
-                {"lurral": provincia, "Respuesta": respuesta, "Porcentaje": porcentaje}
+                {
+                    "lurral": provincia,
+                    "Respuesta": row["Respuesta"],
+                    "Porcentaje": row["porcentaje"],
+                    "conteo": row["conteo"],
+                }
             )
 
     provinces_df_long = pd.DataFrame(data)
 
-    all_provinces = provinces_df_long["lurral"].unique()
-    all_responses = list(tag_map.keys())
-
-    # Crear un MultiIndex con todas las combinaciones
-    multi_index = pd.MultiIndex.from_product(
-        [all_provinces, all_responses], names=["lurral", "Respuesta"]
-    )
-
-    # Reindexar para incluir todas las combinaciones, llenando con 0 los valores faltantes
-    provinces_df_long = provinces_df_long.set_index(["lurral", "Respuesta"])
-    provinces_df_long = provinces_df_long.reindex(
-        multi_index, fill_value=0
-    ).reset_index()
-
     provinces_df_long["Provincia"] = provinces_df_long["lurral"].map(
         lambda x: provincias_map[x]["name"]
     )
-    color_map = {prov["name"]: prov["color"] for prov in provincias_map.values()}
-
     provinces_df_long["Respuesta_Etiqueta"] = provinces_df_long["Respuesta"].map(
         tag_map
     )
+
+    color_map = {prov["name"]: prov["color"] for prov in provincias_map.values()}
 
     ordered_labels = [tag_map[i] for i in sorted(tag_map.keys())]
     category_order = [str(i) for i in sorted(tag_map.keys())]
@@ -176,11 +179,13 @@ def generate_provinces_distribution_bar_chart(
         labels={"Porcentaje": "Porcentaje (%)"},
         color_discrete_map=color_map,
         category_orders={"Respuesta": category_order},
+        custom_data=["Respuesta_Etiqueta", "conteo", "Porcentaje", "Provincia"],
         hover_data={
             "Respuesta_Etiqueta": True,
             "Respuesta": False,
             "Porcentaje": ":.1f",
             "Provincia": True,
+            "lurral": False,
         },
     )
 
@@ -209,7 +214,7 @@ def generate_provinces_distribution_bar_chart(
     fig.update_traces(
         marker_line_color="#454545",
         marker_line_width=0.4,
-        hovertemplate="<b>%{customdata[1]}</b><br>Valor: %{customdata[0]}<br>Porcentaje: %{y:.1f}%<extra></extra>",
+        hovertemplate=generate_hovertemplate(show_y_as_name=False),
     )
 
     return fig
@@ -228,61 +233,71 @@ def generate_spain_basque_comparation_bar_chart(
     """
     categories = list(tag_map.keys())
 
-    spain_count = df[spain_question].value_counts(normalize=True) * 100
-    spain_count = spain_count.reindex(categories, fill_value=0)
-    basque_count = df[basque_question].value_counts(normalize=True) * 100
-    basque_count = basque_count.reindex(categories, fill_value=0)
+    # Usar get_counts_and_percents para ambas preguntas
+    spain_df = get_counts_and_percents(
+        df[spain_question],
+        ordered_categories=categories,
+        label_col="Categoría_original",
+    )
+    spain_df["Región"] = "España"
+    spain_df["Categoría"] = spain_df["Categoría_original"].map(tag_map)
 
-    data = []
-    for i, category in enumerate(categories):
-        data.append(
-            {
-                "Categoría": tag_map[category],
-                "Porcentaje": spain_count[category],
-                "Región": "España",
-                "Posición": i - 0.2,
-            }
-        )
-        data.append(
-            {
-                "Categoría": tag_map[category],
-                "Porcentaje": basque_count[category],
-                "Región": "Euskadi",
-                "Posición": i + 0.2,  # Desplazamiento para agrupar barras
-            }
-        )
+    basque_df = get_counts_and_percents(
+        df[basque_question],
+        ordered_categories=categories,
+        label_col="Categoría_original",
+    )
+    basque_df["Región"] = "Euskadi"
+    basque_df["Categoría"] = basque_df["Categoría_original"].map(tag_map)
 
-    plot_df = pd.DataFrame(data)
+    # Combinar ambos DataFrames
+    plot_df = pd.concat([spain_df, basque_df], ignore_index=True)
 
     fig = go.Figure()
 
-    spain_df = plot_df[plot_df["Región"] == "España"]
+    # Traza para España
+    spain_data = plot_df[plot_df["Región"] == "España"]
     fig.add_trace(
         go.Bar(
-            x=spain_df["Categoría"],
-            y=spain_df["Porcentaje"],
+            x=spain_data["Categoría"],
+            y=spain_data["porcentaje"],
             name="España",
             marker_color="#F4A261",
             marker_line_color="dimgray",
             marker_line_width=1,
             width=0.4,
             offset=-0.2,
-            hovertemplate="<b>España - %{x}</b><br>Porcentaje: %{y:.1f}%<extra></extra>",
+            customdata=np.column_stack(
+                (spain_data["conteo"], spain_data["Categoría_original"])
+            ),
+            hovertemplate=(
+                "<b>España - %{x}</b><br>"
+                "Porcentaje: %{y:.1f}%<br>"
+                "Conteo: %{customdata[0]}<extra></extra>"
+            ),
         )
     )
 
-    basque_df = plot_df[plot_df["Región"] == "Euskadi"]
+    # Traza para Euskadi
+    basque_data = plot_df[plot_df["Región"] == "Euskadi"]
     fig.add_trace(
         go.Bar(
-            x=basque_df["Categoría"],
-            y=basque_df["Porcentaje"],
+            x=basque_data["Categoría"],
+            y=basque_data["porcentaje"],
             name="Euskadi",
             marker_color="#2A9D8F",
             marker_line_color="dimgray",
             marker_line_width=1,
             width=0.4,
             offset=0.2,
-            hovertemplate="<b>Euskadi - %{x}</b><br>Porcentaje: %{y:.1f}%<extra></extra>",
+            customdata=np.column_stack(
+                (basque_data["conteo"], basque_data["Categoría_original"])
+            ),
+            hovertemplate=(
+                "<b>Euskadi - %{x}</b><br>"
+                "Porcentaje: %{y:.1f}%<br>"
+                "Conteo: %{customdata[0]}<extra></extra>"
+            ),
         )
     )
 
@@ -298,7 +313,6 @@ def generate_spain_basque_comparation_bar_chart(
     )
 
     fig = apply_default_layout(fig)
-
     fig.update_xaxes(tickangle=70)
 
     return fig
@@ -314,16 +328,19 @@ def generate_green_red_bar_chart(
     # Obtener todas las categorías del tag_map
     categories = sorted(tag_map.keys())
 
-    # Obtener los datos y reindexar para incluir todas las categorías
-    count = df[question].value_counts(normalize=True) * 100
-    count = count.reindex(categories, fill_value=0).sort_index(ascending=True)
+    # Usar get_counts_and_percents
+    counts_df = get_counts_and_percents(
+        df[question], ordered_categories=categories, label_col="valor_original"
+    )
+
+    # Crear etiquetas para el eje X
+    counts_df["categoria"] = counts_df["valor_original"].map(tag_map)
 
     # Crear gradiente de colores (RdYlGn)
-    n_categories = len(categories)
     colores_gradiente = []
 
-    for i, category in enumerate(categories):
-        # Verificar si es la categoría NS/NC (normalmente la última)
+    for category in categories:
+        # Verificar si es la categoría NS/NC
         if "NS/NC" in tag_map[category] or "ns-nc" in tag_map[category].lower():
             colores_gradiente.insert(0, "gray")
         else:
@@ -347,30 +364,25 @@ def generate_green_red_bar_chart(
                 colores_gradiente.append(px.colors.sample_colorscale("RdYlGn", 0.5)[0])
 
     colores_gradiente.reverse()
-    # Crear etiquetas para el eje X
-    x_labels = [tag_map[cat] for cat in categories]
-
-    # Crear DataFrame para las etiquetas
-    plot_df = pd.DataFrame(
-        {
-            "categoria": x_labels,
-            "porcentaje": count.values,
-            "valor_original": categories,
-        }
-    )
 
     # Crear el gráfico
     fig = go.Figure()
 
     fig.add_trace(
         go.Bar(
-            x=x_labels,
-            y=count.values,
+            x=counts_df["categoria"],
+            y=counts_df["porcentaje"],
             marker_color=colores_gradiente,
             marker_line_color="dimgray",
             marker_line_width=1,
-            hovertemplate="<b>%{x}</b><br>Porcentaje: %{y:.1f}%<extra></extra>",
-            # text=count.round(1).astype(str) + " %",
+            customdata=np.column_stack(
+                (counts_df["conteo"], counts_df["valor_original"])
+            ),
+            hovertemplate=(
+                "<b>%{x}</b><br>"
+                "Porcentaje: %{y:.1f}%<br>"
+                "Conteo: %{customdata[0]}<extra></extra>"
+            ),
             textposition="auto",
         )
     )
@@ -386,7 +398,7 @@ def generate_green_red_bar_chart(
     # Aplicar el layout por defecto
     fig = apply_default_layout(fig)
 
-    # # Añadir etiquetas en las barras
-    add_bar_labels(fig, plot_df, "categoria", "porcentaje")
+    # Añadir etiquetas en las barras
+    add_bar_labels(fig, counts_df, "categoria", "porcentaje")
 
     return fig

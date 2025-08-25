@@ -59,6 +59,8 @@ selected_sex = st.sidebar.selectbox(
     index=0,
 )
 
+print("selected_sex => ", selected_sex)
+
 # Filtro por estudios
 nivel_de_euskera = st.sidebar.multiselect(
     "Nivel de euskera",
@@ -75,6 +77,7 @@ edad_min, edad_max = st.sidebar.slider(
 )
 
 # Filtro por estudios
+# TODO: añadir Ninguno
 selected_estudios = st.sidebar.multiselect(
     "Nivel de estudios finalizados",
     options=df["estudios"].dropna().unique(),
@@ -83,7 +86,7 @@ selected_estudios = st.sidebar.multiselect(
 
 # Filtro por clase social
 selected_clase = st.sidebar.multiselect(
-    "Clase social",
+    "Clase social autopercibida",
     options=df["clase"].dropna().unique(),
     default=df["clase"].dropna().unique().tolist(),
 )
@@ -102,8 +105,8 @@ df_filtered = df[
 #     df_filtered = df_filtered[df_filtered["P0A"].isin(idioma_text_map[selected_idioma])]
 
 # TODO: arreglar
-# if selected_sex != "Todos":
-#     df_filtered = df_filtered[df_filtered["P01"].isin(sexo_map[selected_sex])]
+if selected_sex != "Todos":
+    df_filtered = df_filtered[df_filtered["P01"].isin(sexo_map[selected_sex])]
 
 # TODO: añadir filtros de:
 # - Género 0 p42 / sexo P01
