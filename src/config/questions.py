@@ -144,11 +144,7 @@ p36_grouped = {
     6: "NS/NC",
 }
 
-p36_order = [
-    "Ninguno",
-    "Medio/Bajo",
-    "Alto",
-]
+p36_order = ["Ninguno", "Medio/Bajo", "Alto", "NS/NC"]
 # P37: Nivel de estudios
 p37_map = {
     1: "Menos que primarios",
@@ -159,7 +155,6 @@ p37_map = {
     6: "NS/NC",
 }
 
-# TODO: decidir cómo agrupar
 p37_grouped = {
     1: "Ninguno",  # TODO: comprobar
     2: "Primarios",
@@ -168,12 +163,7 @@ p37_grouped = {
     5: "Superiores",
     6: "NS/NC",
 }
-p37_order = [
-    "Ninguno",
-    "Primarios",
-    "Secundarios",
-    "Superiores",
-]
+p37_order = ["Ninguno", "Primarios", "Secundarios", "Superiores", "NS/NC"]
 
 
 # P38: Clase social
@@ -183,7 +173,7 @@ p38_map = {
     3: "Media-baja",
     4: "NS/NC",
 }
-p38_order = ["Media-baja", "Media-media", "Media-alta"]
+p38_order = ["Media-baja", "Media-media", "Media-alta", "NS/NC"]
 
 p39_map = {
     1: "Católico",
