@@ -1,4 +1,6 @@
-p25_tag_map: dict[int, str] = {
+from typing import Dict, List
+
+p25_tag_map: Dict[int, str] = {
     0: "0 - Ninguna simpatía",
     1: "1",
     2: "2",
@@ -13,30 +15,30 @@ p25_tag_map: dict[int, str] = {
     11: "Ns/Nc",
 }
 
-sexo_map: dict[int, str] = {
+sexo_map: Dict[int, str] = {
     1: "Hombre",
     2: "Mujer",
 }
 
 
-idioma_map: dict[int, int] = {
+idioma_map: Dict[int, int] = {
     1: 1,
     2: 1,
     3: 2,
 }
 
-idioma_text_map: dict[str, list[int]] = {
+idioma_text_map: Dict[str, List[int]] = {
     "Todos": [1, 2, 3],
     "Euskera": [1, 2],
     "Castellano": [3],
 }
 
-sexo_map: dict[int, str] = {
+sexo_map: Dict[int, str] = {
     1: "Hombre",
     2: "Mujer",
 }
 
-ordered_p25_list: list[str] = [
+ordered_p25_list: List[str] = [
     "0 - Ninguna simpatía",
     "1",
     "2",
@@ -52,21 +54,21 @@ ordered_p25_list: list[str] = [
 ]
 
 
-lickert_tag_map_5: dict[int, str] = {
+lickert_tag_map_5: Dict[int, str] = {
     1: "Muy buena",
     2: "Buena",
     3: "Mala",
     4: "Muy mala",
     5: "NS/NC",
 }
-lickert_tag_map_5_bastante: dict[int, str] = {
+lickert_tag_map_5_bastante: Dict[int, str] = {
     1: "Muy buena",
     2: "Bastante buena",
     3: "Bastante mala",
     4: "Muy mala",
     5: "NS/NC",
 }
-lickert_tag_map_6: dict[int, str] = {
+lickert_tag_map_6: Dict[int, str] = {
     1: "Muy buena",
     2: "Buena",
     3: "Regular",
@@ -75,7 +77,7 @@ lickert_tag_map_6: dict[int, str] = {
     6: "NS/NC",
 }
 
-p32_tag_map: dict[int, str] = {
+p32_tag_map: Dict[int, str] = {
     0: "0\nExt. Izquierda",
     1: "1",
     2: "2",
@@ -90,7 +92,7 @@ p32_tag_map: dict[int, str] = {
     11: "NS/NC",
 }
 
-p33_tag_map: dict[int, str] = {
+p33_tag_map: Dict[int, str] = {
     0: "0\nNada abertzale",
     1: "1",
     2: "2",
@@ -105,7 +107,7 @@ p33_tag_map: dict[int, str] = {
     11: "NS/NC",
 }
 
-p34_tag_map: dict[int, str] = {
+p34_tag_map: Dict[int, str] = {
     1: "Únicamente\nvasco/a",
     2: "Más vasco/a\nque español/a",
     3: "Tanto vasco/a\ncomo español/a",
@@ -114,7 +116,7 @@ p34_tag_map: dict[int, str] = {
     6: "NS/NC",
 }
 
-p35_tag_map: dict[int, str] = {
+p35_tag_map: Dict[int, str] = {
     1: "De acuerdo",
     2: "Según las\n circunstancias",
     3: "En desacuerdo",
@@ -139,8 +141,14 @@ p36_grouped = {
     3: "Medio/Bajo",  # Algo
     4: "Medio/Bajo",  # Sabe palabras
     5: "Ninguno",  # Nada
+    6: "NS/NC",
 }
 
+p36_order = [
+    "Ninguno",
+    "Medio/Bajo",
+    "Alto",
+]
 # P37: Nivel de estudios
 p37_map = {
     1: "Menos que primarios",
@@ -158,15 +166,24 @@ p37_grouped = {
     3: "Secundarios",
     4: "Secundarios",
     5: "Superiores",
+    6: "NS/NC",
 }
+p37_order = [
+    "Ninguno",
+    "Primarios",
+    "Secundarios",
+    "Superiores",
+]
 
-# P38: Clase social. Quitado "acomodado"
+
+# P38: Clase social
 p38_map = {
     1: "Media-alta",
     2: "Media-media",
     3: "Media-baja",
+    4: "NS/NC",
 }
-p38_order = ["Media-baja u obrera", "Media-media", "Media-alta o acomodada"]
+p38_order = ["Media-baja", "Media-media", "Media-alta"]
 
 p39_map = {
     1: "Católico",

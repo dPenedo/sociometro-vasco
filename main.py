@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import colors
 import geopandas as gpd
-from src.charts.bar import (
+from src.charts.bar_plotly import (
     create_0_to_10_percentage_bar_chart,
     create_green_red_bar_chart,
     create_provinces_distribution_bar_chart,
@@ -13,19 +13,23 @@ from src.charts.bar import (
 from charts.bar_plotly import create_all_parties_stacked_chart
 from src.data.processing import get_count, get_df_of_pct
 from src.utils import is_light
-from src.config import (
+from src.config.data import (
     df,
     gdf,
+    metadata,
+)
+from src.config.questions import (
     lickert_tag_map_5,
     lickert_tag_map_5_bastante,
-    metadata,
     ordered_p25_list,
     p34_tag_map,
     p35_tag_map,
-    party_colors,
     p25_tag_map,
     p32_tag_map,
     p33_tag_map,
+)
+from src.config.colors import (
+    party_colors,
     provincias_map,
 )
 
