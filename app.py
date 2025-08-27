@@ -18,6 +18,9 @@ from src.data.processing import (
     get_filter_options,
     get_processed_dataframe_for_streamlit,
 )
+
+from src.utils import sort_by_order
+
 from src.config.questions import (
     sexo_map,
     p36_grouped,
@@ -41,17 +44,25 @@ df_processed: pd.DataFrame = get_processed_dataframe_for_streamlit(
     p38_order=p38_order,
     sexo_map=sexo_map,
 )
-print("df_processed => ", df_processed.describe())
 filter_options = get_filter_options(df_processed)
+
+filter_options["euskera_options"] = sort_by_order(
+    filter_options["euskera_options"], p36_order
+)
+filter_options["estudios_options"] = sort_by_order(
+    filter_options["estudios_options"], p37_order
+)
+filter_options["clase_options"] = sort_by_order(
+    filter_options["clase_options"], p38_order
+)
+
 filter_values = render_filters_sidebar(
     euskera_options=filter_options["euskera_options"],
     edad_range=filter_options["edad_range"],
     estudios_options=filter_options["estudios_options"],
     clase_options=filter_options["clase_options"],
 )
-print("filter_values => ", filter_values)
 df_filtered: pd.DataFrame = apply_filters(df_processed, filter_values)
-print("df_filtered => ", df_filtered.describe())
 
 min_samples = 20
 warning_samples = 30
@@ -67,25 +78,20 @@ if n_responses < min_samples:
     st.warning(
         f"⚠️ Muestra insuficiente: {n_responses} respuestas\n\n"
         f"Se requieren al menos {min_samples} respuestas para mostrar el análisis. "
+        f"La muestra actual, tras aplicar los filtros seleccionados, solo constituye un "
+        f"{n_responses / len(df_processed) * 100:.1f}% de la muestra total.\n\n"
         "Por favor, ajuste los filtros para incluir más datos."
     )
-
-    # Opcional: Mostrar estadísticas básicas del filtro actual
-    st.write("### Estadísticas del filtro actual:")
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.metric("Respuestas", n_responses)
-    with col2:
-        st.metric("Muestras faltantes para el análisis", f"{min_samples - n_responses}")
-    with col3:
-        st.metric(
-            "Porcentaje del total", f"{n_responses / len(df_processed) * 101:.1f}%"
-        )
 
 else:
     # Mostrar advertencia si la muestra es pequeña pero suficiente
     if n_responses < warning_samples:
         st.sidebar.warning(
+            f"⚠️ Muestra limitada: {n_responses} respuestas\n"
+            f"({n_responses / len(df_processed) * 100:.1f}% del total)\n"
+            "Los resultados pueden tener baja representatividad estadística."
+        )
+        st.warning(
             f"⚠️ Muestra limitada: {n_responses} respuestas\n"
             f"({n_responses / len(df_processed) * 100:.1f}% del total)\n"
             "Los resultados pueden tener baja representatividad estadística."

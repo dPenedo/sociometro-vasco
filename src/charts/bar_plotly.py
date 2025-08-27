@@ -7,7 +7,7 @@ from src.charts.helpers import add_bar_labels, generate_hovertemplate
 from src.charts.layouts import apply_default_layout, get_color_map_from_scale
 from src.config.questions import (
     p25_tag_map,
-    ordered_p25_list,
+    p25_ordered_list,
 )
 
 from src.config.colors import (
@@ -24,7 +24,7 @@ def generate_all_parties_stacked_chart(df: pd.DataFrame) -> go.Figure:
     for _, info in parties_map_and_colors_p25.items():
         counts_df = get_counts_and_percents(
             df[info["question"]].map(p25_tag_map),
-            ordered_categories=ordered_p25_list,
+            ordered_categories=p25_ordered_list,
             label_col="valor",
         )
 
@@ -41,7 +41,7 @@ def generate_all_parties_stacked_chart(df: pd.DataFrame) -> go.Figure:
 
     plot_df = pd.DataFrame(all_data)
 
-    color_map = get_color_map_from_scale(ordered_p25_list)
+    color_map = get_color_map_from_scale(p25_ordered_list)
     ordered_parties = [info["name"] for info in parties_map_and_colors_p25.values()]
 
     fig: go.Figure = px.bar(

@@ -1,8 +1,6 @@
 import pandas as pd
 from typing import Dict, Any
 
-from src.config.data import metadata
-
 
 def get_df_of_pct(df: pd.DataFrame, col1: str, col2: str) -> pd.DataFrame:
     """
@@ -67,25 +65,6 @@ def build_long_df(
         all_data.append(df_counts)
     long_df = pd.concat(all_data, ignore_index=True)
     return long_df
-
-
-def get_count(df: pd.DataFrame, question: str, title: str):
-    """
-    Obtener el conteo de una pregunta
-    """
-    question_map = metadata["preguntas"][question]["opciones"]
-    question_index_int = {int(k): v for k, v in question_map.items()}
-    count = df[question.lower()].value_counts()
-    count.index = count.index.map(question_index_int)
-    count.name = title
-    return count
-
-
-def get_question_text(question: str):
-    """
-    Obtener el texto de una pregunta
-    """
-    return metadata["preguntas"][question]["texto"]
 
 
 def get_processed_dataframe_for_streamlit(
@@ -171,34 +150,24 @@ def apply_filters(df: pd.DataFrame, filter_values: Dict[str, Any]) -> pd.DataFra
         DataFrame filtrado
     """
     df_filtered = df.copy()
-    print("df_filtered =>---------------------------------- ", len(df_filtered))
 
     if filter_values["sexo"] != "Todos":
-        print("filter_sexo => ", filter_values["sexo"])
         df_filtered = df_filtered[df_filtered["sexo"] == filter_values["sexo"]]
 
-    print("df_filtered pre edad => ", len(df_filtered))
     df_filtered = df_filtered[
         (df_filtered["P02"] >= filter_values["edad_min"])
         & (df_filtered["P02"] <= filter_values["edad_max"])
     ]
-    print("df_filtered post edad => ", len(df_filtered))
 
     if filter_values["euskera"]:
         df_filtered = df_filtered[
             df_filtered["nivel_de_euskera"].isin(filter_values["euskera"])
         ]
-        print("filter_values['euskera']", filter_values["euskera"])
-        print("df_filtered  eusk=> ", len(df_filtered))
     if filter_values["estudios"]:
-        print("filter_estudios => ", filter_values["estudios"])
         df_filtered = df_filtered[
             df_filtered["estudios"].isin(filter_values["estudios"])
         ]
-        print("df_filtered  est=> ", len(df_filtered))
     if filter_values["clase"]:
-        print("filter_clase => ", filter_values["clase"])
         df_filtered = df_filtered[df_filtered["clase"].isin(filter_values["clase"])]
-        print("df_filtered  clase=> ", len(df_filtered))
 
     return df_filtered

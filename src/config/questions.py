@@ -1,19 +1,5 @@
 from typing import Dict, List
 
-p25_tag_map: Dict[int, str] = {
-    0: "0 - Ninguna simpatía",
-    1: "1",
-    2: "2",
-    3: "3",
-    4: "4",
-    5: "5",
-    6: "6",
-    7: "7",
-    8: "8",
-    9: "9",
-    10: "10",
-    11: "Ns/Nc",
-}
 
 sexo_map: Dict[int, str] = {
     1: "Hombre",
@@ -33,12 +19,21 @@ idioma_text_map: Dict[str, List[int]] = {
     "Castellano": [3],
 }
 
-sexo_map: Dict[int, str] = {
-    1: "Hombre",
-    2: "Mujer",
+p25_tag_map: Dict[int, str] = {
+    0: "0 - Ninguna simpatía",
+    1: "1",
+    2: "2",
+    3: "3",
+    4: "4",
+    5: "5",
+    6: "6",
+    7: "7",
+    8: "8",
+    9: "9",
+    10: "10",
+    11: "Ns/Nc",
 }
-
-ordered_p25_list: List[str] = [
+p25_ordered_list: List[str] = [
     "0 - Ninguna simpatía",
     "1",
     "2",

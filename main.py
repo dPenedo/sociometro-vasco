@@ -21,7 +21,7 @@ from src.config.data import (
 from src.config.questions import (
     lickert_tag_map_5,
     lickert_tag_map_5_bastante,
-    ordered_p25_list,
+    p25_ordered_list,
     p34_tag_map,
     p35_tag_map,
     p25_tag_map,
@@ -198,7 +198,7 @@ for i, (partido, ax) in enumerate(zip(p25_list, axes)):
     data = df[col_number].value_counts()
 
     data.index = data.index.map(p25_tag_map)
-    data = data.reindex(ordered_p25_list, fill_value=0)
+    data = data.reindex(p25_ordered_list, fill_value=0)
 
     # En este caso no aplica
     data = data[data > 0]
@@ -211,7 +211,7 @@ for i, (partido, ax) in enumerate(zip(p25_list, axes)):
     colors.insert(11, "grey")
 
     # Creamos el mapeo de colores
-    color_map = {label: color for label, color in zip(ordered_p25_list, colors)}
+    color_map = {label: color for label, color in zip(p25_ordered_list, colors)}
     slice_colors = [color_map[label] for label in data.index]
 
     text_colors = ["black" if is_light(color) else "white" for color in slice_colors]
@@ -249,10 +249,10 @@ for i, (partido, ax) in enumerate(zip(p25_list, axes)):
     data = df[col_number].value_counts(normalize=True) * 100  # Convertir a porcentaje
 
     data.index = data.index.map(p25_tag_map)
-    data = data.reindex(ordered_p25_list, fill_value=0)
+    data = data.reindex(p25_ordered_list, fill_value=0)
 
     # Ordenamos los datos según la lista ordenada
-    data = data[ordered_p25_list]
+    data = data[p25_ordered_list]
 
     estilo = party_colors.get(partido, {"colormap": "Oranges", "color": "orange"})
 
