@@ -1,0 +1,69 @@
+==========================
+LICENSE - Daniel Penedo Lázaro
+==========================
+
+1. CODE LICENSE
+--------------------------
+The source code in this repository, including but not limited to files with the
+extensions .py, .js, .css, .html, .ipynb, and any other source code files,
+is licensed under the MIT License:
+
+MIT License
+
+Copyright (c) 2025 Daniel Penedo Lázaro
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+2. CONTENT LICENSE
+--------------------------
+All non-software content in this repository, including but not limited to
+static graphics, images (.png, .jpg, .svg), datasets (.csv, .json),
+and written documents (.md, .txt), is licensed under the
+Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
+
+THE GRAPHICAL AND VISUAL OUTPUT (E.G., CHARTS, PLOTS, FIGURES) GENERATED
+BY THE SOURCE CODE FROM THIS REPOSITORY IS EXPLICITLY EXCLUDED FROM THE
+CC BY-NC 4.0 LICENSE AND IS INSTEAD COVERED BY THE SAME PERMISSIVE MIT LICENSE
+AS THE CODE THAT PRODUCES IT.
+
+You are free to:
+- Share — copy and redistribute the material in any medium or format.
+- Adapt — remix, transform, and build upon the material.
+
+Under the following terms:
+- Attribution — You must give appropriate credit, provide a link to the license,
+  and indicate if changes were made.
+- NonCommercial — You may not use the material for commercial purposes.
+
+Full license details: https://creativecommons.org/licenses/by-nc/4.0/
+
+3. SPECIAL NOTE FOR THE STREAMLIT APPLICATION
+--------------------------
+The interactive web application built with Streamlit is considered source code
+and is therefore covered by the MIT License. This includes its functionality,
+layout, and any interactive elements.
+
+The data visualizations generated dynamically by the application (e.g., Plotly charts)
+are considered output of the source code and are also covered by the MIT License.
+
+Any static images or pre-generated content within the application directory
+remain under the CC BY-NC 4.0 license as specified above.
+
+--------------------------
+© 2025 Daniel Penedo Lázaro
