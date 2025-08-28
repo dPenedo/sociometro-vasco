@@ -1,35 +1,37 @@
 red_blue_color_list: list[str] = [
-    "#A50026",  # 0 - Ext. Izquierda (rojo intenso)
-    "#D73027",  # 1
-    "#F46D43",  # 2
-    "#FDAE61",  # 3
-    "#FEE090",  # 4
-    "#FFFFBF",  # 5 - Centro (amarillo muy claro)
-    "#E0F3F8",  # 6
-    "#ABD9E9",  # 7
-    "#74ADD1",  # 8
-    "#4575B4",  # 9
-    "#313695",  # 10 - Ext. Derecha (azul intenso)
-    "#808080",  # 11 - NS/NC (gris neutral)
+    "#800000",  # 0 - Rojo oscuro
+    "#701010",  # 1 - Rojo oscuro
+    "#9D1F1F",  # 2 - Rojo intenso
+    "#C23F3F",  # 3 - Rojo medio
+    "#A14E6E",  # 4 - Rosado oscuro
+    "#864186",  # 5 - Púrpura (punto medio perfecto)
+    "#5C5D9D",  # 6 - Púrpura azulado
+    "#4A4A8B",  # 7 - Púrpura azul oscuro
+    "#3535A8",  # 8 - Azul violáceo
+    "#1F1FCD",  # 9 - Azul medio oscuro
+    "#000080",  # 10 - Azul muy oscuro
+    "#808080",  # 11 - NS/NC gris
 ]
 
 
+red_green_color_list: list[str] = [
+    "#800000",  # 0 - Rojo oscuro
+    "#9D1F1F",  # 1 - Rojo intenso
+    "#C23F3F",  # 2 - Rojo medio
+    "#D46A4C",  # 3 - Rojo anaranjado
+    "#E59459",  # 4 - Naranja
+    "#F0BD66",  # 5 - Amarillo anaranjado (punto medio)
+    "#D9D567",  # 6 - Amarillo verdoso
+    "#A8C97F",  # 7 - Verde amarillento
+    "#78BD97",  # 8 - Verde medio
+    "#4AB0AF",  # 9 - Verde azulado
+    "#00A080",  # 10 - Verde oscuro
+]
+
 provincias_map: dict[int, dict[str, str]] = {
-    1: {"name": "Araba", "color": "#A31182"},
-    2: {"name": "Bizkaia", "color": "#A71E23"},
+    1: {"name": "Araba", "color": "#3E938D"},
+    2: {"name": "Bizkaia", "color": "#FF6B6B"},
     3: {"name": "Gipuzkoa", "color": "#1772B3"},
-}
-party_colors: dict[str, dict[str, str]] = {
-    "PNV/EAJ": {"colormap": "Greens", "color": "green", "textcolor": "black"},
-    "EH BILDU": {"colormap": "PuBuGn", "color": "darkcyan", "textcolor": "black"},
-    "PARTIDO SOCIALISTA DE EUSKADI": {
-        "colormap": "Reds",
-        "color": "red",
-        "textcolor": "black",
-    },
-    "SUMAR": {"colormap": "RdPu", "color": "crimson", "textcolor": "black"},
-    "PP": {"colormap": "Blues", "color": "dodgerblue", "textcolor": "black"},
-    "VOX": {"colormap": "Greens", "color": "limegreen", "textcolor": "black"},
 }
 
 parties_map_and_colors_p25: dict[int, dict[str, str]] = {

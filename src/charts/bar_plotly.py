@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import numpy as np
 
 from src.charts.helpers import add_bar_labels, generate_hovertemplate
+from src.config.colors import red_green_color_list
 from src.charts.layouts import apply_default_layout, get_color_map_from_scale
 from src.config.questions import (
     p25_tag_map,
@@ -59,7 +60,6 @@ def generate_all_parties_stacked_chart(df: pd.DataFrame) -> go.Figure:
     )
 
     fig.update_traces(
-        marker_line_color="#454545",
         hovertemplate=generate_hovertemplate(show_y_as_name=True),
     )
 
@@ -114,7 +114,6 @@ def generate_0_to_10_bar_chart(
 
     fig = apply_default_layout(fig)
     fig.update_traces(
-        marker_line_color="#454545",
         hovertemplate=generate_hovertemplate(show_y_as_name=False),
     )
 
@@ -212,8 +211,6 @@ def generate_provinces_distribution_bar_chart(
 
     fig = apply_default_layout(fig)
     fig.update_traces(
-        marker_line_color="#454545",
-        marker_line_width=0.4,
         hovertemplate=generate_hovertemplate(show_y_as_name=False),
     )
 
@@ -263,8 +260,6 @@ def generate_spain_basque_comparation_bar_chart(
             y=spain_data["porcentaje"],
             name="España",
             marker_color="#F4A261",
-            marker_line_color="dimgray",
-            marker_line_width=1,
             width=0.4,
             offset=-0.2,
             customdata=np.column_stack(
@@ -286,8 +281,6 @@ def generate_spain_basque_comparation_bar_chart(
             y=basque_data["porcentaje"],
             name="Euskadi",
             marker_color="#2A9D8F",
-            marker_line_color="dimgray",
-            marker_line_width=1,
             width=0.4,
             offset=0.2,
             customdata=np.column_stack(
@@ -336,7 +329,6 @@ def generate_green_red_bar_chart(
     # Crear etiquetas para el eje X
     counts_df["categoria"] = counts_df["valor_original"].map(tag_map)
 
-    # Crear gradiente de colores (RdYlGn)
     colores_gradiente = []
 
     for category in categories:
@@ -358,10 +350,14 @@ def generate_green_red_bar_chart(
                     else 0.5
                 )
                 colores_gradiente.append(
-                    px.colors.sample_colorscale("RdYlGn", pos_in_gradient)[0]
+                    px.colors.sample_colorscale(red_green_color_list, pos_in_gradient)[
+                        0
+                    ]
                 )
             else:
-                colores_gradiente.append(px.colors.sample_colorscale("RdYlGn", 0.5)[0])
+                colores_gradiente.append(
+                    px.colors.sample_colorscale(red_green_color_list, 0.5)[0]
+                )
 
     colores_gradiente.reverse()
 
@@ -373,8 +369,6 @@ def generate_green_red_bar_chart(
             x=counts_df["categoria"],
             y=counts_df["porcentaje"],
             marker_color=colores_gradiente,
-            marker_line_color="dimgray",
-            marker_line_width=1,
             customdata=np.column_stack(
                 (counts_df["conteo"], counts_df["valor_original"])
             ),

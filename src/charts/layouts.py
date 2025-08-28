@@ -1,4 +1,5 @@
 import plotly.colors as pc
+from src.config.colors import red_green_color_list
 
 
 default_layout = dict(
@@ -17,7 +18,11 @@ def apply_default_layout(fig, custom_layout=None):
     return fig
 
 
-def get_color_map_from_scale(categories, scale="RdYlGn", special_label="Ns/Nc"):
+def get_color_map_from_scale(
+    categories, scale=red_green_color_list, special_label="Ns/Nc"
+):
+    print("type of scale => ", type(scale))
+
     numeric_values = [v for v in categories if v != special_label]
     colors = pc.sample_colorscale(scale, len(numeric_values))
     color_map = {v: colors[i] for i, v in enumerate(numeric_values)}
