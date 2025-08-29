@@ -31,7 +31,7 @@ from src.config.questions import (
     p38_order,
 )
 
-st.set_page_config(layout="wide")
+st.set_page_config(page_title="dPenedo - Sociómetro vasco", layout="wide")
 st.title("Análisis del Sociómetro Vasco")
 
 df_processed: pd.DataFrame = get_processed_dataframe_for_streamlit(

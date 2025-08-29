@@ -21,11 +21,6 @@ def render_filters_sidebar(
         ],
         index=0,
     )
-    selected_euskera = st.sidebar.multiselect(
-        "Nivel de euskera",
-        options=euskera_options,
-        default=euskera_options,
-    )
 
     # Filtro por edad
     selected_edad_min, selected_edad_max = st.sidebar.slider(
@@ -49,6 +44,11 @@ def render_filters_sidebar(
         default=clase_options,
     )
 
+    selected_euskera = st.sidebar.multiselect(
+        "Nivel de euskera",
+        options=euskera_options,
+        default=euskera_options,
+    )
     return {
         "sexo": selected_sex,
         "euskera": selected_euskera,

@@ -54,16 +54,31 @@ def generate_all_parties_stacked_chart(df: pd.DataFrame) -> go.Figure:
         color_discrete_map=color_map,
         orientation="h",
         text=plot_df["porcentaje"].round(1).astype(str) + " %",
-        labels={"valor": "Respuesta", "porcentaje": "Simpatía (%)"},
+        labels={
+            "valor": "Respuesta",
+            "porcentaje": "Simpatía (%)",
+            "partido": "Partido",
+        },
         category_orders={"partido": ordered_parties},
         custom_data=["valor", "conteo", "porcentaje"],
     )
-
     fig.update_traces(
         hovertemplate=generate_hovertemplate(show_y_as_name=True),
     )
 
-    fig = apply_default_layout(fig, {"barmode": "stack"})
+    fig.update_yaxes(title_text="", automargin=True)  # quita el título del eje y
+    fig = apply_default_layout(fig)
+
+    fig.update_layout(
+        legend=dict(
+            orientation="h",  # horizontal
+            yanchor="top",
+            y=-0.15,  # un poco debajo del gráfico
+            xanchor="center",
+            x=0.5,
+            font=dict(size=10),
+        )
+    )
     return fig
 
 
@@ -214,6 +229,16 @@ def generate_provinces_distribution_bar_chart(
         hovertemplate=generate_hovertemplate(show_y_as_name=False),
     )
 
+    fig.update_layout(
+        legend=dict(
+            orientation="h",  # horizontal
+            yanchor="top",
+            y=-0.2,  # un poco debajo del gráfico
+            xanchor="center",
+            x=0.5,
+            font=dict(size=10),
+        )
+    )
     return fig
 
 
@@ -306,7 +331,7 @@ def generate_spain_basque_comparation_bar_chart(
     )
 
     fig = apply_default_layout(fig)
-    fig.update_xaxes(tickangle=70)
+    # fig.update_xaxes(tickangle=70)
 
     return fig
 

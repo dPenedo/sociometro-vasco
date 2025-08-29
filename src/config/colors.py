@@ -39,6 +39,6 @@ parties_map_and_colors_p25: dict[int, dict[str, str]] = {
     2: {"question": "p2502", "name": "EH Bildu", "color": "#006155"},
     3: {"question": "p2503", "name": "PSE-EE", "color": "#AE0A14"},
     4: {"question": "p2504", "name": "Sumar", "color": "#850F33"},
-    5: {"question": "p2505", "name": "Partido Popular", "color": "#1D3F77"},
+    5: {"question": "p2505", "name": "PP", "color": "#1D3F77"},
     6: {"question": "p2506", "name": "VOX", "color": "#486D1C"},
 }

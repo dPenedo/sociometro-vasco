@@ -16,7 +16,7 @@ def render_political_orientation_tab(df_filtered: pd.DataFrame):
     fig = generate_all_parties_stacked_chart(
         df_filtered,
     )
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("Eje izquierda-derecha del 0 al 10")
     fig = generate_0_to_10_bar_chart(

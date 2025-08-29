@@ -20,7 +20,7 @@ idioma_text_map: Dict[str, List[int]] = {
 }
 
 p25_tag_map: Dict[int, str] = {
-    0: "0 - Ninguna simpatía",
+    0: "0",
     1: "1",
     2: "2",
     3: "3",
@@ -34,7 +34,7 @@ p25_tag_map: Dict[int, str] = {
     11: "Ns/Nc",
 }
 p25_ordered_list: List[str] = [
-    "0 - Ninguna simpatía",
+    "0",
     "1",
     "2",
     "3",
@@ -119,7 +119,7 @@ p35_tag_map: Dict[int, str] = {
 }
 
 
-# P36: Competencia en euskera
+# t36: Competencia en euskera
 p36_map = {
     1: "Bien",
     2: "Bastante bien",
