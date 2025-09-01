@@ -16,10 +16,12 @@ from src.config.colors import (
     provincias_map,
     red_blue_color_list,
 )
-from src.data.processing import get_df_of_pct, get_counts_and_percents
+from src.data.processing import get_counts_and_percents
 
 
-def generate_all_parties_stacked_chart(df: pd.DataFrame) -> go.Figure:
+def generate_all_parties_stacked_chart(
+    df: pd.DataFrame, chart_title: str, percent_label: str, count_label: str
+) -> go.Figure:
     all_data = []
 
     for _, info in parties_map_and_colors_p25.items():
@@ -49,21 +51,23 @@ def generate_all_parties_stacked_chart(df: pd.DataFrame) -> go.Figure:
         plot_df,
         x="porcentaje",
         y="partido",
-        title="Distribución de simpatía por partido",
+        title=chart_title,
         color="valor",
         color_discrete_map=color_map,
         orientation="h",
         text=plot_df["porcentaje"].round(1).astype(str) + " %",
         labels={
-            "valor": "Respuesta",
-            "porcentaje": "Simpatía (%)",
+            "valor": "",
+            "porcentaje": percent_label,
             "partido": "Partido",
         },
         category_orders={"partido": ordered_parties},
         custom_data=["valor", "conteo", "porcentaje"],
     )
     fig.update_traces(
-        hovertemplate=generate_hovertemplate(show_y_as_name=True),
+        hovertemplate=generate_hovertemplate(
+            percent_label=percent_label, count_label=count_label
+        )
     )
 
     fig.update_yaxes(title_text="", automargin=True)  # quita el título del eje y
@@ -83,7 +87,13 @@ def generate_all_parties_stacked_chart(df: pd.DataFrame) -> go.Figure:
 
 
 def generate_0_to_10_bar_chart(
-    df: pd.DataFrame, question: str, chart_title: str, x_title: str, tag_map: dict
+    df: pd.DataFrame,
+    question: str,
+    chart_title: str,
+    x_title: str,
+    tag_map: dict,
+    percent_label: str,
+    count_label: str,
 ) -> go.Figure:
     ALL_CATEGORIES: list[int] = list(range(12))
     counts_df = get_counts_and_percents(
@@ -103,7 +113,7 @@ def generate_0_to_10_bar_chart(
         title=chart_title,
         color_discrete_sequence=red_blue_color_list,
         category_orders={"valores_str": category_order},
-        labels={"etiqueta": "Orientación", "porcentaje": "Porcentaje (%)"},
+        labels={"etiqueta": "Orientación", "porcentaje": percent_label},
         custom_data=["etiqueta", "conteo", "porcentaje"],
     )
 
@@ -117,7 +127,7 @@ def generate_0_to_10_bar_chart(
             showgrid=False,
         ),
         yaxis=dict(
-            title="Porcentaje (%)",
+            title=percent_label,
             showline=True,
             showgrid=True,
             gridcolor="lightgray",
@@ -129,7 +139,9 @@ def generate_0_to_10_bar_chart(
 
     fig = apply_default_layout(fig)
     fig.update_traces(
-        hovertemplate=generate_hovertemplate(show_y_as_name=False),
+        hovertemplate=generate_hovertemplate(
+            percent_label=percent_label, count_label=count_label
+        )
     )
 
     add_bar_labels(fig, counts_df, "valores_str", "porcentaje")
@@ -142,6 +154,9 @@ def generate_provinces_distribution_bar_chart(
     title: str,
     tag_map: dict,
     xlabel: str,
+    percent_label: str,
+    count_label: str,
+    provinces_label: str,
 ) -> go.Figure:
     """
     Crea un gráfico de barras agrupadas que muestra la distribución de
@@ -190,7 +205,7 @@ def generate_provinces_distribution_bar_chart(
         color="Provincia",
         barmode="group",
         title=title,
-        labels={"Porcentaje": "Porcentaje (%)"},
+        labels={"Porcentaje": percent_label},
         color_discrete_map=color_map,
         category_orders={"Respuesta": category_order},
         custom_data=["Respuesta_Etiqueta", "conteo", "Porcentaje", "Provincia"],
@@ -214,19 +229,21 @@ def generate_provinces_distribution_bar_chart(
             automargin=True,
         ),
         yaxis=dict(
-            title="Porcentaje (%)",
+            title=percent_label,
             showline=True,
             showgrid=True,
             gridcolor="lightgray",
             zeroline=True,
             zerolinecolor="lightgray",
         ),
-        legend_title_text="Provincias",
+        legend_title_text=provinces_label,
     )
 
     fig = apply_default_layout(fig)
     fig.update_traces(
-        hovertemplate=generate_hovertemplate(show_y_as_name=False),
+        hovertemplate=generate_hovertemplate(
+            percent_label=percent_label, count_label=count_label
+        )
     )
 
     fig.update_layout(
@@ -249,6 +266,8 @@ def generate_spain_basque_comparation_bar_chart(
     basque_question: str,
     spain_question: str,
     tag_map: dict,
+    percent_label: str,
+    count_label: str,
 ) -> go.Figure:
     """
     Crea un gráfico de barras comparando respuestas para España y Euskadi
@@ -290,11 +309,6 @@ def generate_spain_basque_comparation_bar_chart(
             customdata=np.column_stack(
                 (spain_data["conteo"], spain_data["Categoría_original"])
             ),
-            hovertemplate=(
-                "<b>España - %{x}</b><br>"
-                "Porcentaje: %{y:.1f}%<br>"
-                "Conteo: %{customdata[0]}<extra></extra>"
-            ),
         )
     )
 
@@ -311,18 +325,13 @@ def generate_spain_basque_comparation_bar_chart(
             customdata=np.column_stack(
                 (basque_data["conteo"], basque_data["Categoría_original"])
             ),
-            hovertemplate=(
-                "<b>Euskadi - %{x}</b><br>"
-                "Porcentaje: %{y:.1f}%<br>"
-                "Conteo: %{customdata[0]}<extra></extra>"
-            ),
         )
     )
 
     fig.update_layout(
         title=title,
         xaxis_title=xlabel,
-        yaxis_title="Porcentaje (%)",
+        yaxis_title=percent_label,
         barmode="group",
         bargap=0.15,
         bargroupgap=0.1,
@@ -337,7 +346,13 @@ def generate_spain_basque_comparation_bar_chart(
 
 
 def generate_green_red_bar_chart(
-    df: pd.DataFrame, question: str, chart_title: str, x_title: str, tag_map: dict
+    df: pd.DataFrame,
+    question: str,
+    chart_title: str,
+    x_title: str,
+    tag_map: dict,
+    percent_label: str,
+    count_label: str,
 ) -> go.Figure:
     """
     Generar un gráfico de barras de porcentaje con gradiente de colores de rojo a verde
@@ -397,11 +412,6 @@ def generate_green_red_bar_chart(
             customdata=np.column_stack(
                 (counts_df["conteo"], counts_df["valor_original"])
             ),
-            hovertemplate=(
-                "<b>%{x}</b><br>"
-                "Porcentaje: %{y:.1f}%<br>"
-                "Conteo: %{customdata[0]}<extra></extra>"
-            ),
             textposition="auto",
         )
     )
@@ -410,7 +420,7 @@ def generate_green_red_bar_chart(
     fig.update_layout(
         title=chart_title,
         xaxis_title=x_title,
-        yaxis_title="Porcentaje (%)",
+        yaxis_title=percent_label,
         showlegend=False,
     )
 

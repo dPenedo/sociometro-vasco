@@ -11,10 +11,13 @@ from src.config.questions import (
     lickert_tag_map_5_bastante,
 )
 
+from src.translate import get_translations
+
 
 def render_situacion_economica_y_politica_tab(df_filtered: pd.DataFrame):
     """Renderiza el tab3 situacion economica y politica"""
     # Comparación situación política
+    t = get_translations()
     st.subheader("Comparación situación política Euskadi-España")
     fig = generate_spain_basque_comparation_bar_chart(
         df_filtered,
@@ -23,6 +26,8 @@ def render_situacion_economica_y_politica_tab(df_filtered: pd.DataFrame):
         "P04",
         "P05",
         lickert_tag_map_5,
+        percent_label=t["chart_percent_label"],
+        count_label=t["chart_count_label"],
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -35,6 +40,8 @@ def render_situacion_economica_y_politica_tab(df_filtered: pd.DataFrame):
         "P06",
         "P07",
         lickert_tag_map_5,
+        percent_label=t["chart_percent_label"],
+        count_label=t["chart_count_label"],
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -46,6 +53,8 @@ def render_situacion_economica_y_politica_tab(df_filtered: pd.DataFrame):
         "¿Cómo calificaría ud. la situación laboral personal?",
         "Valoración de su situación laboral personal",
         lickert_tag_map_5_bastante,
+        percent_label=t["chart_percent_label"],
+        count_label=t["chart_count_label"],
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -57,5 +66,7 @@ def render_situacion_economica_y_politica_tab(df_filtered: pd.DataFrame):
         "¿Cómo calificaría ud. la situación económica personal?",
         "Valoración de su situación económica personal",
         lickert_tag_map_5,
+        percent_label=t["chart_percent_label"],
+        count_label=t["chart_count_label"],
     )
     st.plotly_chart(fig, use_container_width=True)

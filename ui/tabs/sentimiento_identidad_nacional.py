@@ -11,10 +11,13 @@ from src.config.questions import (
     p34_tag_map,
     p35_tag_map,
 )
+from src.translate import get_translations
 
 
 def render_sentimiento_identidad_nacional_tab(df_filtered: pd.DataFrame):
     """Renderiza el tab2 de orientación política"""
+
+    t = get_translations()
     st.subheader("Eje nivel de sentimiento nacionalista/abertzale del 0 al 10")
     # Gráfico principal eje nacionalista/abertzale
     fig = generate_0_to_10_bar_chart(
@@ -23,6 +26,8 @@ def render_sentimiento_identidad_nacional_tab(df_filtered: pd.DataFrame):
         "Nivel de sentimiento nacionalista/abertzale",
         "Menos a más sentimiento nacionalista/abertzale",
         p33_tag_map,
+        percent_label=t["chart_percent_label"],
+        count_label=t["chart_count_label"],
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -34,6 +39,9 @@ def render_sentimiento_identidad_nacional_tab(df_filtered: pd.DataFrame):
         "Distribución sentimiento abertzale/nacionalista por provincias",
         p33_tag_map,
         "Menos abertzale a más abertzale",
+        percent_label=t["chart_percent_label"],
+        count_label=t["chart_count_label"],
+        provinces_label=t["chart_province"],
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -45,6 +53,8 @@ def render_sentimiento_identidad_nacional_tab(df_filtered: pd.DataFrame):
         "¿Qué expresa mejor su sentimiento nacional?",
         "Ubicación en cuanto a sentimiento nacional",
         p34_tag_map,
+        percent_label=t["chart_percent_label"],
+        count_label=t["chart_count_label"],
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -56,5 +66,7 @@ def render_sentimiento_identidad_nacional_tab(df_filtered: pd.DataFrame):
         "Nivel de acuerdo con una posible independencia",
         "Acuerdo con una posible independencia",
         p35_tag_map,
+        percent_label=t["chart_percent_label"],
+        count_label=t["chart_count_label"],
     )
     st.plotly_chart(fig, use_container_width=True)

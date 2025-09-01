@@ -1,5 +1,6 @@
 from typing import Any, List, Dict
 import streamlit as st
+from src.translate import get_translations
 
 
 def render_filters_sidebar(
@@ -10,10 +11,11 @@ def render_filters_sidebar(
 ) -> Dict[str, Any]:
     """Muestra los filtros de la barra lateral y retorna los valores seleccionados"""
 
-    st.sidebar.header("Filtros Demográficos")
+    t = get_translations()
+    st.sidebar.header(t["sidebar_header"])
 
     selected_sex = st.sidebar.selectbox(
-        "Sexo",
+        t["sidebar_sex_label"],
         [
             "Todos",
             "Hombre",
@@ -24,7 +26,7 @@ def render_filters_sidebar(
 
     # Filtro por edad
     selected_edad_min, selected_edad_max = st.sidebar.slider(
-        "Rango de edad",
+        t["sidebar_age_label"],
         min_value=edad_range[0],
         max_value=edad_range[1],
         value=edad_range,
@@ -32,20 +34,20 @@ def render_filters_sidebar(
 
     # Filtro por estudios
     selected_estudios = st.sidebar.multiselect(
-        "Nivel de estudios finalizados",
+        t["sidebar_studies_label"],
         options=estudios_options,
         default=estudios_options,
     )
 
     # Filtro por clase social
     selected_clase = st.sidebar.multiselect(
-        "Clase social autopercibida",
+        t["sidebar_class_label"],
         options=clase_options,
         default=clase_options,
     )
 
     selected_euskera = st.sidebar.multiselect(
-        "Nivel de euskera",
+        t["sidebar_basque_label"],
         options=euskera_options,
         default=euskera_options,
     )

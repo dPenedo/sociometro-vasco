@@ -1,0 +1,16 @@
+{
+  "ES": {
+    "page_title": "dPenedo - Sociómetro vasco",
+    "main_title": "Análisis del Sociómetro Vasco",
+    "sidebar_info": "Análisis del Sociómetro Vasco",
+    "warning_min_sample": "⚠️ Muestra insuficiente: {n_responses} respuestas\n\nSe requieren al menos {min_samples} respuestas para mostrar el análisis.\nLa muestra actual, tras aplicar los filtros seleccionados, solo constituye un {percent:.1f}% de la muestra total.\n\nPor favor, ajuste los filtros para incluir más datos.",
+    "warning_warn_sample": "⚠️ Muestra limitada: {n_responses} respuestas\n({percent:.1f}% del total)\nLos resultados pueden tener baja representatividad estadística."
+  },
+  "EUS": {
+    "page_title": "dPenedo - Euskal Soziometroa",
+    "main_title": "Euskal Soziometroaren analisia",
+    "sidebar_info": "Uneko iragazkia: {n_responses} erantzun\n\nGuztizkoaren ehunekoa: {percent:.1f}%",
+    "warning_min_samples": "⚠️ Lagina ez da nahikoa: {n_responses} erantzun\n\nGutxienez {min_samples} erantzun behar dira analisia erakusteko.\nAukeratutako iragazkien ondoren dagoen laginak guztizkoaren {percent:.1f}% bakarrik hartzen du.\n\nMesedez, egokitu iragazkiak datu gehiago sartzeko.",
+    "warning_limited": "⚠️ Lagina mugatua: {n_responses} erantzun\n({percent:.1f}% guztizkoan)\nEmaitzek ordezkaritza estatistiko txikia izan dezakete."
+  }
+}

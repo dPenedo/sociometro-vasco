@@ -11,13 +11,24 @@ def add_bar_labels(fig, df, x_col, y_col, y_shift=10):
     return fig
 
 
-def generate_hovertemplate(show_y_as_name: bool = False) -> str:
+def generate_hovertemplate(
+    percent_label: str = "Porcentaje",
+    count_label: str = "Conteo",
+    show_y_as_name: bool = False,
+) -> str:
     """
-    Hovertemplate estándar.
+    Hovertemplate estándar que admite etiquetas dinámicas y traducciones.
     """
-    hover = "<b>%{customdata[0]}</b><br>"
     if show_y_as_name:
-        hover += "%{y}<br>"
-    hover += "Porcentaje: %{customdata[2]:.1f}%<br>"
-    hover += "Conteo: %{customdata[1]}<extra></extra>"
-    return hover
+        template = (
+            "<b>%{x}</b><br>"
+            f"{percent_label}: %{{customdata[2]:.1f}}%<br>"
+            f"{count_label}: %{{customdata[0]}}<extra></extra>"
+        )
+    else:
+        template = (
+            "<b>%{customdata[0]}</b><br>"
+            f"{percent_label}: %{{customdata[2]:.1f}}%<br>"
+            f"{count_label}: %{{customdata[1]}}<extra></extra>"
+        )
+    return template

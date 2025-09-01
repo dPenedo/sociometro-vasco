@@ -1,7 +1,6 @@
 import pandas as pd
 import streamlit as st
 
-from ui.home import show_page
 from ui.filters import render_filters_sidebar
 from ui.tabs.orientacion_politica import render_political_orientation_tab
 from ui.tabs.sentimiento_identidad_nacional import (
@@ -11,6 +10,7 @@ from ui.tabs.situacion_economica_y_politica import (
     render_situacion_economica_y_politica_tab,
 )
 from src.config.data import df
+from src.translate import get_translations, set_language
 
 
 from src.data.processing import (
@@ -31,8 +31,15 @@ from src.config.questions import (
     p38_order,
 )
 
-st.set_page_config(page_title="dPenedo - Sociómetro vasco", layout="wide")
-st.title("Análisis del Sociómetro Vasco")
+# Selector de idioma
+col1, col2 = st.columns([12, 2])
+with col2:
+    lang = st.radio(" ", ["ES", "EUS"], label_visibility="collapsed")
+
+set_language(lang)
+t = get_translations()
+st.set_page_config(page_title=t["page_title"], layout="wide")
+st.title(t["main_title"])
 
 df_processed: pd.DataFrame = get_processed_dataframe_for_streamlit(
     df=df,
@@ -67,38 +74,30 @@ df_filtered: pd.DataFrame = apply_filters(df_processed, filter_values)
 min_samples = 20
 warning_samples = 30
 n_responses = len(df_filtered)
+percent = n_responses / len(df_processed) * 100
 # Mostrar información del tamaño de muestra
-st.sidebar.info(
-    f"Filtro actual: {n_responses} respuestas\n\n"
-    f"Porcentaje del total: {n_responses / len(df_processed) * 100:.1f}%"
-)
+st.sidebar.info(t["sidebar_info"].format(n_responses=n_responses, percent=percent))
 
 # Validar tamaño de muestra antes de mostrar contenido
 if n_responses < min_samples:
     st.warning(
-        f"⚠️ Muestra insuficiente: {n_responses} respuestas\n\n"
-        f"Se requieren al menos {min_samples} respuestas para mostrar el análisis. "
-        f"La muestra actual, tras aplicar los filtros seleccionados, solo constituye un "
-        f"{n_responses / len(df_processed) * 100:.1f}% de la muestra total.\n\n"
-        "Por favor, ajuste los filtros para incluir más datos."
+        t["warning_min_samples"].format(
+            n_responses=n_responses, min_samples=min_samples, percent=percent
+        )
     )
 
 else:
     # Mostrar advertencia si la muestra es pequeña pero suficiente
     if n_responses < warning_samples:
         st.sidebar.warning(
-            f"⚠️ Muestra limitada: {n_responses} respuestas\n"
-            f"({n_responses / len(df_processed) * 100:.1f}% del total)\n"
-            "Los resultados pueden tener baja representatividad estadística."
+            t["warning_limited"].format(n_responses=n_responses, percent=percent)
         )
         st.warning(
-            f"⚠️ Muestra limitada: {n_responses} respuestas\n"
-            f"({n_responses / len(df_processed) * 100:.1f}% del total)\n"
-            "Los resultados pueden tener baja representatividad estadística."
+            t["warning_limited"].format(n_responses=n_responses, percent=percent)
         )
 
     # Mostrar el contenido principal solo si hay suficientes muestras
-    show_page()
+    st.markdown(t["main_intro"])
 
     (
         tab1,
@@ -106,9 +105,9 @@ else:
         tab3,
     ) = st.tabs(
         [
-            "Orientación política",
-            "Sentimiento de identidad nacional",
-            "Situación económica y política",
+            t["tab1_title"],
+            t["tab2_title"],
+            t["tab3_title"],
         ]
     )
 
