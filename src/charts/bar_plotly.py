@@ -8,7 +8,6 @@ from src.config.colors import red_green_color_list
 from src.charts.layouts import apply_default_layout, get_color_map_from_scale
 from src.config.questions import (
     p25_tag_map,
-    p25_ordered_list,
 )
 
 from src.config.colors import (
@@ -23,11 +22,14 @@ def generate_all_parties_stacked_chart(
     df: pd.DataFrame, chart_title: str, percent_label: str, count_label: str
 ) -> go.Figure:
     all_data = []
+    ordered_categories = []
+    for v in p25_tag_map.values():
+        ordered_categories.append(str(v))
 
     for _, info in parties_map_and_colors_p25.items():
-        counts_df = get_counts_and_percents(
+        counts_df: pd.DataFrame = get_counts_and_percents(
             df[info["question"]].map(p25_tag_map),
-            ordered_categories=p25_ordered_list,
+            ordered_categories,
             label_col="valor",
         )
 
@@ -44,7 +46,7 @@ def generate_all_parties_stacked_chart(
 
     plot_df = pd.DataFrame(all_data)
 
-    color_map = get_color_map_from_scale(p25_ordered_list)
+    color_map = get_color_map_from_scale(ordered_categories)
     ordered_parties = [info["name"] for info in parties_map_and_colors_p25.values()]
 
     fig: go.Figure = px.bar(
@@ -307,7 +309,11 @@ def generate_spain_basque_comparation_bar_chart(
             width=0.4,
             offset=-0.2,
             customdata=np.column_stack(
-                (spain_data["conteo"], spain_data["Categoría_original"])
+                (
+                    spain_data["conteo"],
+                    spain_data["Categoría_original"],
+                    spain_data["porcentaje"],
+                )
             ),
         )
     )
@@ -323,7 +329,11 @@ def generate_spain_basque_comparation_bar_chart(
             width=0.4,
             offset=0.2,
             customdata=np.column_stack(
-                (basque_data["conteo"], basque_data["Categoría_original"])
+                (
+                    basque_data["conteo"],
+                    basque_data["Categoría_original"],
+                    basque_data["porcentaje"],
+                )
             ),
         )
     )
@@ -339,6 +349,11 @@ def generate_spain_basque_comparation_bar_chart(
         showlegend=True,
     )
 
+    fig.update_traces(
+        hovertemplate=generate_hovertemplate(
+            percent_label=percent_label, count_label=count_label, show_x_as_name=True
+        )
+    )
     fig = apply_default_layout(fig)
     # fig.update_xaxes(tickangle=70)
 
@@ -410,7 +425,11 @@ def generate_green_red_bar_chart(
             y=counts_df["porcentaje"],
             marker_color=colores_gradiente,
             customdata=np.column_stack(
-                (counts_df["conteo"], counts_df["valor_original"])
+                (
+                    counts_df["categoria"],
+                    counts_df["conteo"],
+                    counts_df["porcentaje"],
+                )
             ),
             textposition="auto",
         )
@@ -422,6 +441,12 @@ def generate_green_red_bar_chart(
         xaxis_title=x_title,
         yaxis_title=percent_label,
         showlegend=False,
+    )
+
+    fig.update_traces(
+        hovertemplate=generate_hovertemplate(
+            percent_label=percent_label, count_label=count_label
+        )
     )
 
     # Aplicar el layout por defecto

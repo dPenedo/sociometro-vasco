@@ -22,12 +22,8 @@ from src.data.processing import (
 from src.utils import sort_by_order
 
 from src.config.questions import (
-    sexo_map,
-    p36_grouped,
     p36_order,
-    p37_grouped,
     p37_order,
-    p38_map,
     p38_order,
 )
 
@@ -43,13 +39,6 @@ st.title(t["main_title"])
 
 df_processed: pd.DataFrame = get_processed_dataframe_for_streamlit(
     df=df,
-    p36_grouped=p36_grouped,
-    p36_order=p36_order,
-    p37_grouped=p37_grouped,
-    p37_order=p37_order,
-    p38_map=p38_map,
-    p38_order=p38_order,
-    sexo_map=sexo_map,
 )
 filter_options = get_filter_options(df_processed)
 

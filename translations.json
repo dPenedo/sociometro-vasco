@@ -7,14 +7,14 @@
     "tab1_title": "Orientación política",
     "tab2_title": "Sentimiento de identidad nacional",
     "tab3_title": "Situación económica y política",
-    "main_intro": "El [Sociometro_vasco](https://www.euskadi.eus/sociometros-vascos/web01-s1lehike/es/), es un estudio periódico oficial que realiza un cuestionario sobre una población amplia desde **1996**. En este caso los datos son de **Julio del 2025**.\n\nLos datos de la encuesta son compartidos en formato **CSV**, [aquí el enlace](https://www.euskadi.eus/estudios-sociologicos-ficheros-datos/web01-s1lehike/es/).\n\nHay un total de 11 gráficos en total divididos en 3 secciones: orientación política, sentimiento de identidad nacional y situación económica y política. A ellos se les pueden aplicar los siguientes filtros. En el caso de que los filtros no estén abiertos, se pueden abrir en la parte superior izquierda (con el ícono `>>`):\n- Sexo\n- Edad\n- Nivel de estudios finalizados\n- Clase social autopercibida\n- Nivel de euskera",
+    "main_intro": "El [Sociómetro_vasco](https://www.euskadi.eus/sociometros-vascos/web01-s1lehike/es/), es un estudio periódico oficial que realiza un cuestionario sobre una población amplia desde **1996**. En este caso los datos son de **Julio del 2025**.\n\nLos datos de la encuesta son compartidos en formato **CSV**, [aquí el enlace](https://www.euskadi.eus/estudios-sociologicos-ficheros-datos/web01-s1lehike/es/).\n\nHay un total de 11 gráficos en total divididos en 3 secciones: orientación política, sentimiento de identidad nacional y situación económica y política. A ellos se les pueden aplicar los siguientes filtros. En el caso de que los filtros no estén abiertos, se pueden abrir en la parte superior izquierda (con el ícono `>>`):\n- Sexo\n- Edad\n- Nivel de estudios finalizados\n- Clase social autopercibida\n- Nivel de euskera",
     "tab_political_orientation_title1": "Nivel de simpatía por partido político",
     "tab_political_orientation_title2": "Eje izquierda-derecha del 0 al 10",
     "tab_political_orientation_desc2": "Ubicación ideológica en el eje izquierda-derecha",
     "tab_political_orientation_title3": "Eje de izquierda-derecha - Comparación entre provincias",
     "tab_political_orientation_chart3": "Distribución izq-derecha por provincias",
     "tab_political_orientation_axis3": "Más izquierda a más derecha",
-    "chart_percent_label": "Porcentaje (%)",
+    "chart_percent_label": "Porcentaje",
     "chart_count_label": "Conteo",
     "chart_province": "Provincias",
     "sidebar_header": "Filtros demográficos",
@@ -23,7 +23,37 @@
     "sidebar_age_label": "Rango de edad",
     "sidebar_studies_label": "Nivel de estudios finalizados",
     "sidebar_class_label": "Clase social autopercibida",
-    "sidebar_basque_label": "Nivel de euskera"
+    "sidebar_basque_label": "Nivel de euskera",
+    "filter_all": "Todos",
+    "sexo_map": {
+      "1": "Hombre",
+      "2": "Mujer"
+    },
+    "p36_grouped": {
+      "1": "Alto",
+      "2": "Alto",
+      "3": "Medio/Bajo",
+      "4": "Medio/Bajo",
+      "5": "Ninguno",
+      "6": "NS/NC"
+    },
+    "p37_grouped": {
+      "1": "Ninguno",
+      "2": "Primarios",
+      "3": "Secundarios",
+      "4": "Secundarios",
+      "5": "Superiores",
+      "6": "NS/NC"
+    },
+    "p38_map": {
+      "1": "Media-alta",
+      "2": "Media-media",
+      "3": "Media-baja",
+      "4": "NS/NC"
+    },
+    "p36_order": ["Ninguno", "Medio/Bajo", "Alto", "NS/NC"],
+    "p37_order": ["Ninguno", "Primarios", "Secundarios", "Superiores", "NS/NC"],
+    "p38_order": ["Media-baja", "Media-media", "Media-alta", "NS/NC"]
   },
   "EUS": {
     "page_title": "dPenedo - Euskal Soziometroa",
@@ -40,7 +70,7 @@
     "tab_political_orientation_title3": "Ezker-eskuin ardatza - Lurralde historikoen arteko konparazioa",
     "tab_political_orientation_chart3": "Ezker-eskuin banaketa lurralde historikoetan",
     "tab_political_orientation_axis3": "Ezkerretik eskuinera",
-    "chart_percent_label": "Ehuneko (%)",
+    "chart_percent_label": "Ehuneko",
     "chart_count_label": "Kontaketa",
     "chart_province": "Probintziak",
     "sidebar_header": "Iragazki demografikoak",
@@ -49,6 +79,42 @@
     "sidebar_age_label": "Adin tartea",
     "sidebar_studies_label": "Bukatutako ikasketa maila",
     "sidebar_class_label": "Klase sozial auto-perzibatua",
-    "sidebar_basque_label": "Euskara maila"
+    "sidebar_basque_label": "Euskara maila",
+    "filter_all": "Denak",
+    "sexo_map": {
+      "1": "Gizon",
+      "2": "Emakume"
+    },
+    "p36_grouped": {
+      "1": "Altua",
+      "2": "Altua",
+      "3": "Ertaina/Baxua",
+      "4": "Ertaina/Baxua",
+      "5": "Bat ere ez",
+      "6": "EZ/EZ"
+    },
+    "p37_grouped": {
+      "1": "Bat ere ez",
+      "2": "Lehen mailakoak",
+      "3": "Bigarren mailakoak",
+      "4": "Bigarren mailakoak",
+      "5": "Goi mailakoak",
+      "6": "EZ/EZ"
+    },
+    "p38_map": {
+      "1": "Ertain-garaia",
+      "2": "Ertain-ertaina",
+      "3": "Ertain-baxua",
+      "4": "EZ/EZ"
+    },
+    "p36_order": ["Bat ere ez", "Ertaina/Baxua", "Altua", "EZ/EZ"],
+    "p37_order": [
+      "Bat ere ez",
+      "Lehen mailakoak",
+      "Bigarren mailakoak",
+      "Goi mailakoak",
+      "EZ/EZ"
+    ],
+    "p38_order": ["Ertain-baxua", "Ertain-ertaina", "Ertain-garaia", "EZ/EZ"]
   }
 }

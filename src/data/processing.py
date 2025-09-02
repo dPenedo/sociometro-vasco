@@ -1,5 +1,15 @@
 import pandas as pd
 from typing import Dict, Any
+from src.translate import (
+    get_translated_sexo_map,
+    get_translated_p36_grouped,
+    get_translated_p36_order,
+    get_translated_p37_grouped,
+    get_translated_p37_order,
+    get_translated_p38_map,
+    get_translated_p38_order,
+    get_translations,
+)
 
 
 def get_df_of_pct(df: pd.DataFrame, col1: str, col2: str) -> pd.DataFrame:
@@ -69,18 +79,20 @@ def build_long_df(
 
 def get_processed_dataframe_for_streamlit(
     df: pd.DataFrame,
-    p36_grouped: Dict[Any, Any],
-    p36_order: list,
-    p37_grouped: Dict[Any, Any],
-    p37_order: list,
-    p38_map: Dict[Any, Any],
-    p38_order: list,
-    sexo_map: Dict[Any, Any],
 ) -> pd.DataFrame:
     """
     Procesa el DataFrame aplicando todas las transformaciones necesarias
     """
     df_processed = df.copy()
+
+    # Obtener mapas traducidos
+    sexo_map = get_translated_sexo_map()
+    p36_grouped = get_translated_p36_grouped()
+    p36_order = get_translated_p36_order()
+    p37_grouped = get_translated_p37_grouped()
+    p37_order = get_translated_p37_order()
+    p38_map = get_translated_p38_map()
+    p38_order = get_translated_p38_order()
 
     # Aplicar mapeos
     df_processed["nivel_de_euskera"] = df_processed["p36"].map(p36_grouped)
@@ -88,10 +100,10 @@ def get_processed_dataframe_for_streamlit(
     df_processed["clase"] = df_processed["p38"].map(p38_map)
     df_processed["sexo"] = df_processed["P01"].map(sexo_map)
 
+    # Reordenar con categorías traducidas
     df_processed["nivel_de_euskera"] = pd.Categorical(
         df_processed["nivel_de_euskera"], categories=p36_order, ordered=True
     )
-    # Reordenar
     df_processed["estudios"] = pd.Categorical(
         df_processed["estudios"], categories=p37_order, ordered=True
     )
@@ -151,7 +163,7 @@ def apply_filters(df: pd.DataFrame, filter_values: Dict[str, Any]) -> pd.DataFra
     """
     df_filtered = df.copy()
 
-    if filter_values["sexo"] != "Todos":
+    if filter_values["sexo"] != get_translations()["filter_all"]:
         df_filtered = df_filtered[df_filtered["sexo"] == filter_values["sexo"]]
 
     df_filtered = df_filtered[

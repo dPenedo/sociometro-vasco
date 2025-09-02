@@ -1,6 +1,6 @@
 from typing import Any, List, Dict
 import streamlit as st
-from src.translate import get_translations
+from src.translate import get_translations, get_translated_sexo_map
 
 
 def render_filters_sidebar(
@@ -14,13 +14,12 @@ def render_filters_sidebar(
     t = get_translations()
     st.sidebar.header(t["sidebar_header"])
 
+    sexo_map = get_translated_sexo_map()
+    print("sexo_map => ", sexo_map)
+    sex_options = [t["filter_all"], sexo_map[1], sexo_map[2]]
     selected_sex = st.sidebar.selectbox(
         t["sidebar_sex_label"],
-        [
-            "Todos",
-            "Hombre",
-            "Mujer",
-        ],
+        sex_options,
         index=0,
     )
 
