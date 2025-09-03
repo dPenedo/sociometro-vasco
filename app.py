@@ -27,15 +27,15 @@ t = get_translations()
 
 query_params = st.query_params
 query_params = st.query_params
-embed = query_params.get("embed", "false")
+embed_str = query_params.get("embed", "false")
+embed = embed_str in ["true", "1", "yes"]
 st.write(
     f"Debug - embed value: '{embed}'"
 )  # Esto te mostrará qué valor llega realmente
 
 col1, col2 = st.columns([12, 2])
 with col1:
-    if embed.lower() != "true":
-        st.link_button(t["go_back_button"], t["dpenedo_url"], type="primary")
+    if embed != "true":
         st.link_button(t["go_back_button"], t["dpenedo_url"], type="primary")
 with col2:
     current_lang = st.session_state.get("lang", "ES")
