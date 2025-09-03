@@ -30,7 +30,7 @@ query_params = st.query_params
 embed_str = query_params.get("embed", "false")
 embed = embed_str in ["true", "1", "yes"]
 st.write(
-    f"Debug - embed value: '{embed}'"
+    f"Debug - embed value: '{embed_str}'"
 )  # Esto te mostrará qué valor llega realmente
 
 col1, col2 = st.columns([12, 2])
