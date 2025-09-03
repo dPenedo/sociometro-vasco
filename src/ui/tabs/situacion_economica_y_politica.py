@@ -26,7 +26,7 @@ def render_situacion_economica_y_politica_tab(df_filtered: pd.DataFrame):
         xlabel=t["tab_socioeconomic_desc1"],
         basque_question="P04",
         spain_question="P05",
-        tag_map=lickert_tag_map_5,
+        tag_map=make_dict_iterable(t["tag_maps"]["lickert_5"]),
         percent_label=t["chart_percent_label"],
         count_label=t["chart_count_label"],
     )
@@ -40,7 +40,7 @@ def render_situacion_economica_y_politica_tab(df_filtered: pd.DataFrame):
         xlabel=t["tab_socioeconomic_desc2"],
         basque_question="P06",
         spain_question="P07",
-        tag_map=lickert_tag_map_5,
+        tag_map=make_dict_iterable(t["tag_maps"]["lickert_5"]),
         percent_label=t["chart_percent_label"],
         count_label=t["chart_count_label"],
     )
@@ -53,7 +53,7 @@ def render_situacion_economica_y_politica_tab(df_filtered: pd.DataFrame):
         question="p10",
         chart_title=t["tab_socioeconomic_title3"],
         x_title=t["tab_socioeconomic_desc3"],
-        tag_map=lickert_tag_map_5_bastante,
+        tag_map=make_dict_iterable(t["tag_maps"]["lickert_5_bastante"]),
         percent_label=t["chart_percent_label"],
         count_label=t["chart_count_label"],
     )
@@ -66,7 +66,7 @@ def render_situacion_economica_y_politica_tab(df_filtered: pd.DataFrame):
         question="p11",
         chart_title=t["tab_socioeconomic_title4"],
         x_title=t["tab_socioeconomic_desc4"],
-        tag_map=lickert_tag_map_5,
+        tag_map=make_dict_iterable(t["tag_maps"]["lickert_5"]),
         percent_label=t["chart_percent_label"],
         count_label=t["chart_count_label"],
     )
