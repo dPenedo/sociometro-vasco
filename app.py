@@ -25,7 +25,12 @@ from src.ui.tabs.situacion_economica_y_politica import (
 
 t = get_translations()
 
+query_params = st.query_params
+embed = query_params.get("embed", "false")
 col1, col2 = st.columns([12, 2])
+with col1:
+    if embed != "true":
+        st.link_button(t["go_back_button"], t["dpenedo_url"], type="primary")
 with col2:
     current_lang = st.session_state.get("lang", "ES")
     lang_options = ["ES", "EUS"]

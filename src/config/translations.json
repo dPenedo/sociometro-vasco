@@ -2,6 +2,8 @@
   "ES": {
     "page_title": "dPenedo - Sociómetro vasco",
     "main_title": "Análisis del Sociómetro Vasco",
+    "go_back_button": "Volver a dpenedo.com (la web principal)",
+    "dpenedo_url": "https://dpenedo.com/data/es/sociometro-vasco",
     "warning_min_samples": "⚠️ Muestra insuficiente: {n_responses} respuestas\n\nSe requieren al menos {min_samples} respuestas para mostrar el análisis.\nLa muestra actual, tras aplicar los filtros seleccionados, solo constituye un {percent:.1f}% de la muestra total.\n\nPor favor, ajuste los filtros para incluir más datos.",
     "warning_limited": "⚠️ Muestra limitada: {n_responses} respuestas\n({percent:.1f}% del total)\nLos resultados pueden tener baja representatividad estadística.",
     "tab1_title": "Orientación política",
@@ -14,11 +16,27 @@
     "tab_political_orientation_title3": "Eje de izquierda-derecha - Comparación entre provincias",
     "tab_political_orientation_chart3": "Distribución izq-derecha por provincias",
     "tab_political_orientation_axis3": "Más izquierda a más derecha",
+    "tab_national_title1": "Eje nivel de sentimiento nacionalista/abertzale del 0 al 10",
+    "tab_national_desc1": "Menos a más sentimiento nacionalista/abertzale",
+    "tab_national_title2": "Sentimiento nacionalista/abertzale - Comparación entre provincias",
+    "tab_national_desc2": "Menos a más sentimiento nacionalista/abertzale",
+    "tab_national_title3": "¿Qué expresa mejor su sentimiento nacional?",
+    "tab_national_desc3": "Ubicación en cuanto a sentimiento nacional",
+    "tab_national_title4": "Nivel de acuerdo con una posible independencia",
+    "tab_national_desc4": "Acuerdo con una posible independencia",
+    "tab_socioeconomic_title1": "Percepción de la situación política Euskadi-España",
+    "tab_socioeconomic_desc1": "Valoración de la situación política Euskadi-España",
+    "tab_socioeconomic_title2": "Percepción de la situación económica Euskadi-España",
+    "tab_socioeconomic_desc2": "Valoración de la situación económica Euskadi-España",
+    "tab_socioeconomic_title3": "¿Cómo califacaría su situación laboral personal?",
+    "tab_socioeconomic_desc3": "Valoración de su situación laboral personal",
+    "tab_socioeconomic_title4": "¿Cómo califacaría su situación económica personal?",
+    "tab_socioeconomic_desc4": "Valoración de su situación económica personal",
     "chart_percent_label": "Porcentaje",
     "chart_count_label": "Conteo",
     "chart_province": "Provincias",
     "sidebar_header": "Filtros demográficos",
-    "sidebar_info": "Análisis del Sociómetro Vasco",
+    "sidebar_info": "Filtros aplicados: {n_responses} respuestas\n\nPorcentaje sobre el total: {percent:.1f}%",
     "sidebar_sex_label": "Sexo",
     "sidebar_age_label": "Rango de edad",
     "sidebar_studies_label": "Nivel de estudios finalizados",
@@ -29,13 +47,14 @@
       "1": "Hombre",
       "2": "Mujer"
     },
+
     "p36_grouped": {
       "1": "Alto",
       "2": "Alto",
       "3": "Medio/Bajo",
       "4": "Medio/Bajo",
       "5": "Ninguno",
-      "6": "NS/NC"
+      "6": "Ns/Nc"
     },
     "p37_grouped": {
       "1": "Ninguno",
@@ -43,17 +62,17 @@
       "3": "Secundarios",
       "4": "Secundarios",
       "5": "Superiores",
-      "6": "NS/NC"
+      "6": "Ns/Nc"
     },
     "p38_map": {
       "1": "Media-alta",
       "2": "Media-media",
       "3": "Media-baja",
-      "4": "NS/NC"
+      "4": "Ns/Nc"
     },
-    "p36_order": ["Ninguno", "Medio/Bajo", "Alto", "NS/NC"],
-    "p37_order": ["Ninguno", "Primarios", "Secundarios", "Superiores", "NS/NC"],
-    "p38_order": ["Media-baja", "Media-media", "Media-alta", "NS/NC"],
+    "p36_order": ["Ninguno", "Medio/Bajo", "Alto", "Ns/Nc"],
+    "p37_order": ["Ninguno", "Primarios", "Secundarios", "Superiores", "Ns/Nc"],
+    "p38_order": ["Media-baja", "Media-media", "Media-alta", "Ns/Nc"],
     "tag_maps": {
       "p25": {
         "0": "0",
@@ -74,14 +93,14 @@
         "2": "Buena",
         "3": "Mala",
         "4": "Muy mala",
-        "5": "NS/NC"
+        "5": "Ns/Nc"
       },
       "lickert_5_bastante": {
         "1": "Muy buena",
         "2": "Bastante buena",
         "3": "Bastante mala",
         "4": "Muy mala",
-        "5": "NS/NC"
+        "5": "Ns/Nc"
       },
       "lickert_6": {
         "1": "Muy buena",
@@ -89,7 +108,7 @@
         "3": "Regular",
         "4": "Mala",
         "5": "Muy mala",
-        "6": "NS/NC"
+        "6": "Ns/Nc"
       },
       "p32": {
         "0": "0\nExt. Izquierda",
@@ -103,7 +122,7 @@
         "8": "8",
         "9": "9",
         "10": "10\nExt. Derecha",
-        "11": "NS/NC"
+        "11": "Ns/Nc"
       },
       "p33": {
         "0": "0\nNada abertzale",
@@ -117,7 +136,7 @@
         "8": "8",
         "9": "9",
         "10": "10\nMuy abertzale",
-        "11": "NS/NC"
+        "11": "Ns/Nc"
       },
       "p34": {
         "1": "Únicamente\nvasco/a",
@@ -125,19 +144,21 @@
         "3": "Tanto vasco/a\ncomo español/a",
         "4": "Más español/a\nque vasco/a",
         "5": "Únicamente\nespañol/a",
-        "6": "NS/NC"
+        "6": "Ns/Nc"
       },
       "p35": {
         "1": "De acuerdo",
         "2": "Según las\n circunstancias",
         "3": "En desacuerdo",
-        "4": "NS/NC"
+        "4": "Ns/Nc"
       }
     }
   },
   "EUS": {
     "page_title": "dPenedo - Euskal Soziometroa",
     "main_title": "Euskal Soziometroaren analisia",
+    "go_back_button": "dpenedo.com-era itzuli (webgune nagusia)",
+    "dpenedo_url": "https://dpenedo.com/data/eus/sociometro-vasco",
     "warning_min_samples": "⚠️ Lagina ez da nahikoa: {n_responses} erantzun\n\nGutxienez {min_samples} erantzun behar dira analisia erakusteko.\nAukeratutako iragazkien ondoren dagoen laginak guztizkoaren {percent:.1f}% bakarrik hartzen du.\n\nMesedez, egokitu iragazkiak datu gehiago sartzeko.",
     "warning_limited": "⚠️ Lagina mugatua: {n_responses} erantzun\n({percent:.1f}% guztizkoan)\nEmaitzek ordezkaritza estatistiko txikia izan dezakete.",
     "tab1_title": "Orientazio politikoa",
@@ -150,6 +171,22 @@
     "tab_political_orientation_title3": "Ezker-eskuin ardatza - Lurralde historikoen arteko konparazioa",
     "tab_political_orientation_chart3": "Ezker-eskuin banaketa lurralde historikoetan",
     "tab_political_orientation_axis3": "Ezkerretik eskuinera",
+    "tab_national_title1": "Euskal/nazionalista sentimendu mailaren ardatza 0tik 10era",
+    "tab_national_desc1": "Gutxienetik gehienera nazionalista/abertzale sentimendua",
+    "tab_national_title2": "Nazionalista/abertzale sentimendua - Lurraldeen arteko konparazioa",
+    "tab_national_desc2": "Gutxienetik gehienera nazionalista/abertzale sentimendua",
+    "tab_national_title3": "Zein adierazten du hobeto zure sentimendu nazionala?",
+    "tab_national_desc3": "Kokapena sentimendu nazionalari dagokionez",
+    "tab_national_title4": "Independetzia posible bati buruzko adostasun maila",
+    "tab_national_desc4": "Independetzia posiblearekin adostasuna",
+    "tab_socioeconomic_title1": "Euskadi-Espainiako egoera politikoaren pertzepzioa",
+    "tab_socioeconomic_desc1": "Euskadi-Espainiako egoera politikoaren balorazioa",
+    "tab_socioeconomic_title2": "Euskadi-Espainiako egoera ekonomikoaren pertzepzioa",
+    "tab_socioeconomic_desc2": "Euskadi-Espainiako egoera ekonomikoaren balorazioa",
+    "tab_socioeconomic_title3": "Nola baloratuko zenuke zure lan egoera pertsonala?",
+    "tab_socioeconomic_desc3": "Zure lan egoera pertsonalaren balorazioa",
+    "tab_socioeconomic_title4": "Nola baloratuko zenuke zure egoera ekonomiko pertsonala?",
+    "tab_socioeconomic_desc4": "Zure egoera ekonomiko pertsonalaren balorazioa",
     "chart_percent_label": "Ehuneko",
     "chart_count_label": "Kontaketa",
     "chart_province": "Probintziak",
@@ -171,7 +208,7 @@
       "3": "Ertaina/Baxua",
       "4": "Ertaina/Baxua",
       "5": "Bat ere ez",
-      "6": "EZ/EZ"
+      "6": "Ed/Ee"
     },
     "p37_grouped": {
       "1": "Bat ere ez",
@@ -179,23 +216,23 @@
       "3": "Bigarren mailakoak",
       "4": "Bigarren mailakoak",
       "5": "Goi mailakoak",
-      "6": "EZ/EZ"
+      "6": "Ed/Ee"
     },
     "p38_map": {
       "1": "Ertain-garaia",
       "2": "Ertain-ertaina",
       "3": "Ertain-baxua",
-      "4": "EZ/EZ"
+      "4": "Ed/Ee"
     },
-    "p36_order": ["Bat ere ez", "Ertaina/Baxua", "Altua", "EZ/EZ"],
+    "p36_order": ["Bat ere ez", "Ertaina/Baxua", "Altua", "Ed/Ee"],
     "p37_order": [
       "Bat ere ez",
       "Lehen mailakoak",
       "Bigarren mailakoak",
       "Goi mailakoak",
-      "EZ/EZ"
+      "Ed/Ee"
     ],
-    "p38_order": ["Ertain-baxua", "Ertain-ertaina", "Ertain-garaia", "EZ/EZ"],
+    "p38_order": ["Ertain-baxua", "Ertain-ertaina", "Ertain-garaia", "Ed/Ee"],
     "tag_maps": {
       "p25": {
         "0": "0",
@@ -216,14 +253,14 @@
         "2": "Ona",
         "3": "Txarra",
         "4": "Oso txarra",
-        "5": "EZ/EZ"
+        "5": "Ed/Ee"
       },
       "lickert_5_bastante": {
         "1": "Oso ona",
         "2": "Nahiko ona",
         "3": "Nahiko txarra",
         "4": "Oso txarra",
-        "5": "EZ/EZ"
+        "5": "Ed/Ee"
       },
       "lickert_6": {
         "1": "Oso ona",
@@ -231,10 +268,10 @@
         "3": "Ertaina",
         "4": "Txarra",
         "5": "Oso txarra",
-        "6": "EZ/EZ"
+        "6": "Ed/Ee"
       },
       "p32": {
-        "0": "0\nEzker Muturra",
+        "0": "0\nEzker-muturra",
         "1": "1",
         "2": "2",
         "3": "3",
@@ -244,8 +281,8 @@
         "7": "7",
         "8": "8",
         "9": "9",
-        "10": "10\nEskuineko Muturra",
-        "11": "EZ/EZ"
+        "10": "10\nEskuin-muturra",
+        "11": "Ed/Ee"
       },
       "p33": {
         "0": "0\nAberzale bat ere ez",
@@ -259,7 +296,7 @@
         "8": "8",
         "9": "9",
         "10": "10\nOso aberzalea",
-        "11": "EZ/EZ"
+        "11": "Ed/Ee"
       },
       "p34": {
         "1": "Bakarrik\neuskalduna",
@@ -267,13 +304,13 @@
         "3": "Euskaldun eta\nespainiar berdin",
         "4": "Espainiar\ngehiago euskaldun baino",
         "5": "Bakarrik\nespainiarra",
-        "6": "EZ/EZ"
+        "6": "Ed/Ee"
       },
       "p35": {
         "1": "Ados",
         "2": "Egoeraren\narabera",
         "3": "Desadostasun",
-        "4": "EZ/EZ"
+        "4": "Ed/Ee"
       }
     }
   }
