@@ -24,16 +24,14 @@ from src.ui.tabs.situacion_economica_y_politica import (
 )
 
 t = get_translations()
+
 col1, col2 = st.columns([12, 2])
 with col2:
-    # Get the current language from session state to set the radio default
     current_lang = st.session_state.get("lang", "ES")
-
     lang_options = ["ES", "EUS"]
     default_index = lang_options.index(current_lang)
 
-    # Create the radio button. When it changes, it calls set_language
-    lang = st.radio(
+    selected_lang = st.radio(
         " ",
         options=lang_options,
         index=default_index,
@@ -41,10 +39,10 @@ with col2:
         key="lang_selector",
     )
 
-if "lang_selector" in st.session_state:
-    if st.session_state.lang_selector != st.session_state.get("lang"):
-        set_language(st.session_state.lang_selector)
-        st.rerun()
+# Actualizar el idioma si cambió el radio button
+if selected_lang != st.session_state.get("lang"):
+    set_language(selected_lang)
+    st.rerun()  # Forzar recarga para aplicar los cambios
 
 st.set_page_config(
     page_title=t["page_title"], layout="wide", page_icon="assets/favicon.ico"

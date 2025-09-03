@@ -8,15 +8,21 @@ with open("src/config/translations.json", "r", encoding="utf-8") as f:
 
 def get_translations() -> dict[str, str]:
     """Devuelve el diccionario de traducciones según idioma seleccionado"""
-    params = st.query_params
-    if "lang" in params:
-        lang_from_url = params["lang"].upper()
-        if lang_from_url in _translations and lang_from_url != st.session_state.get(
-            "lang"
-        ):
-            st.session_state["lang"] = lang_from_url
-    lang = st.session_state.get("lang", "ES")  # Default to "ES" if nothing is set
-    return _translations[lang]
+
+    # Inicializar el idioma en session_state si no existe
+    if "lang" not in st.session_state:
+        # Intentar obtener de la URL de Streamlit (para carga inicial)
+        params = st.query_params
+        if "lang" in params:
+            lang_from_url = params["lang"].upper()
+            if lang_from_url in _translations:
+                st.session_state["lang"] = lang_from_url
+            else:
+                st.session_state["lang"] = "ES"  # Default
+        else:
+            st.session_state["lang"] = "ES"  # Default
+
+    return _translations[st.session_state["lang"]]
 
 
 def set_language(lang: str) -> None:
