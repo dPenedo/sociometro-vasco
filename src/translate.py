@@ -2,7 +2,7 @@ import json
 import streamlit as st
 
 # Cargar el JSON de traducciones una vez
-with open("translations.json", "r", encoding="utf-8") as f:
+with open("src/config/translations.json", "r", encoding="utf-8") as f:
     _translations = json.load(f)
 
 

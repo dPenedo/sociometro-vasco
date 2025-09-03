@@ -15,7 +15,7 @@ from src.config.colors import (
     provincias_map,
     red_blue_color_list,
 )
-from src.data.processing import get_counts_and_percents
+from src.processing.processing import get_counts_and_percents
 
 
 def generate_all_parties_stacked_chart(

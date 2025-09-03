@@ -3,7 +3,7 @@ import pandas as pd
 from src.config.colors import provincias_map, parties_map_and_colors_p25
 import numpy as np
 
-from src.data.processing import get_df_of_pct
+from src.processing.processing import get_df_of_pct
 
 plt.style.use("seaborn-v0_8-pastel")
 default_fig_size = (10, 6)
