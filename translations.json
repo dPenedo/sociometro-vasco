@@ -53,7 +53,87 @@
     },
     "p36_order": ["Ninguno", "Medio/Bajo", "Alto", "NS/NC"],
     "p37_order": ["Ninguno", "Primarios", "Secundarios", "Superiores", "NS/NC"],
-    "p38_order": ["Media-baja", "Media-media", "Media-alta", "NS/NC"]
+    "p38_order": ["Media-baja", "Media-media", "Media-alta", "NS/NC"],
+    "tag_maps": {
+      "p25": {
+        "0": "0",
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "Ns/Nc"
+      },
+      "lickert_5": {
+        "1": "Muy buena",
+        "2": "Buena",
+        "3": "Mala",
+        "4": "Muy mala",
+        "5": "NS/NC"
+      },
+      "lickert_5_bastante": {
+        "1": "Muy buena",
+        "2": "Bastante buena",
+        "3": "Bastante mala",
+        "4": "Muy mala",
+        "5": "NS/NC"
+      },
+      "lickert_6": {
+        "1": "Muy buena",
+        "2": "Buena",
+        "3": "Regular",
+        "4": "Mala",
+        "5": "Muy mala",
+        "6": "NS/NC"
+      },
+      "p32": {
+        "0": "0\nExt. Izquierda",
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5\nCentro",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10\nExt. Derecha",
+        "11": "NS/NC"
+      },
+      "p33": {
+        "0": "0\nNada abertzale",
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10\nMuy abertzale",
+        "11": "NS/NC"
+      },
+      "p34": {
+        "1": "Únicamente\nvasco/a",
+        "2": "Más vasco/a\nque español/a",
+        "3": "Tanto vasco/a\ncomo español/a",
+        "4": "Más español/a\nque vasco/a",
+        "5": "Únicamente\nespañol/a",
+        "6": "NS/NC"
+      },
+      "p35": {
+        "1": "De acuerdo",
+        "2": "Según las\n circunstancias",
+        "3": "En desacuerdo",
+        "4": "NS/NC"
+      }
+    }
   },
   "EUS": {
     "page_title": "dPenedo - Euskal Soziometroa",
@@ -115,6 +195,86 @@
       "Goi mailakoak",
       "EZ/EZ"
     ],
-    "p38_order": ["Ertain-baxua", "Ertain-ertaina", "Ertain-garaia", "EZ/EZ"]
+    "p38_order": ["Ertain-baxua", "Ertain-ertaina", "Ertain-garaia", "EZ/EZ"],
+    "tag_maps": {
+      "p25": {
+        "0": "0",
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "Ns/Nc"
+      },
+      "lickert_5": {
+        "1": "Oso ona",
+        "2": "Ona",
+        "3": "Txarra",
+        "4": "Oso txarra",
+        "5": "EZ/EZ"
+      },
+      "lickert_5_bastante": {
+        "1": "Oso ona",
+        "2": "Nahiko ona",
+        "3": "Nahiko txarra",
+        "4": "Oso txarra",
+        "5": "EZ/EZ"
+      },
+      "lickert_6": {
+        "1": "Oso ona",
+        "2": "Ona",
+        "3": "Ertaina",
+        "4": "Txarra",
+        "5": "Oso txarra",
+        "6": "EZ/EZ"
+      },
+      "p32": {
+        "0": "0\nEzker Muturra",
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5\nErdia",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10\nEskuineko Muturra",
+        "11": "EZ/EZ"
+      },
+      "p33": {
+        "0": "0\nAberzale bat ere ez",
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10\nOso aberzalea",
+        "11": "EZ/EZ"
+      },
+      "p34": {
+        "1": "Bakarrik\neuskalduna",
+        "2": "Euskaldun\ngehiago espainiar baino",
+        "3": "Euskaldun eta\nespainiar berdin",
+        "4": "Espainiar\ngehiago euskaldun baino",
+        "5": "Bakarrik\nespainiarra",
+        "6": "EZ/EZ"
+      },
+      "p35": {
+        "1": "Ados",
+        "2": "Egoeraren\narabera",
+        "3": "Desadostasun",
+        "4": "EZ/EZ"
+      }
+    }
   }
 }

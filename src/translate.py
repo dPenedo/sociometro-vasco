@@ -8,8 +8,14 @@ with open("translations.json", "r", encoding="utf-8") as f:
 
 def get_translations() -> dict[str, str]:
     """Devuelve el diccionario de traducciones según idioma seleccionado"""
-    # idioma por defecto
-    lang: str = st.session_state.get("lang", "ES")
+    params = st.query_params
+    if "lang" in params:
+        lang_from_url = params["lang"].upper()
+        if lang_from_url in _translations and lang_from_url != st.session_state.get(
+            "lang"
+        ):
+            st.session_state["lang"] = lang_from_url
+    lang = st.session_state.get("lang", "ES")  # Default to "ES" if nothing is set
     return _translations[lang]
 
 
@@ -84,3 +90,10 @@ def get_translated_p38_order() -> list:
     """Devuelve el orden de clase social traducido"""
     t = get_translations()
     return t["p38_order"]
+
+
+def get_p32_tag_map() -> dict[str, str]:
+    """Devuelve el mapa p32 traducido (claves como strings)"""
+    t = get_translations()
+    tag_maps = t.get("tag_maps", {})
+    return tag_maps.get("p32", {})

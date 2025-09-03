@@ -9,7 +9,7 @@ from src.config.questions import (
     p32_tag_map,
 )
 
-from src.translate import get_translations
+from src.translate import get_translations, get_p32_tag_map
 
 
 def render_political_orientation_tab(df_filtered: pd.DataFrame):
@@ -49,3 +49,4 @@ def render_political_orientation_tab(df_filtered: pd.DataFrame):
         provinces_label=t["chart_province"],
     )
     st.plotly_chart(fig, use_container_width=True)
+    print(get_p32_tag_map())

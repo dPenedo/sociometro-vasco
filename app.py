@@ -1,6 +1,19 @@
 import pandas as pd
 import streamlit as st
 
+from src.config.data import df
+from src.config.questions import (
+    p36_order,
+    p37_order,
+    p38_order,
+)
+from src.data.processing import (
+    apply_filters,
+    get_filter_options,
+    get_processed_dataframe_for_streamlit,
+)
+from src.translate import get_translations, set_language
+from src.utils import sort_by_order
 from ui.filters import render_filters_sidebar
 from ui.tabs.orientacion_politica import render_political_orientation_tab
 from ui.tabs.sentimiento_identidad_nacional import (
@@ -9,31 +22,36 @@ from ui.tabs.sentimiento_identidad_nacional import (
 from ui.tabs.situacion_economica_y_politica import (
     render_situacion_economica_y_politica_tab,
 )
-from src.config.data import df
-from src.translate import get_translations, set_language
-
-
-from src.data.processing import (
-    apply_filters,
-    get_filter_options,
-    get_processed_dataframe_for_streamlit,
-)
-
-from src.utils import sort_by_order
-
-from src.config.questions import (
-    p36_order,
-    p37_order,
-    p38_order,
-)
 
 # Selector de idioma
+t = get_translations()
+
 col1, col2 = st.columns([12, 2])
 with col2:
-    lang = st.radio(" ", ["ES", "EUS"], label_visibility="collapsed")
+    # Get the current language from session state to set the radio default
+    current_lang = st.session_state.get("lang", "ES")
 
-set_language(lang)
-t = get_translations()
+    # Find the index of the current language for the radio button
+    lang_options = ["ES", "EUS"]
+    default_index = lang_options.index(current_lang)
+
+    # Create the radio button. When it changes, it calls set_language
+    lang = st.radio(
+        " ",
+        options=lang_options,
+        index=default_index,  # This sets the default based on URL/session
+        label_visibility="collapsed",
+        key="lang_selector",  # Give it a key
+        # REMOVE the on_change and args from here
+    )
+
+# Check if the radio button was changed and update the language
+if "lang_selector" in st.session_state:
+    # Only set the language if it's different from the current one
+    if st.session_state.lang_selector != st.session_state.get("lang"):
+        set_language(st.session_state.lang_selector)
+        # Force a rerun to apply the language change immediately
+        st.rerun()
 st.set_page_config(page_title=t["page_title"], layout="wide")
 st.title(t["main_title"])
 
