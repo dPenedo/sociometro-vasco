@@ -21,7 +21,8 @@ def get_translations() -> dict[str, str]:
 
 def set_language(lang: str) -> None:
     """Cambia el idioma en la sesión"""
-    st.session_state["lang"] = lang
+    if lang in _translations:
+        st.session_state["lang"] = lang
 
 
 def get_translated_map(map_name: str) -> dict:
