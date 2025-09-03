@@ -53,7 +53,7 @@ if "lang_selector" in st.session_state:
         # Force a rerun to apply the language change immediately
         st.rerun()
 st.set_page_config(page_title=t["page_title"], layout="wide")
-st.title(t["main_title"])
+# st.title(t["main_title"])
 
 df_processed: pd.DataFrame = get_processed_dataframe_for_streamlit(
     df=df,
@@ -104,7 +104,7 @@ else:
         )
 
     # Mostrar el contenido principal solo si hay suficientes muestras
-    st.markdown(t["main_intro"])
+    # st.markdown(t["main_intro"])
 
     (
         tab1,
