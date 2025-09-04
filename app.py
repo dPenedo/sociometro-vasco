@@ -28,20 +28,19 @@ t = get_translations()
 query_params = st.query_params
 
 params = st.query_params
-lang = params.get("lang", "es")  # valor por defecto: "es"
-embed = "false"
-if lang in ["es", "eus"]:
-    embed = "true"
-    st.write(f"La app está en modo embed con idioma: {lang}")
-else:
-    st.write("La app está en modo normal")
+# condicional para saber si está embebida
+is_embed = params.get("utm_medium") == "oembed"
 
+if is_embed:
+    st.write("📌 La app está embebida (utm_medium=oembed)")
+else:
+    st.write("🌐 La app está en modo normal")
 st.write("Parámetros de la URL:")
 st.json(params)
 
 col1, col2 = st.columns([12, 2])
 with col1:
-    if embed != "true":
+    if is_embed:
         st.link_button(t["go_back_button"], t["dpenedo_url"], type="primary")
 with col2:
     current_lang = st.session_state.get("lang", "ES")
