@@ -18,9 +18,9 @@ def get_translations() -> dict[str, str]:
             if lang_from_url in _translations:
                 st.session_state["lang"] = lang_from_url
             else:
-                st.session_state["lang"] = "ES"  # Default
+                st.session_state["lang"] = "ES"
         else:
-            st.session_state["lang"] = "ES"  # Default
+            st.session_state["lang"] = "ES"
 
     return _translations[st.session_state["lang"]]
 
@@ -97,10 +97,3 @@ def get_translated_p38_order() -> list:
     """Devuelve el orden de clase social traducido"""
     t = get_translations()
     return t["p38_order"]
-
-
-def get_p32_tag_map() -> dict[str, str]:
-    """Devuelve el mapa p32 traducido (claves como strings)"""
-    t = get_translations()
-    tag_maps = t.get("tag_maps", {})
-    return tag_maps.get("p32", {})

@@ -125,3 +125,13 @@ else:
 
     with tab3:
         render_situacion_economica_y_politica_tab(df_filtered)
+
+    css = """
+    <style>
+        .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
+        font-size:1.3rem;
+        }
+    </style>
+    """
+
+    st.markdown(css, unsafe_allow_html=True)
