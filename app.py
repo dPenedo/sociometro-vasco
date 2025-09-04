@@ -26,9 +26,15 @@ from src.ui.tabs.situacion_economica_y_politica import (
 t = get_translations()
 
 query_params = st.query_params
-embed_str = query_params.get("embed", "false")
-embed = embed_str in ["true", "1", "yes"]
+
 params = st.query_params
+lang = params.get("lang", "es")  # valor por defecto: "es"
+embed = "false"
+if lang in ["es", "eus"]:
+    embed = "true"
+    st.write(f"La app está en modo embed con idioma: {lang}")
+else:
+    st.write("La app está en modo normal")
 
 st.write("Parámetros de la URL:")
 st.json(params)
