@@ -26,21 +26,11 @@ from src.ui.tabs.situacion_economica_y_politica import (
 t = get_translations()
 
 query_params = st.query_params
-
-params = st.query_params
-# condicional para saber si está embebida
-is_embed = params.get("utm_medium") == "oembed"
-
-if is_embed:
-    st.write("📌 La app está embebida (utm_medium=oembed)")
-else:
-    st.write("🌐 La app está en modo normal")
-st.write("Parámetros de la URL:")
-st.json(params)
+app_is_full_screen = query_params.get("utm_medium") == "oembed"
 
 col1, col2 = st.columns([12, 2])
 with col1:
-    if is_embed:
+    if app_is_full_screen:
         st.link_button(t["go_back_button"], t["dpenedo_url"], type="primary")
 with col2:
     current_lang = st.session_state.get("lang", "ES")
