@@ -30,7 +30,7 @@ def render_situacion_economica_y_politica_tab(df_filtered: pd.DataFrame):
         percent_label=t["chart_percent_label"],
         count_label=t["chart_count_label"],
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     # Comparación situación económica
     st.subheader(t["tab_socioeconomic_title2"])
@@ -44,7 +44,7 @@ def render_situacion_economica_y_politica_tab(df_filtered: pd.DataFrame):
         percent_label=t["chart_percent_label"],
         count_label=t["chart_count_label"],
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     # Situación laboral personal
     st.subheader(t["tab_socioeconomic_title3"])
@@ -57,7 +57,7 @@ def render_situacion_economica_y_politica_tab(df_filtered: pd.DataFrame):
         percent_label=t["chart_percent_label"],
         count_label=t["chart_count_label"],
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     # Situación económica personal
     st.subheader(t["tab_socioeconomic_title4"])
@@ -70,4 +70,4 @@ def render_situacion_economica_y_politica_tab(df_filtered: pd.DataFrame):
         percent_label=t["chart_percent_label"],
         count_label=t["chart_count_label"],
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")

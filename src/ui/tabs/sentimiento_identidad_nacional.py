@@ -25,7 +25,7 @@ def render_sentimiento_identidad_nacional_tab(df_filtered: pd.DataFrame):
         percent_label=t["chart_percent_label"],
         count_label=t["chart_count_label"],
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     st.subheader(t["tab_national_title2"])
 
@@ -39,7 +39,7 @@ def render_sentimiento_identidad_nacional_tab(df_filtered: pd.DataFrame):
         count_label=t["chart_count_label"],
         provinces_label=t["chart_province"],
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     # Sentimiento nacional
     st.subheader(t["tab_national_title3"])
@@ -52,7 +52,7 @@ def render_sentimiento_identidad_nacional_tab(df_filtered: pd.DataFrame):
         percent_label=t["chart_percent_label"],
         count_label=t["chart_count_label"],
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     # Acuerdo con independencia
     st.subheader(t["tab_national_title4"])
@@ -65,4 +65,4 @@ def render_sentimiento_identidad_nacional_tab(df_filtered: pd.DataFrame):
         percent_label=t["chart_percent_label"],
         count_label=t["chart_count_label"],
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
