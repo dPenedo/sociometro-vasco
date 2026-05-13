@@ -35,10 +35,10 @@ provincias_map: dict[int, dict[str, str]] = {
 }
 
 parties_map_and_colors_p25: dict[int, dict[str, str]] = {
-    1: {"question": "p2501", "name": "PNV/EAJ", "color": "#02451F"},
-    2: {"question": "p2502", "name": "EH Bildu", "color": "#006155"},
-    3: {"question": "p2503", "name": "PSE-EE", "color": "#AE0A14"},
-    4: {"question": "p2504", "name": "Sumar", "color": "#850F33"},
-    5: {"question": "p2505", "name": "PP", "color": "#1D3F77"},
-    6: {"question": "p2506", "name": "VOX", "color": "#486D1C"},
+    1: {"question": "sympathy_pnv",   "name": "PNV/EAJ", "color": "#02451F"},
+    2: {"question": "sympathy_bildu", "name": "EH Bildu", "color": "#006155"},
+    3: {"question": "sympathy_pse",   "name": "PSE-EE",   "color": "#AE0A14"},
+    4: {"question": "sympathy_sumar", "name": "Sumar",    "color": "#850F33"},
+    5: {"question": "sympathy_pp",    "name": "PP",        "color": "#1D3F77"},
+    6: {"question": "sympathy_vox",   "name": "VOX",       "color": "#486D1C"},
 }

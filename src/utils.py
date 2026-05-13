@@ -4,7 +4,7 @@ def sort_by_order(lst, order):
     return sorted(lst, key=lambda x: order_index.get(x, 100))
 
 
-def make_dict_iterable(d: dict[str, str]) -> dict[int, str]:
+def make_dict_iterable(d: dict) -> dict:
     """Convierte en enteros los indices el diccionario"""
     d = {int(k): str(v) for k, v in d.items()}
     return d

@@ -43,12 +43,11 @@
     "sidebar_class_label": "Clase social autopercibida",
     "sidebar_basque_label": "Nivel de euskera",
     "filter_all": "Todos",
-    "sexo_map": {
+    "sex_map": {
       "1": "Hombre",
       "2": "Mujer"
     },
-
-    "p36_grouped": {
+    "basque_level_grouped": {
       "1": "Alto",
       "2": "Alto",
       "3": "Medio/Bajo",
@@ -56,7 +55,7 @@
       "5": "Ninguno",
       "6": "Ns/Nc"
     },
-    "p37_grouped": {
+    "education_grouped": {
       "1": "Ninguno",
       "2": "Primarios",
       "3": "Secundarios",
@@ -64,17 +63,17 @@
       "5": "Superiores",
       "6": "Ns/Nc"
     },
-    "p38_map": {
+    "social_class_map": {
       "1": "Media-alta",
       "2": "Media-media",
       "3": "Media-baja",
       "4": "Ns/Nc"
     },
-    "p36_order": ["Ninguno", "Medio/Bajo", "Alto", "Ns/Nc"],
-    "p37_order": ["Ninguno", "Primarios", "Secundarios", "Superiores", "Ns/Nc"],
-    "p38_order": ["Media-baja", "Media-media", "Media-alta", "Ns/Nc"],
+    "basque_level_order": ["Ninguno", "Medio/Bajo", "Alto", "Ns/Nc"],
+    "education_order": ["Ninguno", "Primarios", "Secundarios", "Superiores", "Ns/Nc"],
+    "social_class_order": ["Media-baja", "Media-media", "Media-alta", "Ns/Nc"],
     "tag_maps": {
-      "p25": {
+      "sympathy_scale": {
         "0": "0",
         "1": "1",
         "2": "2",
@@ -110,7 +109,7 @@
         "5": "Muy mala",
         "6": "Ns/Nc"
       },
-      "p32": {
+      "left_right": {
         "0": "0\nExt. Izquierda",
         "1": "1",
         "2": "2",
@@ -124,7 +123,7 @@
         "10": "10\nExt. Derecha",
         "11": "Ns/Nc"
       },
-      "p33": {
+      "nationalist": {
         "0": "0\nNada abertzale",
         "1": "1",
         "2": "2",
@@ -138,7 +137,7 @@
         "10": "10\nMuy abertzale",
         "11": "Ns/Nc"
       },
-      "p34": {
+      "identity": {
         "1": "Únicamente\nvasco/a",
         "2": "Más vasco/a\nque español/a",
         "3": "Tanto vasco/a\ncomo español/a",
@@ -146,7 +145,7 @@
         "5": "Únicamente\nespañol/a",
         "6": "Ns/Nc"
       },
-      "p35": {
+      "independence": {
         "1": "De acuerdo",
         "2": "Según las\n circunstancias",
         "3": "En desacuerdo",
@@ -198,11 +197,11 @@
     "sidebar_class_label": "Klase sozial auto-perzibatua",
     "sidebar_basque_label": "Euskara maila",
     "filter_all": "Denak",
-    "sexo_map": {
+    "sex_map": {
       "1": "Gizon",
       "2": "Emakume"
     },
-    "p36_grouped": {
+    "basque_level_grouped": {
       "1": "Altua",
       "2": "Altua",
       "3": "Ertaina/Baxua",
@@ -210,7 +209,7 @@
       "5": "Bat ere ez",
       "6": "Ed/Ee"
     },
-    "p37_grouped": {
+    "education_grouped": {
       "1": "Bat ere ez",
       "2": "Lehen mailakoak",
       "3": "Bigarren mailakoak",
@@ -218,23 +217,23 @@
       "5": "Goi mailakoak",
       "6": "Ed/Ee"
     },
-    "p38_map": {
+    "social_class_map": {
       "1": "Ertain-garaia",
       "2": "Ertain-ertaina",
       "3": "Ertain-baxua",
       "4": "Ed/Ee"
     },
-    "p36_order": ["Bat ere ez", "Ertaina/Baxua", "Altua", "Ed/Ee"],
-    "p37_order": [
+    "basque_level_order": ["Bat ere ez", "Ertaina/Baxua", "Altua", "Ed/Ee"],
+    "education_order": [
       "Bat ere ez",
       "Lehen mailakoak",
       "Bigarren mailakoak",
       "Goi mailakoak",
       "Ed/Ee"
     ],
-    "p38_order": ["Ertain-baxua", "Ertain-ertaina", "Ertain-garaia", "Ed/Ee"],
+    "social_class_order": ["Ertain-baxua", "Ertain-ertaina", "Ertain-garaia", "Ed/Ee"],
     "tag_maps": {
-      "p25": {
+      "sympathy_scale": {
         "0": "0",
         "1": "1",
         "2": "2",
@@ -270,7 +269,7 @@
         "5": "Oso txarra",
         "6": "Ed/Ee"
       },
-      "p32": {
+      "left_right": {
         "0": "0\nEzker-muturra",
         "1": "1",
         "2": "2",
@@ -284,7 +283,7 @@
         "10": "10\nEskuin-muturra",
         "11": "Ed/Ee"
       },
-      "p33": {
+      "nationalist": {
         "0": "0\nAberzale bat ere ez",
         "1": "1",
         "2": "2",
@@ -298,7 +297,7 @@
         "10": "10\nOso aberzalea",
         "11": "Ed/Ee"
       },
-      "p34": {
+      "identity": {
         "1": "Bakarrik\neuskalduna",
         "2": "Euskaldun\ngehiago espainiar baino",
         "3": "Euskaldun eta\nespainiar berdin",
@@ -306,7 +305,7 @@
         "5": "Bakarrik\nespainiarra",
         "6": "Ed/Ee"
       },
-      "p35": {
+      "independence": {
         "1": "Ados",
         "2": "Egoeraren\narabera",
         "3": "Desadostasun",
