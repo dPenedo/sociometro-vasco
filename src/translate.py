@@ -1,7 +1,9 @@
 import json
+from pathlib import Path
 import streamlit as st
 
-with open("src/config/translations.json", "r", encoding="utf-8") as f:
+_TRANSLATIONS_PATH = Path(__file__).resolve().parent / "config" / "translations.json"
+with open(_TRANSLATIONS_PATH, "r", encoding="utf-8") as f:
     _translations = json.load(f)
 
 
